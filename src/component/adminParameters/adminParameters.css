@@ -1,0 +1,7 @@
+.accordion-container {
+    display: flex;
+    justify-content: space-around;
+}
+.car-list {
+    margin-bottom: 0!important;
+}

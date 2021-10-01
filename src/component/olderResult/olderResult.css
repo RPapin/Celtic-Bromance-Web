@@ -1,0 +1,12 @@
+.btnContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+.btnContainer > button {
+    margin-right: 1rem;
+}
+.btnActive {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}

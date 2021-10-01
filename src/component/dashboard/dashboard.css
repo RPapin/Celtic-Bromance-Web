@@ -1,0 +1,53 @@
+.container {
+    min-width: 600px;
+    max-width: 900px;
+}
+.fullContainer {
+    display: flex;
+    flex-direction: row;
+}
+@media only screen  
+and (max-width : 1524px) {
+    .fullContainer {
+        flex-wrap: wrap;
+    }
+}
+.actionsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.actionContainer {
+    width: 20rem;
+    text-align: center;
+    margin: 1.5rem 1rem;
+    padding: 1.5rem 1rem;
+    background-color: #ced7ef;
+    color: gray;
+    vertical-align: middle;
+    box-shadow: 0 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+.bottomBtn{
+    margin-right: 1rem!important;
+}
+.server-info {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+.serverStatus {
+    display: flex;
+    justify-content: center;
+}
+.serverStatus > .up{
+    font-weight: bold;
+    color: green;
+}
+.serverStatus > .down{
+    font-weight: bold;
+    color: red;
+}

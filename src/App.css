@@ -1,0 +1,24 @@
+.root {
+  background-color: #f7f7f7;
+}
+.App {
+  display: flex;
+  padding: 1rem 5rem;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+}
+@media only screen  
+and (max-width : 1524px) {
+    .App {
+      padding: 1rem 1rem;
+    }
+}
+html, body, #root, .App {
+  height: 100%
+}
+h1 { color: #7c795d; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+}
