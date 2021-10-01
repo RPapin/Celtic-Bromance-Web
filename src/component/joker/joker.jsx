@@ -34,7 +34,7 @@ const Joker = (props) => {
     }
     useEffect( () => {
       getJokerNumber()
-  }, [])
+  })
     return (
       <>
         <div className="row">
