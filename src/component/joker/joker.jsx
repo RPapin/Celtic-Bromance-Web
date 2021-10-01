@@ -38,12 +38,12 @@ const Joker = (props) => {
     return (
       <>
         <div className="row">
-          <div className="col-md-6 white-space-nowrap">
+          <div className="col-md-6">
             {swapCar !== null &&
               <div>Car swap available : {swapCar}</div>
             }
           </div>
-          <div className="col-md-6 white-space-nowrap">
+          <div className="col-md-6">
             {swapPoint !== null &&
               <div>Point swap available : {swapPoint}</div>
             }
