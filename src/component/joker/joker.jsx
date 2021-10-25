@@ -50,16 +50,16 @@ const Joker = ({seeResult, updateJoker}) => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-5 me-1 d-flex justify-content-center">
+          <div className="col-md-5 me-2 d-flex justify-content-center">
             {swapCar > 0 && 
-              <Button className="btnJoker mb-1" variant="primary" onClick={() => openDriverChoose("swapCar")}>
+              <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapCar")}>
                 Swap car 
               </Button>
             }
           </div>
           <div className="col-md-6 d-flex justify-content-center">
           {swapPoint > 0 && 
-            <Button className="btnJoker mb-1" variant="primary" onClick={() => openDriverChoose("swapPoint")}>
+            <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapPoint")}>
               Swap point
             </Button>
           }
