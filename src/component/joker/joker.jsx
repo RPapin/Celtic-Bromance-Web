@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import ModalChooseDriver from '../modals/modalChooseDriver';
 
 
-const Joker = (props) => {
+const Joker = ({seeResult, updateJoker}) => {
     const readData = new ReadData()
     const [openModal, setOpenModal] = useState(false)
     const [actionContext, setActionContext] = useState()
@@ -34,36 +34,40 @@ const Joker = (props) => {
     }
     useEffect( () => {
       getJokerNumber()
-  }, [])
+  }, [updateJoker])
     return (
       <>
         <div className="row">
-          <div className="col-md-6">
-            {swapCar !== null &&
+          <div className="col-md-6 white-space-nowrap">
+            {swapCar > 0 &&
               <div>Car swap available : {swapCar}</div>
             }
           </div>
-          <div className="col-md-6">
-            {swapPoint !== null &&
+          <div className="col-md-6 white-space-nowrap">
+            {swapPoint > 0 &&
               <div>Point swap available : {swapPoint}</div>
             }
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 d-flex justify-content-center">
-            <Button className="btnJoker " variant="primary" onClick={() => openDriverChoose("swapCar")}>
-              Swap car 
-            </Button>
+          <div className="col-md-5 me-1 d-flex justify-content-center">
+            {swapCar > 0 && 
+              <Button className="btnJoker mb-1" variant="primary" onClick={() => openDriverChoose("swapCar")}>
+                Swap car 
+              </Button>
+            }
           </div>
           <div className="col-md-6 d-flex justify-content-center">
-            <Button className="btnJoker" variant="primary" onClick={() => openDriverChoose("swapPoint")}>
+          {swapPoint > 0 && 
+            <Button className="btnJoker mb-1" variant="primary" onClick={() => openDriverChoose("swapPoint")}>
               Swap point
             </Button>
+          }
           </div>
         </div>
 
           {openModal &&
-           <ModalChooseDriver seeResult={props.seeResult} closeModal={closeModal} context={actionContext}/>
+           <ModalChooseDriver seeResult={seeResult} closeModal={closeModal} context={actionContext}/>
           }
       </>
     );

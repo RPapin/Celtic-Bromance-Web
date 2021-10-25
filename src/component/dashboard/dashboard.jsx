@@ -23,6 +23,8 @@ const Dashboard = ({admin, setAdmin}) => {
     const [loading, setLoading] = useState(false)
     const [serverInfo, setServerInfo] = useState(false)
     const [serverStatus, setServerStatus] = useState(false)
+    const [updateJoker, setUpdateJoker] = useState(0)
+    
 
     const getNextRoundInfo = (nextRoundInfo) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
@@ -31,8 +33,10 @@ const Dashboard = ({admin, setAdmin}) => {
         Object.keys(eventInfo).forEach(key => eventInfoArray.push([key, eventInfo[key]]))
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfoArray)
-        setNewResult(nextRoundInfo.foundNewResults)
+        setNewResult(nextRoundInfo.foundNewResults)   
+        setUpdateJoker(updateJoker + 1)
     }
+
     const startChampionnship = async () => {
         let firstRoundInfo = await readData.getLocalApi("start_championnship")
         if(firstRoundInfo){
@@ -58,6 +62,7 @@ const Dashboard = ({admin, setAdmin}) => {
         setLoading(true)
         let allInfo = await readData.getLocalApi("display_result")
         if(allInfo){
+            console.log('seeResult')
             if(allInfo['nextRoundInfo']){
                 allInfo['nextRoundInfo']['foundNewResults'] = allInfo['foundNewResults']
                 getNextRoundInfo(allInfo['nextRoundInfo'])
@@ -65,6 +70,7 @@ const Dashboard = ({admin, setAdmin}) => {
             setFullResult(allInfo['standings'])
             setServerInfo(true)
             setServerStatus(allInfo['serverStatus'])
+            setUpdateJoker(updateJoker + 1)
         } else setServerInfo(false)
     }
     const resetChampionnship = async () => {
@@ -85,6 +91,7 @@ const Dashboard = ({admin, setAdmin}) => {
             const result = JSON.parse(e.data)
             getNextRoundInfo(result['nextRoundInfo'])
             setFullResult(result['standings'])
+            setServerInfo(true)
             setServerStatus(result['serverStatus'])
         });
         eventSource.addEventListener("updateServerStatus", e =>{
@@ -95,6 +102,12 @@ const Dashboard = ({admin, setAdmin}) => {
             const result = JSON.parse(e.data)
             getNextRoundInfo(result)
         });
+        eventSource.addEventListener("carSwap", e =>{
+            let result = JSON.parse(e.data)
+            result['nextRoundInfo']['foundNewResults'] = false
+            console.log(result['nextRoundInfo'])
+            getNextRoundInfo(result['nextRoundInfo'])
+        });
     }
     useEffect( () => {
         if(!loading){
@@ -103,16 +116,17 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }, [])
     return (
+
     <div className={'container'}>
-        {!serverInfo ?
+        {!serverInfo && loading ?
             // <div className="server-info"> The ACC server is not connected</div>
             <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
            :
            <>
         <AdminParameters admin={admin} setAdmin={setAdmin}/>
-            {newResult &&
-                <ModalCheck text={newResult}/>
-            }
+        {newResult &&
+            <ModalCheck text={newResult}/>
+        }
             
         <div className={'container'}>
             {!fullResult && loading && admin && serverInfo &&
@@ -149,7 +163,7 @@ const Dashboard = ({admin, setAdmin}) => {
                     </div>
                     {  ('user' in cookies) &&
                         <div className="col-md-4">
-                            <Joker seeResult={seeResult}/>
+                            <Joker seeResult={seeResult} updateJoker={updateJoker}/>
                         </div>
                     }
                 </div>

@@ -31,7 +31,8 @@ const ModalChooseDriver = (props) => {
     }
   }
   const confirmSelect = async () => {
-    readData.postLocalApi(props.context, [cookies['user'], driverSelected]).then(() => {
+    readData.postLocalApi(props.context, [cookies['user'], driverSelected]).then((e) => {
+      console.log('response')
       props.seeResult()
     })
     props.closeModal()
@@ -48,7 +49,7 @@ const ModalChooseDriver = (props) => {
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <select class="form-select" aria-label="Default select example" onChange={handleSelect}>
+        <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
           <option></option>
           {selectDriver.map((element) => {
             return <option value={element["Steam id "]} key={element["Steam id "]}>{element["First name"]} {element["Surname"]}</option>

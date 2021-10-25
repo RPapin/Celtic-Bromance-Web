@@ -30,12 +30,11 @@ const ModalConnect = ({setAdmin}) => {
     var driverInfo = selectDriver.filter(obj => {
       return obj['Steam id '] === driverId
     })
+    console.log(driverInfo)
     if(driverInfo[0]['isAdmin']){
+      console.log('Adminnn')
       localStorage.setItem('admin', true);
       setAdmin(true)
-    } else {
-      localStorage.setItem('admin', false);
-      setAdmin(false)
     }
     setCookie('user', driverId, {path: '/'})
     setCookie('name', driverName, {path: '/'})
@@ -59,10 +58,10 @@ const ModalConnect = ({setAdmin}) => {
           <Modal.Title>Who are you ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <select class="form-select" aria-label="Default select example" onChange={handleSelect}>
+        <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
           <option></option>
           {selectDriver.map((element) => {
-            return <option id={element["Steam id "]} value={element["Steam id "]} drivername={element["First name"] + ' ' + element["Surname"]}>{element["First name"]} {element["Surname"]}</option>
+            return <option id={element["Steam id "]} value={element["Steam id "]} drivername={element["First name"] + ' ' + element["Surname"]} key={element["Steam id "]}>{element["First name"]} {element["Surname"]}</option>
           })}
         </select>
         </Modal.Body>

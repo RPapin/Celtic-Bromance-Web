@@ -13,13 +13,15 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
     const logOut = () => {
         removeCookie('user')
         removeCookie('name')
+        setAdmin(false)
+        localStorage.setItem('admin', false);
     }
     return (
 
     <div className={'header'}>
         <img src={'../CelticBromanceLogoFINAL.png'} className='topLogo' alt="celtic-bromance.png" ></img>
         <h1 className="title">Celtic Bromance Championship</h1>
-        {cookies['name'] && <div className="me-1">{cookies['name']}</div>}
+        {cookies['name'] && <h3 className="me-1">{cookies['name']}</h3>}
         <Dropdown>
             <Dropdown.Toggle variant="info" id="dropdown-basic">
                 Menu

@@ -15,7 +15,6 @@ export default class ReadData {
     }
     async getLocalApi(parameter) {
         let url = await this.getTunnelUrl()
-        console.log(url)
         if(url !== "no url found"){
             const fecthedData = await fetch(url + parameter)
             .then(res => {
@@ -24,7 +23,7 @@ export default class ReadData {
             .then((data) => {
                 return data
             }).catch(error => {
-                console.log('There has been a problem with your fetch operation:', error);
+                console.log('There has been a problem with your url operation:', error);
                 return false
             })
             return fecthedData
