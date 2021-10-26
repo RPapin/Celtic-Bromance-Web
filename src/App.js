@@ -18,6 +18,7 @@ function App() {
     let adminLocal = localStorage.getItem('admin')
     if(adminLocal !== "false")setAdmin(adminLocal)
     }, [admin])
+    
   return (
     <div className="App">
         <Header admin={admin} setAdmin={setAdmin} olderResult={isOlderResult} setIsOlderResult={setIsOlderResult}/>

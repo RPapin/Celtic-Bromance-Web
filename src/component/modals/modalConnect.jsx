@@ -25,16 +25,23 @@ const ModalConnect = ({setAdmin}) => {
     setIsEmpty(false)
   }
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    localStorage.setItem('admin', false);
+    setAdmin(false)
+    setShow(false);
+  }
+
   const handleConfirm = () => {
     var driverInfo = selectDriver.filter(obj => {
       return obj['Steam id '] === driverId
     })
-    console.log(driverInfo)
     if(driverInfo[0]['isAdmin']){
       console.log('Adminnn')
       localStorage.setItem('admin', true);
       setAdmin(true)
+    } else {
+      localStorage.setItem('admin', false);
+      setAdmin(false)
     }
     setCookie('user', driverId, {path: '/'})
     setCookie('name', driverName, {path: '/'})

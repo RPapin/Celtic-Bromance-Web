@@ -37,7 +37,7 @@ const Joker = ({seeResult, updateJoker}) => {
   }, [updateJoker])
     return (
       <>
-        <div className="row">
+        <div className="row mt-4">
           <div className="col-md-6 white-space-nowrap">
             {swapCar > 0 &&
               <div>Car swap available : {swapCar}</div>

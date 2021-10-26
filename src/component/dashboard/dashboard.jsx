@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie';
 import ModalCheck from '../modals/modalCheck';
 import AdminParameters from '../adminParameters/adminParameters';
 import Joker from '../joker/joker';
+import ModalServerInfo from '../modals/modalServerInfo';
 
 
 
@@ -24,6 +25,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [serverInfo, setServerInfo] = useState(false)
     const [serverStatus, setServerStatus] = useState(false)
     const [updateJoker, setUpdateJoker] = useState(0)
+    const [modalInfo, setModalInfo] = useState(false)
     
 
     const getNextRoundInfo = (nextRoundInfo) => {
@@ -136,8 +138,12 @@ const Dashboard = ({admin, setAdmin}) => {
             }              
             {infoNextRound && 
                 <>
-                <div className="serverStatus">
+
+                <div className="serverStatus ">
                     {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
+                    <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                        Server setings
+                    </Button>
                 </div>
                 <div className="row">
                     <div className="infoNextRound col-md-8">
@@ -171,6 +177,10 @@ const Dashboard = ({admin, setAdmin}) => {
             }   
         </div>
         <ChampionnshipResult fullResult={fullResult}/>
+        {
+            modalInfo &&
+            <ModalServerInfo setModalInfo={setModalInfo}/>
+        }
         </>}
         
     </div>

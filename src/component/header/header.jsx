@@ -16,8 +16,8 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
         setAdmin(false)
         localStorage.setItem('admin', false);
     }
+    
     return (
-
     <div className={'header'}>
         <img src={'../CelticBromanceLogoFINAL.png'} className='topLogo' alt="celtic-bromance.png" ></img>
         <h1 className="title">Celtic Bromance Championship</h1>

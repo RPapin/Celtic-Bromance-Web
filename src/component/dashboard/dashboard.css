@@ -41,7 +41,7 @@ and (max-width : 1524px) {
 }
 .serverStatus {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 .serverStatus > .up{
     font-weight: bold;
