@@ -25,27 +25,31 @@ const ModalConnect = ({setAdmin}) => {
     setIsEmpty(false)
   }
 
-  const handleClose = () => {
-    localStorage.setItem('admin', false);
-    setAdmin(false)
-    setShow(false);
+  const handleClose = (isAdmin = false) => {
+    if(!isAdmin){
+      localStorage.setItem('admin', false);
+      setAdmin(false)
+      setShow(false);
+    }
   }
 
   const handleConfirm = () => {
+    let isAdmin = false
     var driverInfo = selectDriver.filter(obj => {
       return obj['Steam id '] === driverId
     })
     if(driverInfo[0]['isAdmin']){
-      console.log('Adminnn')
-      localStorage.setItem('admin', true);
+      console.log('Admd ddd')
       setAdmin(true)
+      isAdmin = true
+      localStorage.setItem('admin', true);
     } else {
       localStorage.setItem('admin', false);
       setAdmin(false)
     }
     setCookie('user', driverId, {path: '/'})
     setCookie('name', driverName, {path: '/'})
-    handleClose();
+    handleClose(isAdmin);
   }
   const fetchDriver = async () => {
     let allInfo = await readData.getLocalApi("fetch_drivers")

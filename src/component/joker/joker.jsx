@@ -38,12 +38,12 @@ const Joker = ({seeResult, updateJoker}) => {
     return (
       <>
         <div className="row mt-4">
-          <div className="col-md-6 white-space-nowrap">
+          <div className="col-md-6">
             {swapCar > 0 &&
               <div>Car swap available : {swapCar}</div>
             }
           </div>
-          <div className="col-md-6 white-space-nowrap">
+          <div className="col-md-6">
             {swapPoint > 0 &&
               <div>Point swap available : {swapPoint}</div>
             }

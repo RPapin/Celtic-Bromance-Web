@@ -112,6 +112,8 @@ const Dashboard = ({admin, setAdmin}) => {
         });
     }
     useEffect( () => {
+        console.log("dash " + admin)
+        console.log(localStorage.getItem('admin'))
         if(!loading){
             seeResult()
             registerToSSE()
@@ -125,7 +127,9 @@ const Dashboard = ({admin, setAdmin}) => {
             <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
            :
            <>
-        <AdminParameters admin={admin} setAdmin={setAdmin}/>
+        {admin &&
+            <AdminParameters />
+        }
         {newResult &&
             <ModalCheck text={newResult}/>
         }

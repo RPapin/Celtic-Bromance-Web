@@ -5,7 +5,7 @@ import './adminParameters.css'
 import ReadData from '../../services/readData'
 
 
-const AdminParameters = ({admin, setAdmin, closeAdminPanel}) => {
+const AdminParameters = () => {
     const readData = new ReadData()
     const [inputList, setInputList] = useState([])
     const [toggleParam, setToggleParam] = useState([false, false, false])
@@ -109,7 +109,7 @@ const AdminParameters = ({admin, setAdmin, closeAdminPanel}) => {
     });
     return (
       <>
-        {admin && loading &&
+        {loading &&
         <>
 
           <div className="container accordion-container" id="parameterHeader">
