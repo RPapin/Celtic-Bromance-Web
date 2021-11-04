@@ -8,7 +8,10 @@ export default class ReadData {
             return res.json()
         })
         .then((data) => {
-            if (data.error) return data.error
+            if (data.error){
+                console.log('There has been a problem with your url operation:', data.error);
+                return data.error
+            } 
             else return data.url
         })
         return fecthedData

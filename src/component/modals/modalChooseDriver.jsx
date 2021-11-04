@@ -24,7 +24,16 @@ const ModalChooseDriver = (props) => {
     if(allInfo){
       let driverAvailable = []
       allInfo.forEach(element => {
-        if(element['available'] && element['Steam id '] !== cookies['user'])driverAvailable.push(element)
+        if(props.context === "swapCar"){
+            if(element['available'] && element['Steam id '] !== cookies['user']){
+              driverAvailable.push(element)
+            }
+        }
+        else {
+          if(element['available'] && element['Steam id '] !== cookies['user'] && element['swapPointVictim'] < 1){
+            driverAvailable.push(element)
+          }
+        }
       });
       setSelectDriver(driverAvailable)
       setLoading(false)

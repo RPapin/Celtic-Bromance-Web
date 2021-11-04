@@ -10,7 +10,6 @@ import ModalCheck from '../modals/modalCheck';
 import AdminParameters from '../adminParameters/adminParameters';
 import Joker from '../joker/joker';
 import ModalServerInfo from '../modals/modalServerInfo';
-import ModalEvent from '../modals/modalEvent';
 
 const Dashboard = ({admin, setAdmin}) => {
     const readData = new ReadData()
@@ -174,7 +173,7 @@ const Dashboard = ({admin, setAdmin}) => {
                     {  ('user' in cookies) &&
                         <div className="col-md-4">
                             <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
-                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>Create custom event</Button>
+                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}></Button>
                         </div>
                     }
                 </div>

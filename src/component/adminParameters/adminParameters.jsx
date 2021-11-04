@@ -13,6 +13,7 @@ const AdminParameters = () => {
     const [trackList, setTrackList] = useState([])
     const [carList, setCarList] = useState([])
     const [userList, setUserList] = useState([])
+    
     const defaultListParameters = [{file: 'Data/championnshipConfiguration.json', name: 'pointConfiguration', value: [15,11,8,6,4,3,2,1], label: 'Point distribution (Each point must be separed with a comma)', type: 'text'},
       {file: 'Data/championnshipConfiguration.json', name: 'serverAdmin', value: 76561198445003541, label: 'SteamId of the server Admin', type: 'text'},
       {file: 'Template/event.json', name: 'practiceDuration', value: 10, label: 'Set the practice duration', type: 'number'},

@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import ModalChooseDriver from '../modals/modalChooseDriver';
 
 
-const Joker = ({seeResult, updateJoker}) => {
+const Joker = ({seeResult, updateJoker, serverStatus}) => {
     const readData = new ReadData()
     const [openModal, setOpenModal] = useState(false)
     const [actionContext, setActionContext] = useState()
@@ -52,14 +52,14 @@ const Joker = ({seeResult, updateJoker}) => {
         <div className="row">
           <div className="col-md-5 me-2 d-flex justify-content-center">
             {swapCar > 0 && 
-              <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapCar")}>
+              <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapCar")} disabled={serverStatus}>
                 Swap car 
               </Button>
             }
           </div>
           <div className="col-md-6 d-flex justify-content-center">
           {swapPoint > 0 && 
-            <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapPoint")}>
+            <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapPoint")} disabled={serverStatus}>
               Swap point
             </Button>
           }
