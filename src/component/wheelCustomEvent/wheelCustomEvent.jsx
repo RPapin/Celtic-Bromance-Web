@@ -17,16 +17,16 @@ const WheelCustomEvent = ({setShowWheel}) => {
     const [loading, setLoading] = useState(false)
     const [userList, setUserList] = useState([])
     const [winner, setWinner] = useState(false)
+    const [customEvent, setCustomEvent] = useState({})
 
     const fecthCustomEvent = async () => {
         let users = []
         setLoading(true)
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
-            console.log(index)
+            setCustomEvent(customEvent)
             users.push(customEvent[index]['userName'])
         })
-        console.log(users)
         setUserList(users)
     }
     useEffect( () => {
@@ -35,22 +35,18 @@ const WheelCustomEvent = ({setShowWheel}) => {
             fecthCustomEvent()
         }
     }, [])
-    const segments = [
-        'better luck next time',
-        'won 70',
-        'won 10',
-        'better luck next time',
-        'won 2',
-        'won uber pass',
-        'better luck next time',
-        'won a voucher'
-      ]
       const onSelectItem = (winner) => {
         if(winner !== false){
             setTimeout(() => {
-                console.log("set winner")
+                let winnerEvent
                 setWinner(userList[winner])
-                readData.postLocalApi("set_next_round_from_spin", winner)
+                Object.keys(customEvent).map((steamId, index) => {
+                    console.log(index)
+                    if (index == winner){
+                        winnerEvent = customEvent[steamId]
+                    }
+                })
+                readData.postLocalApi("set_next_round_from_spin", winnerEvent)
             }, 4000);
         } else {
             setWinner("")
@@ -70,21 +66,6 @@ const WheelCustomEvent = ({setShowWheel}) => {
             <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
         }
         </>
-        // <WheelComponent
-        //   segments={segments}
-        //   segColors={segColors}
-        //   winningSegment='won 10'
-        //   onFinished={(winner) => onFinished(winner)}
-        //   primaryColor='black'
-        //   contrastColor='white'
-        //   buttonText='Spin'
-        //   isOnlyOnce={false}
-        //   size={290}
-        //   upDuration={1000}
-        //   downDuration={5000}
-        //   fontFamily='Arial'
-        // />
-
       )
 
 }
