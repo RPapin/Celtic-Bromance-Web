@@ -3,7 +3,6 @@ import ReadData from '../../services/readData'
 import Dropdown from 'react-bootstrap/Dropdown';
 import './wheelCustomEvent.css'
 import { useCookies } from 'react-cookie';
-import WheelComponent from 'react-wheel-of-prizes'
 import Wheel from '../wheel/wheel';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -53,7 +52,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
             if(determinedWinnerLocal === false){
                 readData.postLocalApi("sync_wheel_spin", winner)
                 setTimeout(() => {
-                    setWinner(userList[winner] + " " + determinedWinnerLocal)
+                    setWinner(userList[winner])
                     readData.postLocalApi("set_next_round_from_spin", winnerEvent)
                 }, 4000);
             } 
@@ -68,7 +67,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
             <Button onClick={() => setShowWheel(false)}>Back</Button>
             <Wheel items={userList} onFinished={onSelectItem} determinedWinner={determinedWinner} />
             {winner && 
-            <div>{winner}</div>
+            <div className="winner">The winner is : <h3>{winner}</h3></div>
             }
         </div>
         :

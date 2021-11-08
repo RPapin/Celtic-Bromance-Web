@@ -114,7 +114,9 @@ const Dashboard = ({admin, setAdmin}) => {
             getNextRoundInfo(result['nextRoundInfo'])
         });
         let adminLocal = localStorage.getItem('admin')
-        if(adminLocal === 'false'){
+        console.log(adminLocal)
+        if(adminLocal === 'false' || adminLocal === null){
+            console.log("register to  sync")
             eventSource.addEventListener("syncWheel", e =>{
                 console.log("call to sync")
                 let result = JSON.parse(e.data)
