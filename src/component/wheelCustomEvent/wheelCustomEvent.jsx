@@ -10,7 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 // import 'react-wheel-of-prizes/dist/index.css'
 
 
-const WheelCustomEvent = ({setShowWheel}) => {
+const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
     const readData = new ReadData()
 
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
@@ -28,45 +28,54 @@ const WheelCustomEvent = ({setShowWheel}) => {
             users.push(customEvent[index]['userName'])
         })
         setUserList(users)
+        if(determinedWinner !== false){
+            setTimeout(() => {
+                console.log("show winner" + users[determinedWinner])
+                setWinner(users[determinedWinner])
+            }, 4000);
+        }
     }
     useEffect( () => {
-        console.log("spinwheel ")
         if(!loading){
             fecthCustomEvent()
         }
     }, [])
-      const onSelectItem = (winner) => {
+
+    const onSelectItem = (winner, determinedWinnerLocal) => {
         if(winner !== false){
-            setTimeout(() => {
-                let winnerEvent
-                setWinner(userList[winner])
-                Object.keys(customEvent).map((steamId, index) => {
-                    console.log(index)
-                    if (index == winner){
-                        winnerEvent = customEvent[steamId]
-                    }
-                })
-                readData.postLocalApi("set_next_round_from_spin", winnerEvent)
-            }, 4000);
+            let winnerEvent
+            //Lauch the event for everyone 
+            Object.keys(customEvent).map((steamId, index) => {
+                if (index === winner){
+                    winnerEvent = customEvent[steamId]
+                }
+            })
+            if(determinedWinnerLocal === false){
+                readData.postLocalApi("sync_wheel_spin", winner)
+                setTimeout(() => {
+                    setWinner(userList[winner] + " " + determinedWinnerLocal)
+                    readData.postLocalApi("set_next_round_from_spin", winnerEvent)
+                }, 4000);
+            } 
         } else {
             setWinner("")
         }
-      }
-      return (
-        <>
-        {loading ?
-            <div className="container">
-                <Button onClick={() => setShowWheel(false)}>Back</Button>
-                <Wheel items={userList} onFinished={onSelectItem}/>
-                {winner && 
-                <div>{winner}</div>
-                }
-            </div>
-            :
-            <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
-        }
-        </>
-      )
+    }
+    return (
+    <>
+    {loading ?
+        <div className="container">
+            <Button onClick={() => setShowWheel(false)}>Back</Button>
+            <Wheel items={userList} onFinished={onSelectItem} determinedWinner={determinedWinner} />
+            {winner && 
+            <div>{winner}</div>
+            }
+        </div>
+        :
+        <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
+    }
+    </>
+    )
 
 }
 

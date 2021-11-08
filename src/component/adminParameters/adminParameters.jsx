@@ -54,13 +54,6 @@ const AdminParameters = () => {
         })
       })
       setCarList(carList)
-      // Object.keys(paramFromApi['entry']).map((index) => {
-      //   userList.push({
-      //     "index" : index,
-      //     "name": paramFromApi['entry'][index]['First name'] + ' ' + paramFromApi['entry'][index]['Surname'],
-      //     "available": paramFromApi['entry'][index]['available']
-      //   })
-      // })
       setUserList(paramFromApi['entry'])
     } 
     const toggleParameter = (index) => {

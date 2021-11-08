@@ -28,6 +28,9 @@ const Dashboard = ({admin, setAdmin}) => {
     const [modalInfo, setModalInfo] = useState(false)
     const [modalEvent, setModalEvent] = useState(false)
     const [showWheel, setShowWheel] = useState(false)
+    const [determinedWinner, setDeterminedWinner] = useState(false)
+    const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
+
 
     const getNextRoundInfo = (nextRoundInfo) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
@@ -108,14 +111,32 @@ const Dashboard = ({admin, setAdmin}) => {
         eventSource.addEventListener("carSwap", e =>{
             let result = JSON.parse(e.data)
             result['nextRoundInfo']['foundNewResults'] = false
-            console.log(result['nextRoundInfo'])
             getNextRoundInfo(result['nextRoundInfo'])
         });
+        let adminLocal = localStorage.getItem('admin')
+        if(adminLocal === 'false'){
+            eventSource.addEventListener("syncWheel", e =>{
+                console.log("call to sync")
+                let result = JSON.parse(e.data)
+                setDeterminedWinner(result)
+                //reload component to lauch the "didMount"
+                setShowWheel(false)
+                setShowWheel(true)
+            });
+        }
     }
+    const getCustomEvent = async () => {
+        let customEvent = await readData.getLocalApi("fetch_custom_event")
+        Object.keys(customEvent).map((index) => {
+            if(customEvent[index]['steam id '] === cookies['user'])setIsAlreadyEventCreated(true)
+        })
+    }
+
     useEffect( () => {
         if(!loading){
             seeResult()
             registerToSSE()
+            getCustomEvent()
         }
     }, [])
     return (
@@ -123,7 +144,7 @@ const Dashboard = ({admin, setAdmin}) => {
     <div className={'container'}>
         {
             showWheel ?
-            <WheelCustomEvent setShowWheel={setShowWheel}/>
+            <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} />
             :
             <>
             {!serverInfo && loading ?
@@ -157,50 +178,57 @@ const Dashboard = ({admin, setAdmin}) => {
                         <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
                             Server settings
                         </Button>
-                    </div>
-                    <div className="row">
-                        <div className="infoNextRound col-md-8">
-                            <h3>Info Next Round :</h3>
-                                <ul>
-                                    {infoNextRound.map((label, i) => {
-                                        return (<li key={i}>{label[0]} : {label[1]}</li>)
-                                    })}
-                                </ul>
-                            <h3>Starting grid :</h3> 
-                            <StartingGrid gridNextRound={gridNextRound}/>
-                            
-                        {admin && 
-                            <div className="adminDiv">
-                            {serverStatus ? <Button variant="primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
-                            <Button variant="primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
-                            <Button variant="primary" onClick={newDraw} className="bottomBtn">New draw</Button>
-                            <Button variant="danger" onClick={() => {
-                                if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
-                            }}>Reset Championnship</Button>
-                            </div>
-                        }
+                    
                         </div>
-                        {/* If user is connected */}
-                        {  ('user' in cookies) &&
-                            <div className="col-md-4">
-                                <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
-                                <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>Create custom event</Button>
+                        <div className="row">
+                            <div className="infoNextRound col-md-8">
+                                <h3>Info Next Round :</h3>
+                                    <ul>
+                                        {infoNextRound.map((label, i) => {
+                                            return (<li key={i}>{label[0]} : {label[1]}</li>)
+                                        })}
+                                    </ul>
+                                <h3>Starting grid :</h3> 
+                                <StartingGrid gridNextRound={gridNextRound}/>
+                                
+                            {admin && 
+                                <div className="adminDiv">
+                                {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
+                                <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
+                                <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
+                                <Button variant="outline-danger" onClick={() => {
+                                    if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
+                                }}>Reset Championnship</Button>
+                                </div>
+                            }
                             </div>
-                        }
-                    </div>
-                    </>
-                }   
-            </div>
-            <ChampionnshipResult fullResult={fullResult}/>
-            {
-                modalInfo &&
-                <ModalServerInfo setModalInfo={setModalInfo}/>
-            }
-            {
-                modalEvent &&
-                <ModalEvent setModalEvent={setModalEvent}/>
-            }
-            </>
+                            {/* If user is connected */}
+                            {  ('user' in cookies) &&
+                                <div className="col-md-4">
+                                    <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
+                                    <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
+                                        {isAlreadyEventCreated ?
+                                            "Edit custom event"
+                                            :
+                                            "Create custom event"
+                                        }
+                                    </Button>
+                                </div>
+                            }
+                        </div>
+                        </>
+                    }   
+                </div>
+                <ChampionnshipResult fullResult={fullResult}/>
+                {
+                    modalInfo &&
+                    <ModalServerInfo setModalInfo={setModalInfo}/>
+                }
+                {
+                    modalEvent &&
+                    <ModalEvent setModalEvent={setModalEvent} isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated}/>
+                }
+                </>
             }
             </>
         }

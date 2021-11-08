@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import { useCookies } from 'react-cookie';
 
 
-const ModalEvent = ({setModalEvent}) => {
+const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCreated}) => {
   const readData = new ReadData()
   // const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);    
@@ -16,7 +16,6 @@ const ModalEvent = ({setModalEvent}) => {
   const [carClassList, setCarClassList] = useState([])
   const [weatherList, setWeatherList] = useState([])
   const [carSelectionDisplay, setCarSelectionDisplay] = useState(true);   
-  const [carSelected, setCarSelected] = useState();   
   const [trackSelected, setTrackSelected] = useState();   
   const [weatherSelected, setWeatherSelected] = useState();   
   const [nightTime, setNightTime] = useState(false);   
@@ -60,13 +59,34 @@ const ModalEvent = ({setModalEvent}) => {
         "class": paramFromApi['cars'][index]['class']
       })
     })
-    console.log(paramFromApi['weather'])
     Object.keys(paramFromApi['weather']).map((value, index) => {
       weatherList.push(value)
     })
     setCarList(carList)
     setCarClassList(carClassList)
     setWeatherList(weatherList)
+    //fetch previously created event
+    if(isAlreadyEventCreated){
+      let customEvent = await readData.getLocalApi("fetch_custom_event")
+      Object.keys(customEvent).map((index) => {
+          if(customEvent[index]['steam id '] === cookies['user']){
+            let carSelectedList = []
+            customEvent[index]['cars'].forEach(carSelected => {
+              carSelectedList.push(carSelected.index)
+            })
+            carList.forEach(car => {
+              if(carSelectedList.includes(car.index) ){
+                car.available = true;
+              }
+            })
+            setCarList(carList)
+            setTrackSelected(customEvent[index]['track'])
+            setWeatherSelected(customEvent[index]['weather'])
+            setNightTime(customEvent[index]['dayTime'])
+          }
+      })
+    }
+
   }
   const handleCarChange = (e, index) => {
     if(carSelectionDisplay){
@@ -107,11 +127,11 @@ const ModalEvent = ({setModalEvent}) => {
       "weather" : weatherSelected,
       "dayTime" : nightTime
     }
-    let paramFromApi = await readData.postLocalApi("create_custom_event", eventParam)
+    await readData.postLocalApi("create_custom_event", eventParam)
+    setIsAlreadyEventCreated(true)
     handleClose()
   }
   useEffect( () => {
-    
     if(loading)fetchServerInfo()
   })
   return (
@@ -126,10 +146,10 @@ const ModalEvent = ({setModalEvent}) => {
           <div className="row">
             <div className="col-md-12">
               <h5>Track selection</h5>
-              <select className="form-select" aria-label="Default select example" onChange={(e) => {setTrackSelected(e.target.value)}}>
+              <select className="form-select" aria-label="Default select example" onChange={(e) => {setTrackSelected(e.target.value)}} value={trackSelected}>
                 <option></option>
                 {trackList.map((element, index) => {
-                  return <option id={index} value={element.name}  key={index}>{element.name}</option>
+                  return <option id={index} value={element.name} key={index}>{element.name}</option>
                 })}
               </select> 
             </div>
@@ -166,7 +186,7 @@ const ModalEvent = ({setModalEvent}) => {
             
               <h5>Weather selection</h5>
               <div className="col-md-6">
-                <select className="form-select" aria-label="Default select example" onChange={(e) => {setWeatherSelected(e.target.value)}}>
+                <select className="form-select" aria-label="Default select example" onChange={(e) => {setWeatherSelected(e.target.value)}} value={weatherSelected}>
                   <option></option>
                   {weatherList.map((element, index) => {
                     return <option id={index} value={element}  key={index}>{element}</option>
