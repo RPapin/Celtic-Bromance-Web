@@ -3,10 +3,14 @@
     justify-content: space-between;
     align-items: center;
     width: 98%;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     margin: 1rem;
     margin-bottom: 5rem;
+
+    background-color: #000;
+    color: #ecf0f1;
 }
+
 .topLogo{
     width: 100px;
     height: 70px;
