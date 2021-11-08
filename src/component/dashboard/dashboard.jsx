@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import './dashboard.css'
 import ChampionnshipResult from '../championnshipResult/championnshipResult';
+import WheelCustomEvent from '../wheelCustomEvent/wheelCustomEvent';
 import StartingGrid from '../f1-grid/startingGrid';
 import { useCookies } from 'react-cookie';
 import ModalCheck from '../modals/modalCheck';
@@ -26,6 +27,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [updateJoker, setUpdateJoker] = useState(0)
     const [modalInfo, setModalInfo] = useState(false)
     const [modalEvent, setModalEvent] = useState(false)
+    const [showWheel, setShowWheel] = useState(false)
 
     const getNextRoundInfo = (nextRoundInfo) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
@@ -111,8 +113,6 @@ const Dashboard = ({admin, setAdmin}) => {
         });
     }
     useEffect( () => {
-        console.log("dash " + admin)
-        console.log(localStorage.getItem('admin'))
         if(!loading){
             seeResult()
             registerToSSE()
@@ -121,77 +121,89 @@ const Dashboard = ({admin, setAdmin}) => {
     return (
 
     <div className={'container'}>
-        {!serverInfo && loading ?
-            // <div className="server-info"> The ACC server is not connected</div>
-            <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
-           :
-           <>
-        {admin &&
-            <AdminParameters />
-        }
-        {newResult &&
-            <ModalCheck text={newResult}/>
-        }
-            
-        <div className={'container'}>
-            {!fullResult && loading && admin && serverInfo &&
-            <div className='actionsContainer'>
-                <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
-            </div>
-            }              
-            {infoNextRound && 
-                <>
-
-                <div className="serverStatus ">
-                    {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
-                    <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                        Server settings
-                    </Button>
-                </div>
-                <div className="row">
-                    <div className="infoNextRound col-md-8">
-                        <h3>Info Next Round :</h3>
-                            <ul>
-                                {infoNextRound.map((label, i) => {
-                                    return (<li key={i}>{label[0]} : {label[1]}</li>)
-                                })}
-                            </ul>
-                        <h3>Starting grid :</h3> 
-                        <StartingGrid gridNextRound={gridNextRound}/>
-                        
-                    {admin && 
-                        <div className="adminDiv">
-                        {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
-                        <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
-                        <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
-                        <Button variant="outline-danger" onClick={() => {
-                            if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
-                        }}>Reset Championnship</Button>
-                        </div>
-                    }
+        {
+            showWheel ?
+            <WheelCustomEvent setShowWheel={setShowWheel}/>
+            :
+            <>
+            {!serverInfo && loading ?
+                // <div className="server-info"> The ACC server is not connected</div>
+                <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
+            :
+            <>
+            {admin &&
+                <div className="container">
+                    <AdminParameters />
+                    <div className="actionsContainer m-2">
+                        <Button variant="outline-primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
                     </div>
-                    {/* If user is connected */}
-                    {  ('user' in cookies) &&
-                        <div className="col-md-4">
-                            <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
-                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>Create custom event</Button>
-                        </div>
-                    }
                 </div>
-                </>
-            }   
-        </div>
-        <ChampionnshipResult fullResult={fullResult}/>
-        {
-            modalInfo &&
-            <ModalServerInfo setModalInfo={setModalInfo}/>
+            }
+            {newResult &&
+                <ModalCheck text={newResult}/>
+            }
+                
+            <div className={'container'}>
+                {!fullResult && loading && admin && serverInfo &&
+                <div className='actionsContainer'>
+                    <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
+                </div>
+                }              
+                {infoNextRound && 
+                    <>
+
+                    <div className="serverStatus ">
+                        {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
+                        <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                            Server settings
+                        </Button>
+                    </div>
+                    <div className="row">
+                        <div className="infoNextRound col-md-8">
+                            <h3>Info Next Round :</h3>
+                                <ul>
+                                    {infoNextRound.map((label, i) => {
+                                        return (<li key={i}>{label[0]} : {label[1]}</li>)
+                                    })}
+                                </ul>
+                            <h3>Starting grid :</h3> 
+                            <StartingGrid gridNextRound={gridNextRound}/>
+                            
+                        {admin && 
+                            <div className="adminDiv">
+                            {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
+                            <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
+                            <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
+                            <Button variant="outline-danger" onClick={() => {
+                                if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
+                            }}>Reset Championnship</Button>
+                            </div>
+                        }
+                        </div>
+                        {/* If user is connected */}
+                        {  ('user' in cookies) &&
+                            <div className="col-md-4">
+                                <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
+                                <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>Create custom event</Button>
+                            </div>
+                        }
+                    </div>
+                    </>
+                }   
+            </div>
+            <ChampionnshipResult fullResult={fullResult}/>
+            {
+                modalInfo &&
+                <ModalServerInfo setModalInfo={setModalInfo}/>
+            }
+            {
+                modalEvent &&
+                <ModalEvent setModalEvent={setModalEvent}/>
+            }
+            </>
+            }
+            </>
         }
-        {
-            modalEvent &&
-            <ModalEvent setModalEvent={setModalEvent}/>
-        }
-        </>}
-        
     </div>
     )
 

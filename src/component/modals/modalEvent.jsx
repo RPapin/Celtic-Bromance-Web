@@ -20,6 +20,7 @@ const ModalEvent = ({setModalEvent}) => {
   const [trackSelected, setTrackSelected] = useState();   
   const [weatherSelected, setWeatherSelected] = useState();   
   const [nightTime, setNightTime] = useState(false);   
+  const [cookies] = useCookies(['name']);
 
   const handleClose = () => {
     setModalEvent(false);
@@ -67,9 +68,6 @@ const ModalEvent = ({setModalEvent}) => {
     setCarClassList(carClassList)
     setWeatherList(weatherList)
   }
-  const handleSelectTrack = (e) => {
-    setTrackSelected(e.target.value)
-  }
   const handleCarChange = (e, index) => {
     if(carSelectionDisplay){
       let classAvailable = []
@@ -83,7 +81,6 @@ const ModalEvent = ({setModalEvent}) => {
           classAvailable.push(element.class)
         }
       })
-      console.log(classAvailable)
       carList.map((element, index) => {
         if(classAvailable.includes(element.class)){
           carList[index]["available"] = true
@@ -102,7 +99,16 @@ const ModalEvent = ({setModalEvent}) => {
 
   const handleSubmitCustomEvent = async (e) => {
     e.preventDefault()
-    let paramFromApi = await readData.postLocalApi("update_car_parameter", carList)
+    const eventParam = {
+      "steam id ": cookies['user'],
+      "userName": cookies['name'],
+      "cars" : carList,
+      "track" : trackSelected,
+      "weather" : weatherSelected,
+      "dayTime" : nightTime
+    }
+    let paramFromApi = await readData.postLocalApi("create_custom_event", eventParam)
+    handleClose()
   }
   useEffect( () => {
     

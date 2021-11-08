@@ -15,9 +15,7 @@ function App() {
   const [isOlderResult, setIsOlderResult] = useState(false)
 
   useEffect(() => {
-    console.log("app " + admin)
     let adminLocal = localStorage.getItem('admin')
-    console.log("adminLocal " + adminLocal)
     if(adminLocal !== "false")setAdmin(adminLocal)
     })
     
