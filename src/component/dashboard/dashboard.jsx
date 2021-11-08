@@ -135,7 +135,7 @@ const Dashboard = ({admin, setAdmin}) => {
                 <div className="container">
                     <AdminParameters />
                     <div className="actionsContainer m-2">
-                        <Button variant="outline-primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
+                        <Button variant="primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
                     </div>
                 </div>
             }
@@ -146,7 +146,7 @@ const Dashboard = ({admin, setAdmin}) => {
             <div className={'container'}>
                 {!fullResult && loading && admin && serverInfo &&
                 <div className='actionsContainer'>
-                    <Button variant="outline-primary" onClick={startChampionnship}>Start a new championship !</Button>
+                    <Button variant="primary" onClick={startChampionnship}>Start a new championship !</Button>
                 </div>
                 }              
                 {infoNextRound && 
@@ -171,10 +171,10 @@ const Dashboard = ({admin, setAdmin}) => {
                             
                         {admin && 
                             <div className="adminDiv">
-                            {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
-                            <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
-                            <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
-                            <Button variant="outline-danger" onClick={() => {
+                            {serverStatus ? <Button variant="primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
+                            <Button variant="primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
+                            <Button variant="primary" onClick={newDraw} className="bottomBtn">New draw</Button>
+                            <Button variant="danger" onClick={() => {
                                 if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
                             }}>Reset Championnship</Button>
                             </div>
