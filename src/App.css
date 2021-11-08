@@ -17,7 +17,7 @@ and (max-width : 1524px) {
 html, body, #root, .App {
   height: 100%
 }
-h1 { color: #7c795d; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
+h1 { font-family: 'Formula1 Display', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
 .spinnerContainer {
   display: flex;
   justify-content: center;

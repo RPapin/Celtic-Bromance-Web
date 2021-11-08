@@ -167,7 +167,7 @@ const Dashboard = ({admin, setAdmin}) => {
                 <div className={'container'}>
                     {!fullResult && loading && admin && serverInfo &&
                     <div className='actionsContainer'>
-                        <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
+                        <Button variant="outline-primary" onClick={startChampionnship}>Start a new championship !</Button>
                     </div>
                     }              
                     {infoNextRound && 
