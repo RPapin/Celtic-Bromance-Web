@@ -5,3 +5,13 @@
 .car-list {
     margin-bottom: 0!important;
 }
+
+.btn
+{
+    min-height: 4em;
+}
+
+.btn-link
+{
+    color: #fff !important;
+}

@@ -108,7 +108,7 @@ const AdminParameters = () => {
 
           <div className="container accordion-container" id="parameterHeader">
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-outline-primary" onClick={() => toggleParameter(0)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(0)}>
               {/* {toggleParam[0] === true ? "Hide" : "Show" } parameters */} Toggle parameters
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -126,10 +126,10 @@ const AdminParameters = () => {
               <Button variant="outline-primary" type="submit" className="bottomBtn" disabled={inputList === defaultListParameters}>Save new parameters</Button>
             </form>
             </Accordion.Collapse>
-
           </Accordion>
+          
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-outline-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
              Toggle tracks
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -152,7 +152,7 @@ const AdminParameters = () => {
 
           </Accordion>
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-outline-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
              Toggle Cars
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -174,7 +174,7 @@ const AdminParameters = () => {
 
           </Accordion>
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-outline-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
              Toggle User
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
