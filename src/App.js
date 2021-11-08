@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     let adminLocal = localStorage.getItem('admin')
     if(adminLocal !== "false")setAdmin(adminLocal)
-    })
+  })
     
   return (
     <div className="App">
