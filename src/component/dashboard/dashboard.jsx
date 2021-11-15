@@ -114,7 +114,6 @@ const Dashboard = ({admin, setAdmin}) => {
             getNextRoundInfo(result['nextRoundInfo'])
         });
         let adminLocal = localStorage.getItem('admin')
-        console.log(adminLocal)
         if(adminLocal === 'false' || adminLocal === null){
             console.log("register to  sync")
             eventSource.addEventListener("syncWheel", e =>{
@@ -153,34 +152,33 @@ const Dashboard = ({admin, setAdmin}) => {
                 // <div className="server-info"> The ACC server is not connected</div>
                 <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
             :
-            <>
-            {admin &&
-                <div className="container">
-                    <AdminParameters />
-                    <div className="actionsContainer m-2">
-                        <Button variant="primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
+                <>
+                {admin &&
+                    <div className="container">
+                        <AdminParameters />
+                        <div className="actionsContainer m-2">
+                            <Button variant="outline-primary" onClick={() => {setShowWheel(true); setDeterminedWinner(false)}}>Spin the wheel !</Button>
+                        </div>
                     </div>
-                </div>
-            }
-            {newResult &&
-                <ModalCheck text={newResult}/>
-            }
-                
-            <div className={'container'}>
-                {!fullResult && loading && admin && serverInfo &&
-                <div className='actionsContainer'>
-                    <Button variant="primary" onClick={startChampionnship}>Start a new championship !</Button>
-                </div>
-                }              
-                {infoNextRound && 
-                    <>
-
-                    <div className="serverStatus ">
-                        {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
-                        <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                            Server settings
-                        </Button>
+                }
+                {newResult &&
+                    <ModalCheck text={newResult}/>
+                }
                     
+                <div className={'container'}>
+                    {!fullResult && loading && admin && serverInfo &&
+                    <div className='actionsContainer'>
+                        <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
+                    </div>
+                    }              
+                    {infoNextRound && 
+                        <>
+
+                        <div className="serverStatus ">
+                            {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
+                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                                Server settings
+                            </Button>
                         </div>
                         <div className="row">
                             <div className="infoNextRound col-md-8">
