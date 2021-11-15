@@ -12,6 +12,7 @@ import AdminParameters from '../adminParameters/adminParameters';
 import Joker from '../joker/joker';
 import ModalServerInfo from '../modals/modalServerInfo';
 import ModalEvent from '../modals/modalEvent';
+import CountDownTimer from '../countdownTimer/countdownTimer';
 
 const Dashboard = ({admin, setAdmin}) => {
     const readData = new ReadData()
@@ -30,6 +31,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [showWheel, setShowWheel] = useState(false)
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
+    const [countdown, setCountdown] = useState(false)
 
 
     const getNextRoundInfo = (nextRoundInfo) => {
@@ -51,6 +53,7 @@ const Dashboard = ({admin, setAdmin}) => {
         } else setServerInfo(false)
     }
     const lunchServer = async () => {
+        console.log('lunchServer')
         let serverStatus = await readData.getLocalApi("launch_server")
         setServerStatus(serverStatus['serverStatus'])
     }
@@ -68,7 +71,6 @@ const Dashboard = ({admin, setAdmin}) => {
         setLoading(true)
         let allInfo = await readData.getLocalApi("display_result")
         if(allInfo){
-            console.log('seeResult')
             if(allInfo['nextRoundInfo']){
                 allInfo['nextRoundInfo']['foundNewResults'] = allInfo['foundNewResults']
                 getNextRoundInfo(allInfo['nextRoundInfo'])
@@ -113,6 +115,17 @@ const Dashboard = ({admin, setAdmin}) => {
             result['nextRoundInfo']['foundNewResults'] = false
             getNextRoundInfo(result['nextRoundInfo'])
         });
+        eventSource.addEventListener("startCountdown", e =>{
+            let countdownSec = JSON.parse(e.data)
+            var hours = Math.floor(countdownSec / 60 / 60);
+            var minutes = Math.floor(countdownSec / 60) - (hours * 60);
+            var seconds = countdownSec % 60;
+            const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
+            setCountdown(countdownFinal)
+        });
+        eventSource.addEventListener("stopCountdown", e =>{
+            setCountdown(false)
+        });
         let adminLocal = localStorage.getItem('admin')
         if(adminLocal === 'false' || adminLocal === null){
             console.log("register to  sync")
@@ -131,6 +144,14 @@ const Dashboard = ({admin, setAdmin}) => {
         Object.keys(customEvent).map((index) => {
             if(customEvent[index]['steam id '] === cookies['user'])setIsAlreadyEventCreated(true)
         })
+    }
+    const toggleCountdown = async () => {
+        if(countdown === false){
+            let countdown = await readData.getLocalApi("get_countdown_value")
+            readData.postLocalApi("start_countdown", countdown)
+        } else {
+            readData.getLocalApi("stop_countdown")
+        }
     }
 
     useEffect( () => {
@@ -152,33 +173,44 @@ const Dashboard = ({admin, setAdmin}) => {
                 // <div className="server-info"> The ACC server is not connected</div>
                 <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
             :
-                <>
-                {admin &&
-                    <div className="container">
-                        <AdminParameters />
-                        <div className="actionsContainer m-2">
-                            <Button variant="outline-primary" onClick={() => {setShowWheel(true); setDeterminedWinner(false)}}>Spin the wheel !</Button>
+            <>
+            {admin &&
+                <div className="container">
+                    <AdminParameters />
+                    <div className="actionsContainer m-2">
+                        <Button variant="primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
+                        <Button variant="primary" onClick={toggleCountdown}>{
+                        countdown ? 
+                            "Stop the countdown"
+                            :
+                            "Start the countdown"
+                        }</Button>
+                    </div>
+                </div>
+            }
+            {newResult &&
+                <ModalCheck text={newResult}/>
+            }
+                
+            <div className={'container'}>
+                {!fullResult && loading && admin && serverInfo &&
+                <div className='actionsContainer'>
+                    <Button variant="primary" onClick={startChampionnship}>Start a new championship !</Button>
+                </div>
+                }              
+                {infoNextRound && 
+                    <>
+                        <div className="row">
+                        {countdown !== false &&
+                            <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown}/>
+                        }
                         </div>
-                    </div>
-                }
-                {newResult &&
-                    <ModalCheck text={newResult}/>
-                }
-                    
-                <div className={'container'}>
-                    {!fullResult && loading && admin && serverInfo &&
-                    <div className='actionsContainer'>
-                        <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
-                    </div>
-                    }              
-                    {infoNextRound && 
-                        <>
-
                         <div className="serverStatus ">
-                            {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
-                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                                Server settings
-                            </Button>
+
+                        {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
+                        <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                            Server settings
+                        </Button>
                         </div>
                         <div className="row">
                             <div className="infoNextRound col-md-8">

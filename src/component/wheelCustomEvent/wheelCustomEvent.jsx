@@ -16,16 +16,16 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
     const [loading, setLoading] = useState(false)
     const [userList, setUserList] = useState([])
     const [winner, setWinner] = useState(false)
+    const [customEvent, setCustomEvent] = useState({})
 
     const fecthCustomEvent = async () => {
         let users = []
         setLoading(true)
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
-            console.log(index)
+            setCustomEvent(customEvent)
             users.push(customEvent[index]['userName'])
         })
-        console.log(users)
         setUserList(users)
         if(determinedWinner !== false){
             setTimeout(() => {

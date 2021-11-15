@@ -160,7 +160,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
               <Button onClick={() => {setCarSelectionDisplay(!carSelectionDisplay)}}>
                 {carSelectionDisplay ? "Show individual car" : "Show car class"}</Button>
             </div>
-            <div className={carSelectionDisplay ? "col-md-10" : "col-md-10 car-full-list"}>
+            <div className={carSelectionDisplay ? "col-md-10 ms-2" : "col-md-10 ms-2 car-full-list"}>
               {carSelectionDisplay ?
               // Car class selection
               carClassList.map((param, i) => {
@@ -193,7 +193,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
                   })}
                 </select>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 ms-2">
             <div className="form-check form-switch">
               <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => setNightTime(!nightTime)} checked={nightTime}/>
               <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Night time</label>
