@@ -5,9 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import './modalServerInfo.css'
 import Form from 'react-bootstrap/Form'
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 const ModalServerInfo = ({setModalInfo}) => {
+  const { t, i18n } = useTranslation();
   const readData = new ReadData()
   // const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -58,12 +60,12 @@ const ModalServerInfo = ({setModalInfo}) => {
     {!loading && 
       <Modal show={true} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Server Informations</Modal.Title>
+          <Modal.Title>{t("serverSettings.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="row">
             <div className="col-md-12">
-              <div className="info-title">Point distribution : </div>
+              <div className="info-title">{t("serverSettings.pointDistribution")} </div>
               <div>{inputList["pointConfiguration"].map( (point) => {
                   return point + ','
               })}</div>
@@ -71,14 +73,15 @@ const ModalServerInfo = ({setModalInfo}) => {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <div className="info-title">Weather probability : </div>
-              <div>Flooded => {inputList["weatherPct"][0]}% , Wet => {inputList["weatherPct"][1]}% , Damp => {inputList["weatherPct"][2]}% , Dry => {inputList["weatherPct"][3]}% </div>
+              <div className="info-title">{t("serverSettings.weatherProba")} </div>
+              <div>{t("serverSettings.Flooded")} => {inputList["weatherPct"][0]}% , {t("serverSettings.Wet")} => {inputList["weatherPct"][1]}% , 
+              {t("serverSettings.Damp")} => {inputList["weatherPct"][2]}% , {t("serverSettings.Dry")} => {inputList["weatherPct"][3]}% </div>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} >
-            Close
+            {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -13,8 +13,10 @@ import Joker from '../joker/joker';
 import ModalServerInfo from '../modals/modalServerInfo';
 import ModalEvent from '../modals/modalEvent';
 import CountDownTimer from '../countdownTimer/countdownTimer';
+import { useTranslation } from 'react-i18next';
 
 const Dashboard = ({admin, setAdmin}) => {
+    const { t, i18n } = useTranslation();
     const readData = new ReadData()
 
     const [cookies, setCookie] = useCookies(['user']);
@@ -162,7 +164,6 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }, [])
     return (
-
     <div className={'container'}>
         {
             showWheel ?
@@ -207,20 +208,20 @@ const Dashboard = ({admin, setAdmin}) => {
                         </div>
                         <div className="serverStatus ">
 
-                        {serverStatus ? <h4 className="up">Server is up !</h4> :  <h4 className="down">Server is down ...</h4>}
+                        {serverStatus ? <h4 className="up">{t("dashboard.serverStatusUp")}</h4> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
                         <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                            Server settings
+                            {t("dashboard.serverSettings")}
                         </Button>
                         </div>
                         <div className="row">
                             <div className="infoNextRound col-md-8">
-                                <h3>Info Next Round :</h3>
+                                <h3>{t("dashboard.infoNextRound")}</h3>
                                     <ul>
                                         {infoNextRound.map((label, i) => {
                                             return (<li key={i}>{label[0]} : {label[1]}</li>)
                                         })}
                                     </ul>
-                                <h3>Starting grid :</h3> 
+                                <h3>{t("dashboard.startingGrid")}</h3> 
                                 <StartingGrid gridNextRound={gridNextRound}/>
                                 
                             {admin && 
@@ -240,9 +241,9 @@ const Dashboard = ({admin, setAdmin}) => {
                                     <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
                                     <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
                                         {isAlreadyEventCreated ?
-                                            "Edit custom event"
+                                            t("dashboard.customEventEditBtn")
                                             :
-                                            "Create custom event"
+                                            t("dashboard.customEventCreateBtn")
                                         }
                                     </Button>
                                 </div>

@@ -1,0 +1,58 @@
+{
+  "menu" : {
+    "login": "Log in",
+    "logout": "Log out",
+    "olderResult" : "View older results",
+    "currentResult" : "View current championship"
+  },
+  "dashboard" : {
+    "serverStatusDown": "Server is down ...",
+    "serverStatusUp": "Server is up !",
+    "serverSettings": "View server settings",
+    "swapCarAvailable": "Car swap available : ",
+    "swapPointAvailable": "Point swap available : ",
+    "SwapCarBtn": "Swap car",
+    "SwapPointBtn": "Swap point",
+    "customEventEditBtn": "Edit custom event",
+    "customEventCreateBtn": "Create custom event",
+    "startingGrid": "Starting grid :",
+    "infoNextRound": "Information for the next round :"
+
+  },
+  "customEvent" : {
+    "createCustomEvent" : "Create custom event",
+    "trackSelection" : "Track selection",
+    "carSelection": "Car selection",
+    "weatherSelection": "Weather selection",
+    "nightSelection": "Night time"
+    
+  },
+  "serverSettings" : {
+    "title" : "Server Informations",
+    "pointDistribution" : "Point distribution : ",
+    "weatherProba" : "Weather probability : ",
+    "Flooded" : "Flooded",
+    "Wet" : "Wet",
+    "Damp" : "Damp",
+    "Dry" : "Dry"
+  },
+  "swapCar" : {
+    "title" : "Choose the driver you want to change your car with"
+  },
+  "swapPoint" : {
+    "title" : "Choose the driver you want to change your point during the next round "
+  },
+  "championshipResult" :{
+    "title" : "Standings",
+    "position" : "Position",
+    "name" : "Name",
+    "car" : "Car",
+    "point" : "Point",
+    "positionGained" : "Position gained",
+    "totalPoint" : "Total Point",
+    "race" : "Race "
+  },
+  "save" : "save",
+  "close" : "close",
+  "test" : "aaa"
+}

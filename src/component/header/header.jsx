@@ -5,9 +5,12 @@ import AdminPanel from '../adminPanel/adminPanel';
 import OlderResult from '../olderResult/olderResult';
 import { useCookies } from 'react-cookie';
 import ModalConnect from '../modals/modalConnect';
+import { useTranslation } from 'react-i18next';
 
 
 const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
+    
+    const { t, i18n } = useTranslation();
     const [logIn, setLogIn] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const logOut = () => {
@@ -27,14 +30,14 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
                 Menu
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-                {olderResult ? <Dropdown.Item onClick={() => setIsOlderResult(!olderResult)}>View current championship</Dropdown.Item> : <Dropdown.Item onClick={() => setIsOlderResult(!olderResult)}>View older results</Dropdown.Item>}
+            <Dropdown.Menu className="menu-item-break-space">
+                {olderResult ? <Dropdown.Item onClick={() => setIsOlderResult(!olderResult)}>{t("menu.currentResult")}</Dropdown.Item> : <Dropdown.Item onClick={() => setIsOlderResult(!olderResult)}>{t("menu.olderResult")}</Dropdown.Item>}
                 {cookies['name'] ? 
                 <>
-                    <Dropdown.Item onClick={() => logOut()}>Log out</Dropdown.Item>
+                    <Dropdown.Item onClick={() => logOut()}>{t("menu.logout")}</Dropdown.Item>
                 </> :
                 <>
-                    <Dropdown.Item onClick={() => setLogIn(true)}>Log In</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setLogIn(true)}>{t("menu.login")}</Dropdown.Item>
                 </> }
             </Dropdown.Menu>
         </Dropdown>

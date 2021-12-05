@@ -4,16 +4,17 @@ import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 const ModalChooseDriver = (props) => {
-  
+  const { t, i18n } = useTranslation();
   const readData = new ReadData()
   const [cookies, setCookie] = useCookies(['user']);
   const [loading, setLoading] = useState(true);
   const [selectDriver, setSelectDriver] = useState([])
   const [driverSelected, setDriverSelected] = useState([])
-  const title = props.context === "swapCar" ? "Choose the driver you want to change your car with " : "Choose the driver you want to change your point during the next round ";
+  const title = props.context === "swapCar" ? t("swapCar.title") : t("swapPoint.title");
 
   const handleSelect = (e) => {
     setDriverSelected(e.target.value)
@@ -67,7 +68,7 @@ const ModalChooseDriver = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={confirmSelect}>
-            Confirm
+            {t("save")}
           </Button>
         </Modal.Footer>
       </Modal>

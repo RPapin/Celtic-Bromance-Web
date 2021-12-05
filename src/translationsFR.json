@@ -1,0 +1,59 @@
+{
+  "menu" : {
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "olderResult" : "Voir les anciens résultats",
+    "currentResult" : "Voir le championnat en cours"
+  },
+  "dashboard" : {
+    "serverStatusDown": "Le serveur est éteint ...",
+    "serverStatusUp": "Le serveur est actif !",
+    "serverSettings": "Voir les réglages du serveur",
+    "swapCarAvailable": "Nombre de changements de voiture restant : ",
+    "swapPointAvailable": "Nombre de changements de point restant : ",
+    "SwapCarBtn": "Changer de voiture",
+    "SwapPointBtn": "Voler les points",
+    "customEventEditBtn": "Modifier l'évenement personnalisé",
+    "customEventCreateBtn": "Creer un évenement personnalisé",
+    "startingGrid": "Grille de départ :",
+    "infoNextRound": "Information de la prochaine manche :"
+
+  },
+  "customEvent" : {
+    "createCustomEvent" : "Creer un évenement personnalisé",
+    "trackSelection" : "Choisir un circuit",
+    "carSelection": "Choisir les voitures",
+    "weatherSelection": "Chosir la météo",
+    "nightSelection": "Nocturne "
+    
+  },
+  "serverSettings" : {
+    "title" : "Informations du serveur",
+    "pointDistribution" : "Distribution des points : ",
+    "weatherProba" : "Probabilité de la météo : ",
+    "Flooded" : "Inondé",
+    "Wet" : "Mouillé",
+    "Damp" : "Séchant",
+    "Dry" : "Sec"
+  },
+  "swapCar" : {
+    "title" : "Choisir le pilote avec lequel vous voulez échanger de voiture"
+  },
+  "swapPoint" : {
+    "title" : "Choisir le pilote avec lequel vous voulez échanger de point sur le résultat de la prochaine manche"
+  },
+  "championshipResult" :{
+    "title" : "Classement",
+    "position" : "Position",
+    "name" : "Nom",
+    "car" : "Voiture",
+    "point" : "Point",
+    "positionGained" : "Position gagnée",
+    "totalPoint" : "Total de points",
+    "race" : "Course"
+  },
+  "save" : "Confirmer",
+  "close" : "Fermer",
+  "test" : "bbb"
+  
+}

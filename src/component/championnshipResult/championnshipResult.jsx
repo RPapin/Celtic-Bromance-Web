@@ -3,9 +3,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Table from 'react-bootstrap/Table';
 import './championnshipResult.css'
+import { useTranslation } from 'react-i18next';
 
 
-const ChampionnshipResult = (props) => {
+const ChampionnshipResult = (props) => {  
+    const { t, i18n } = useTranslation();
     const [currentTab, setCurrentTab] = useState('Standings');
     const positionColor = ['gold', 'silver', 'bronze']
     const displayStandings = (raceNumber) => {
@@ -33,12 +35,12 @@ const ChampionnshipResult = (props) => {
             <Table responsive>
                 <thead>
                     <tr>
-                    <th>Position</th>
-                    <th>Name</th>
+                    <th>{t("championshipResult.position")}</th>
+                    <th>{t("championshipResult.name")}</th>
                     {props.fullResult['raceResult'].map((answer, i) => {       
-                        return (<th>Race {i + 1}</th>) 
+                        return (<th>{t("championshipResult.race")} {i + 1}</th>) 
                     })}
-                    <th>Total Point</th>
+                    <th>{t("championshipResult.totalPoint")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,11 +59,11 @@ const ChampionnshipResult = (props) => {
                 <Table responsive>
                     <thead>
                         <tr>
-                        <th>Position</th>
-                        <th>Name</th>
-                        <th>Car</th>
-                        <th>Point</th>
-                        <th>Position gained</th>
+                        <th>{t("championshipResult.position")}</th>
+                        <th>{t("championshipResult.name")}</th>
+                        <th>{t("championshipResult.car")}</th>
+                        <th>{t("championshipResult.point")}</th>
+                        <th>{t("championshipResult.positionGained")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,17 +83,17 @@ const ChampionnshipResult = (props) => {
     <div className={'containerResult'}>
         {props.fullResult && 
         <>
-            <h2>Standings</h2>
+            <h2>{t("championshipResult.title")}</h2>
             <Tabs
                 id="controlled-tab-example"
                 activeKey={currentTab}
                 onSelect={(k) => setCurrentTab(k)}
                 className="mb-3">
-                <Tab eventKey={"Standings"} title={"Standings"}>
+                <Tab eventKey={"Standings"} title={t("championshipResult.title")}>
                     {displayStandings(-1)}
                 </Tab>
                 { props.fullResult['raceResult'].map((answer, i) => {       
-                    return (<Tab key={"key" + i } eventKey={i} title={"Race "  + (i + 1)}>{displayStandings(i)}</Tab>) 
+                    return (<Tab key={"key" + i } eventKey={i} title={t("championshipResult.race")  + " " + (i + 1)}>{displayStandings(i)}</Tab>) 
                 })}
             </Tabs>
         </>

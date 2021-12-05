@@ -5,9 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import './modalEvent.css'
 import Form from 'react-bootstrap/Form'
 import { useCookies } from 'react-cookie';
-
+import { useTranslation } from 'react-i18next';
 
 const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCreated}) => {
+ 
+  const { t, i18n } = useTranslation();
   const readData = new ReadData()
   // const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);    
@@ -139,13 +141,13 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     {!loading && 
       <Modal show={true} onHide={handleClose} dialogClassName="modal-90w">
         <Modal.Header>
-          <Modal.Title>Create custom event</Modal.Title>
+          <Modal.Title>{t("customEvent.createCustomEvent")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={handleSubmitCustomEvent} id="customEventForm">
           <div className="row">
             <div className="col-md-12">
-              <h5>Track selection</h5>
+              <h5>{t("customEvent.trackSelection")}</h5>
               <select className="form-select" aria-label="Default select example" onChange={(e) => {setTrackSelected(e.target.value)}} value={trackSelected}>
                 <option></option>
                 {trackList.map((element, index) => {
@@ -155,7 +157,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
             </div>
           </div>
           <div className="row">
-           <h5>Car selection</h5>
+           <h5>{t("customEvent.carSelection")}</h5>
             <div className="col-md-2">
               <Button onClick={() => {setCarSelectionDisplay(!carSelectionDisplay)}}>
                 {carSelectionDisplay ? "Show individual car" : "Show car class"}</Button>
@@ -184,7 +186,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
           </div>
           <div className="row">
             
-              <h5>Weather selection</h5>
+              <h5>{t("customEvent.weatherSelection")}</h5>
               <div className="col-md-6">
                 <select className="form-select" aria-label="Default select example" onChange={(e) => {setWeatherSelected(e.target.value)}} value={weatherSelected}>
                   <option></option>
@@ -196,7 +198,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
             <div className="col-md-6 ms-2">
             <div className="form-check form-switch">
               <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => setNightTime(!nightTime)} checked={nightTime}/>
-              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Night time</label>
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{t("customEvent.nightSelection")}</label>
             </div>
             </div>
           </div>
@@ -204,10 +206,10 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
         </Modal.Body>
         <Modal.Footer>
         <Button variant="primary" onClick={handleSubmitCustomEvent} >
-            Save 
+            {t("save")}
           </Button>
           <Button variant="secondary" onClick={handleClose} >
-            Close
+           {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>

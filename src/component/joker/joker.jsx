@@ -4,9 +4,11 @@ import ReadData from '../../services/readData'
 import './joker.css'
 import { useCookies } from 'react-cookie';
 import ModalChooseDriver from '../modals/modalChooseDriver';
+import { useTranslation } from 'react-i18next';
 
 
 const Joker = ({seeResult, updateJoker, serverStatus}) => {
+  const { t, i18n } = useTranslation();
     const readData = new ReadData()
     const [openModal, setOpenModal] = useState(false)
     const [actionContext, setActionContext] = useState()
@@ -40,12 +42,12 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
         <div className="row mt-4">
           <div className="col-md-6">
             {swapCar > 0 &&
-              <div>Car swap available : {swapCar}</div>
+              <div>{t("dashboard.swapCarAvailable")}{swapCar}</div>
             }
           </div>
           <div className="col-md-6">
             {swapPoint > 0 &&
-              <div>Point swap available : {swapPoint}</div>
+              <div>{t("dashboard.swapPointAvailable")}{swapPoint}</div>
             }
           </div>
         </div>
@@ -53,14 +55,14 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
           <div className="col-md-5 me-2 d-flex justify-content-center">
             {swapCar > 0 && 
               <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapCar")} disabled={serverStatus}>
-                Swap car 
+                {t("dashboard.SwapCarBtn")}
               </Button>
             }
           </div>
           <div className="col-md-6 d-flex justify-content-center">
           {swapPoint > 0 && 
             <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapPoint")} disabled={serverStatus}>
-              Swap point
+              {t("dashboard.SwapPointBtn")}
             </Button>
           }
           </div>
