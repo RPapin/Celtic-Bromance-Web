@@ -52,6 +52,10 @@
     "totalPoint" : "Total Point",
     "race" : "Race "
   },
+  "toast" : {
+    "updateSuceed" : "Update suceed !",
+    "info" : "Info"
+  },
   "save" : "save",
   "close" : "close",
   "test" : "aaa"

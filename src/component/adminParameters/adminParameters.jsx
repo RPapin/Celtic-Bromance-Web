@@ -3,16 +3,17 @@ import Button from 'react-bootstrap/Button';
 import Accordion, {Item} from 'react-bootstrap/Accordion'
 import './adminParameters.css'
 import ReadData from '../../services/readData'
+import ToastCustom from '../toast/toast';
 
 
 const AdminParameters = () => {
     const readData = new ReadData()
     const [inputList, setInputList] = useState([])
-    const [toggleParam, setToggleParam] = useState([false, false, false])
     const [loading, setLoading] = useState(false)
     const [trackList, setTrackList] = useState([])
     const [carList, setCarList] = useState([])
     const [userList, setUserList] = useState([])
+    const [showToast, setShowToast] = useState(false)
     
     const defaultListParameters = [{file: 'Data/championnshipConfiguration.json', name: 'pointConfiguration', value: [15,11,8,6,4,3,2,1], label: 'Point distribution (Each point must be separed with a comma)', type: 'text'},
       {file: 'Data/championnshipConfiguration.json', name: 'serverAdmin', value: 76561198445003541, label: 'SteamId of the server Admin', type: 'text'},
@@ -56,11 +57,7 @@ const AdminParameters = () => {
       setCarList(carList)
       setUserList(paramFromApi['entry'])
     } 
-    const toggleParameter = (index) => {
-      let temp = toggleParam 
-      temp[index] = !temp[index]
-      setToggleParam(temp)
-    }
+
     const handleInputChange = (e, index) => {
       const { type, value } = e.target;
       const list = [...inputList];
@@ -85,18 +82,30 @@ const AdminParameters = () => {
     const handleSubmit = async (e) => {
       e.preventDefault()
       let paramFromApi = await readData.postLocalApi("update_parameter", inputList)
+      toggleToast(paramFromApi)
+      document.getElementById('toggleParam').click()
     }
     const handleSubmitTrack = async (e) => {
       e.preventDefault()
       let paramFromApi = await readData.postLocalApi("update_track_parameter", trackList)
+      toggleToast(paramFromApi)
+      document.getElementById('toggleTrack').click()
     }
     const handleSubmitCar = async (e) => {
       e.preventDefault()
       let paramFromApi = await readData.postLocalApi("update_car_parameter", carList)
+      toggleToast(paramFromApi)
+      document.getElementById('toggleCar').click()
     }
     const handleSubmitUser = async (e) => {
       e.preventDefault()
       let paramFromApi = await readData.postLocalApi("update_user_parameter", userList)
+      toggleToast(paramFromApi)
+      document.getElementById('toggleUser').click()
+    }
+    const toggleToast = (result) => {
+      console.log('toggle toast')
+      setShowToast(true)
     }
     useEffect(() => {
       if(!loading)fetchData()
@@ -105,10 +114,12 @@ const AdminParameters = () => {
       <>
         {loading &&
         <>
-
+          {showToast && 
+            <ToastCustom positionX={"end-0"} positionY={"top-0"} color="primary" hideToast={setShowToast}/>
+          }
           <div className="container accordion-container" id="parameterHeader">
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(0)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" id="toggleParam">
               {/* {toggleParam[0] === true ? "Hide" : "Show" } parameters */} Toggle parameters
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -129,7 +140,7 @@ const AdminParameters = () => {
           </Accordion>
           
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" id="toggleTrack">
              Toggle tracks
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -152,7 +163,7 @@ const AdminParameters = () => {
 
           </Accordion>
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" id="toggleCar">
              Toggle Cars
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">
@@ -174,7 +185,7 @@ const AdminParameters = () => {
 
           </Accordion>
           <Accordion>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" onClick={() => toggleParameter(1)}>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="btn btn-primary" id="toggleUser">
              Toggle User
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0" className="collapse">

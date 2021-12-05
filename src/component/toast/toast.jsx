@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import ReadData from '../../services/readData'
+import { useTranslation } from 'react-i18next';
+import './toast.css'
 
 
 
-const Toast = ({position, color}) => {
+const ToastCustom = ({positionX, positionY, color, hideToast}) => {
+    
+    const { t, i18n } = useTranslation();
     const [openModal, setOpenModal] = useState(false)
 
 
     const closeModal = () => {
       setOpenModal(false)
-      getJokerNumber()
     }
 
     useEffect( () => {
-
-  }, )
+        setTimeout(() => {
+            hideToast(false)
+        }, 5000)
+  })
     return (
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-        <strong class="me-auto">Bootstrap</strong>
-        <small></small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-        Hello, world! This is a toast message.
+    <div className={"position-fixed m-1 " + positionX + " " + positionY}>
+    <div id="liveToast" className={"toast align-items-center text-white border-0 fade show bg-" + color}  role="alert" aria-live="assertive" aria-atomic="true">
+        <div className="d-flex">
+            <div className="toast-body">
+                {t("toast.updateSuceed")}
+            </div>
+            <button type="button" className="btn-close-toast btn-close btn-close-white m-auto me-2" aria-label="Close" onClick={() => hideToast(false)}></button>
         </div>
     </div>
     </div>
@@ -33,4 +34,4 @@ const Toast = ({position, color}) => {
 
 }
 
-export default Toast
+export default ToastCustom
