@@ -130,7 +130,6 @@ const Dashboard = ({admin, setAdmin}) => {
         });
         let adminLocal = localStorage.getItem('admin')
         if(adminLocal === 'false' || adminLocal === null){
-            console.log("register to  sync")
             eventSource.addEventListener("syncWheel", e =>{
                 console.log("call to sync")
                 let result = JSON.parse(e.data)
@@ -142,6 +141,7 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }
     const getCustomEvent = async () => {
+        
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
             if(customEvent[index]['steam id '] === cookies['user'])setIsAlreadyEventCreated(true)

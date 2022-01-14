@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "big-integer": "^1.6.51",
     "bootstrap": "^4.6.1",
+    "chokidar": "^3.5.2",
     "heroku": "^7.54.1",
     "i18next": "^21.5.2",
     "i18next-browser-languagedetector": "^6.1.2",

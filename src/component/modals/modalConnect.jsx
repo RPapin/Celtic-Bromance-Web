@@ -64,7 +64,7 @@ const ModalConnect = ({setAdmin}) => {
   return (
     <>
     {!loading && 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} backdrop='static'>
         <Modal.Header>
           <Modal.Title>Who are you ?</Modal.Title>
         </Modal.Header>
@@ -77,9 +77,6 @@ const ModalConnect = ({setAdmin}) => {
         </select>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Continue as guest
-          </Button>
           <Button variant="secondary" onClick={handleConfirm} disabled={isEmpty}>
             Confirm
           </Button>

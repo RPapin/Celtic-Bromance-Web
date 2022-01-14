@@ -4,6 +4,7 @@ import './header.css'
 import { useCookies } from 'react-cookie';
 import ModalConnect from '../modals/modalConnect';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../languageSwitcher/languageSwitcher';
 
 
 const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
@@ -23,6 +24,7 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
         <img src={'../CelticBromanceLogoFINAL.png'} className='topLogo' alt="celtic-bromance.png" ></img>
         <h1 className="title">Celtic Bromance Championship</h1>
         {cookies['name'] && <h3 className="me-1">{cookies['name']}</h3>}
+        <LanguageSwitcher></LanguageSwitcher>
         <Dropdown>
             <Dropdown.Toggle variant="info" id="dropdown-basic">
                 Menu

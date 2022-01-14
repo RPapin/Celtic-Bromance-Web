@@ -16,6 +16,8 @@ function App() {
   const [isOlderResult, setIsOlderResult] = useState(false)
 
   useEffect(() => {
+    console.log(cookies)
+    console.log('user' in cookies)
     let adminLocal = localStorage.getItem('admin')
     if(adminLocal !== "false")setAdmin(adminLocal)
   })
@@ -23,9 +25,12 @@ function App() {
   return (
     <div className="App">
         <Header admin={admin} setAdmin={setAdmin} olderResult={isOlderResult} setIsOlderResult={setIsOlderResult}/>
-        {(isOlderResult && ('user' in cookies)) ?  
-          <OlderResult/> : 
-          <Dashboard admin={admin} setAdmin={setAdmin}/>
+        {('user' in cookies) ? 
+            (isOlderResult) ?  
+              <OlderResult/> : 
+              <Dashboard admin={admin} setAdmin={setAdmin}/>
+              :
+          <div id="shadow-background"></div>
         }
         
         {!('user' in cookies) && <ModalConnect setAdmin={setAdmin}></ModalConnect>}
