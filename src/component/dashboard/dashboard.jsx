@@ -119,11 +119,7 @@ const Dashboard = ({admin, setAdmin}) => {
         });
         eventSource.addEventListener("startCountdown", e =>{
             let countdownSec = JSON.parse(e.data)
-            var hours = Math.floor(countdownSec / 60 / 60);
-            var minutes = Math.floor(countdownSec / 60) - (hours * 60);
-            var seconds = countdownSec % 60;
-            const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
-            setCountdown(countdownFinal)
+            startCountdown(countdownSec)
         });
         eventSource.addEventListener("stopCountdown", e =>{
             setCountdown(false)
@@ -140,12 +136,25 @@ const Dashboard = ({admin, setAdmin}) => {
             });
         }
     }
+    const startCountdown= (countdownSec ) => {
+        var hours = Math.floor(countdownSec / 60 / 60);
+        var minutes = Math.floor(countdownSec / 60) - (hours * 60);
+        var seconds = countdownSec % 60;
+        const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
+        setCountdown(countdownFinal)
+    }
     const getCustomEvent = async () => {
         
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
             if(customEvent[index]['steam id '] === cookies['user'])setIsAlreadyEventCreated(true)
         })
+    }
+    const getCountDown = async () => {
+        let countdown = await readData.getLocalApi("check_countdown")
+        if(countdown){
+            startCountdown(countdown)
+        }
     }
     const toggleCountdown = async () => {
         if(countdown === false){
@@ -161,6 +170,7 @@ const Dashboard = ({admin, setAdmin}) => {
             seeResult()
             registerToSSE()
             getCustomEvent()
+            getCountDown()
         }
     }, [])
     return (
