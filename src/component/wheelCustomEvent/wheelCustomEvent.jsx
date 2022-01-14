@@ -24,6 +24,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
             setCustomEvent(customEvent)
+            
             users.push(customEvent[index]['userName'])
         })
         setUserList(users)
