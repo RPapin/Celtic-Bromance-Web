@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import './header.css'
-import AdminPanel from '../adminPanel/adminPanel';
-import OlderResult from '../olderResult/olderResult';
 import { useCookies } from 'react-cookie';
 import ModalConnect from '../modals/modalConnect';
 import { useTranslation } from 'react-i18next';

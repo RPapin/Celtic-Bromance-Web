@@ -52,6 +52,10 @@
     "totalPoint" : "Total de points",
     "race" : "Course"
   },
+  "toast" : {
+    "updateSuceed" : "Mise à jour réussi !",
+    "info" : "Info"
+  },
   "save" : "Confirmer",
   "close" : "Fermer",
   "test" : "bbb"
