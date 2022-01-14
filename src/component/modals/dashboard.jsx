@@ -135,7 +135,7 @@ const Dashboard = ({admin, setAdmin}) => {
         <div className={'container'}>
             {!fullResult && loading && admin && serverInfo &&
             <div className='actionsContainer'>
-                <Button variant="outline-primary" onClick={startChampionnship}>Start a new championnship !</Button>
+                <Button variant="outline-primary" onClick={startChampionnship}>Start a new championship !</Button>
             </div>
             }              
             {infoNextRound && 
@@ -147,6 +147,7 @@ const Dashboard = ({admin, setAdmin}) => {
                         Server settings
                     </Button>
                 </div>
+                <hr/>
                 <div className="row">
                     <div className="infoNextRound col-md-8">
                         <h3>Info Next Round :</h3>
@@ -155,6 +156,7 @@ const Dashboard = ({admin, setAdmin}) => {
                                     return (<li key={i}>{label[0]} : {label[1]}</li>)
                                 })}
                             </ul>
+                        <hr/>
                         <h3>Starting grid :</h3> 
                         <StartingGrid gridNextRound={gridNextRound}/>
                         
@@ -180,6 +182,7 @@ const Dashboard = ({admin, setAdmin}) => {
                 </>
             }   
         </div>
+        <hr/>
         <ChampionnshipResult fullResult={fullResult}/>
         {
             modalInfo &&

@@ -201,29 +201,51 @@ const Dashboard = ({admin, setAdmin}) => {
                 }              
                 {infoNextRound && 
                     <>
-                        <div className="row">
                         {countdown !== false &&
-                            <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown}/>
+                            <div className="row">
+                                <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown}/>
+                            </div>
                         }
-                        </div>
-                        <div className="serverStatus ">
-
-                        {serverStatus ? <h4 className="up">{t("dashboard.serverStatusUp")}</h4> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
-                        <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                            {t("dashboard.serverSettings")}
-                        </Button>
-                        </div>
                         <div className="row">
-                            <div className="infoNextRound col-md-8">
-                                <h3>{t("dashboard.infoNextRound")}</h3>
-                                    <ul>
-                                        {infoNextRound.map((label, i) => {
-                                            return (<li key={i}>{label[0]} : {label[1]}</li>)
-                                        })}
-                                    </ul>
-                                <h3>{t("dashboard.startingGrid")}</h3> 
-                                <StartingGrid gridNextRound={gridNextRound}/>
-                                
+                            <div className="serverStatus ">
+
+                            {serverStatus ? <h4 className="up">{t("dashboard.serverStatusUp")}</h4> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
+                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                                {t("dashboard.serverSettings")}
+                            </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className="row">
+                            <div className="infoNextRound col-md-12">
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <h3>{t("dashboard.infoNextRound")}</h3>
+                                            <ul>
+                                                {infoNextRound.map((label, i) => {
+                                                    return (<li key={i}>{label[0]} : {label[1]}</li>)
+                                                })}
+                                            </ul>
+                                    </div>
+                                    {/* If user is connected */}
+                                    {  ('user' in cookies) &&
+                                        <div className="col-md-4">
+                                            <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
+                                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
+                                                {isAlreadyEventCreated ?
+                                                    t("dashboard.customEventEditBtn")
+                                                    :
+                                                    t("dashboard.customEventCreateBtn")
+                                                }
+                                            </Button>
+                                        </div>
+                                    }
+                                </div>
+                                <hr/>
+                                <div className="row">
+                                    <h3>{t("dashboard.startingGrid")}</h3>
+                                    <StartingGrid gridNextRound={gridNextRound}/>
+                                    </div>
                             {admin && 
                                 <div className="adminDiv">
                                 {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
@@ -235,23 +257,11 @@ const Dashboard = ({admin, setAdmin}) => {
                                 </div>
                             }
                             </div>
-                            {/* If user is connected */}
-                            {  ('user' in cookies) &&
-                                <div className="col-md-4">
-                                    <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
-                                    <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
-                                        {isAlreadyEventCreated ?
-                                            t("dashboard.customEventEditBtn")
-                                            :
-                                            t("dashboard.customEventCreateBtn")
-                                        }
-                                    </Button>
-                                </div>
-                            }
                         </div>
                         </>
                     }   
                 </div>
+                <hr/>
                 <ChampionnshipResult fullResult={fullResult}/>
                 {
                     modalInfo &&
