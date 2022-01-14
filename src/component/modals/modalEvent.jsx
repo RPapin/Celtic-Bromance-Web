@@ -158,30 +158,34 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
           </div>
           <div className="row">
            <h5>{t("customEvent.carSelection")}</h5>
+           <div className="row">
             <div className="col-md-2">
               <Button onClick={() => {setCarSelectionDisplay(!carSelectionDisplay)}}>
                 {carSelectionDisplay ? "Show individual car" : "Show car class"}</Button>
             </div>
-            <div className={carSelectionDisplay ? "col-md-10 ms-2" : "col-md-10 ms-2 car-full-list"}>
-              {carSelectionDisplay ?
-              // Car class selection
-              carClassList.map((param, i) => {
-                return (
-                <div className="form-check car-class" key={i}>
-                  <input className="form-check-input" type="checkbox" id={"carClass" + i} name={"carClass" + i} value={param.class} onChange={e => handleCarChange(e, i)} checked={param.available}></input>
-                  <label className="form-check-label">{param.class}</label>
-                </div>)
-              })
-                : 
-              // Car selection
-              carList.map((param, i) => {
+            </div>
+            <div className="row">
+              <div className={carSelectionDisplay ? "col-md-10 mx-auto" : "col-md-10 mx-auto car-full-list"}>
+                {carSelectionDisplay ?
+                // Car class selection
+                carClassList.map((param, i) => {
                   return (
-                  <div className="form-check form-check-inline car-individual" key={i}>
-                    <input className="form-check-input" type="checkbox" id={"car" + i} name={"car" + i} value={i} onChange={e => handleCarChange(e, i)} checked={param.available}></input>
-                    <label className="form-check-label">{param.model}</label>
+                  <div className="form-check car-class" key={i}>
+                    <input className="form-check-input" type="checkbox" id={"carClass" + i} name={"carClass" + i} value={param.class} onChange={e => handleCarChange(e, i)} checked={param.available}></input>
+                    <label className="form-check-label">{param.class}</label>
                   </div>)
                 })
-            }
+                  : 
+                // Car selection
+                carList.map((param, i) => {
+                    return (
+                    <div className="form-check form-check-inline car-individual" key={i}>
+                      <input className="form-check-input" type="checkbox" id={"car" + i} name={"car" + i} value={i} onChange={e => handleCarChange(e, i)} checked={param.available}></input>
+                      <label className="form-check-label">{param.model}</label>
+                    </div>)
+                  })
+              }
+              </div>
             </div>
           </div>
           <div className="row">
@@ -194,13 +198,13 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
                     return <option id={index} value={element}  key={index}>{element}</option>
                   })}
                 </select>
-            </div>
-            <div className="col-md-6 ms-2">
-            <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => setNightTime(!nightTime)} checked={nightTime}/>
-              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{t("customEvent.nightSelection")}</label>
-            </div>
-            </div>
+              </div>
+              <div className="col-md-6 pt-1">
+                <div className="form-check form-switch">
+                  <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => setNightTime(!nightTime)} checked={nightTime}/>
+                  <label className="form-check-label h5" htmlFor="flexSwitchCheckDefault">{t("customEvent.nightSelection")}</label>
+                </div>
+              </div>
           </div>
         </form>
         </Modal.Body>
