@@ -9,7 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 // import 'react-wheel-of-prizes/dist/index.css'
 
 
-const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
+const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
     const readData = new ReadData()
 
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
@@ -65,7 +65,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner}) => {
     <>
     {loading ?
         <div className="container">
-            <Button onClick={() => setShowWheel(false)}>Back</Button>
+            <Button onClick={() => {setShowWheel(false); getCountDown()}}>Back</Button>
             <Wheel items={userList} onFinished={onSelectItem} determinedWinner={determinedWinner} />
             {winner && 
             <div className="winner">The winner is : <h3>{winner}</h3></div>

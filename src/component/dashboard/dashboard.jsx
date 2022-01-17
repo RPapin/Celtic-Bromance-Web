@@ -118,6 +118,7 @@ const Dashboard = ({admin, setAdmin}) => {
             getNextRoundInfo(result['nextRoundInfo'])
         });
         eventSource.addEventListener("startCountdown", e =>{
+            console.log('start countdown')
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
         });
@@ -152,6 +153,7 @@ const Dashboard = ({admin, setAdmin}) => {
     }
     const getCountDown = async () => {
         let countdown = await readData.getLocalApi("check_countdown")
+        console.log("countdown " + countdown)
         if(countdown){
             startCountdown(countdown)
         }
@@ -166,6 +168,7 @@ const Dashboard = ({admin, setAdmin}) => {
     }
 
     useEffect( () => {
+        console.log('useEffect dash')
         if(!loading){
             seeResult()
             registerToSSE()
@@ -177,7 +180,7 @@ const Dashboard = ({admin, setAdmin}) => {
     <div className={'container'}>
         {
             showWheel ?
-            <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} />
+            <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} getCountDown={getCountDown}/>
             :
             <>
             {!serverInfo && loading ?
@@ -213,7 +216,7 @@ const Dashboard = ({admin, setAdmin}) => {
                     <>
                         {countdown !== false &&
                             <div className="row">
-                                <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown}/>
+                                <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown} />
                             </div>
                         }
                         <div className="row">
