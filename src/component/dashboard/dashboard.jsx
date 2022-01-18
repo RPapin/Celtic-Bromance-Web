@@ -222,7 +222,13 @@ const Dashboard = ({admin, setAdmin}) => {
                         <div className="row">
                             <div className="serverStatus ">
 
-                            {serverStatus ? <h4 className="up">{t("dashboard.serverStatusUp")}</h4> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
+                            {serverStatus ? <>
+                                <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
+                                <p>
+                                    <b>Name :</b> Fubarr's party <br/>
+                                    <b>Password :</b> beer
+                                </p>
+                                </> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
                             <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
                                 {t("dashboard.serverSettings")}
                             </Button>
