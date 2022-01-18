@@ -12,7 +12,6 @@ const LanguageSwitcher = ({}) => {
     const [language, setLanguage] = useState(i18n.language)
 
     const changeLanguage = (e) => {
-        console.log(e.target.checked)
         if(e.target.checked){
             setLanguage('en')
             i18n.changeLanguage('en');
@@ -20,13 +19,17 @@ const LanguageSwitcher = ({}) => {
             setLanguage('fr')
             i18n.changeLanguage('fr');
         }
-        
     }
+
+    // useEffect( () => { 
+    //     console.log('language ' + language )
+    //     console.log('i18n.language ' + i18n.language )
+    // })
     return (
         <div className='flexbox'>
             <img src={'../france.png'} className='languageLogo' id="leftFlag" alt="celtic-bromance.png" ></img>
             <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => changeLanguage(e)} checked={language == 'en'}/>
+              <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={e => changeLanguage(e)} checked={i18n.language == 'en'}/>
             </div>
             <img src={'../united_kingdom_great_britain.png'} className='languageLogo' alt="celtic-bromance.png" ></img>
         </div>

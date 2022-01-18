@@ -12,13 +12,18 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
     const { t, i18n } = useTranslation();
     const [logIn, setLogIn] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
+
     const logOut = () => {
+        setLogIn(false)
         removeCookie('user')
         removeCookie('name')
         setAdmin(false)
         localStorage.setItem('admin', false);
     }
-    
+    useEffect( () => {
+        
+        console.log('useEffect header ' + logIn)
+    }, [logIn])
     return (
     <div className={'header'}>
         <img src={'../CelticBromanceLogoFINAL.png'} className='topLogo' alt="celtic-bromance.png" ></img>
@@ -43,7 +48,7 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
         </Dropdown>
 
         {
-            logIn && 
+             logIn && 
             <ModalConnect setAdmin={setAdmin}/>
         }
 

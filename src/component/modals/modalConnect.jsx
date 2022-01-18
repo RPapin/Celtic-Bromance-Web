@@ -58,11 +58,12 @@ const ModalConnect = ({setAdmin}) => {
       setLoading(false)
     }
   }
-    useEffect( () => {
+    useEffect( () => { 
       if(loading)fetchDriver()
   })
   return (
     <>
+
     {!loading && 
       <Modal show={show} onHide={handleClose} backdrop='static'>
         <Modal.Header>
