@@ -3,32 +3,44 @@ import ReadData from '../../services/readData'
 import Button from 'react-bootstrap/Button';
 import './formula1.css'
 import NewNameplate from './formula1'
-import ChampionnshipResult from '../championnshipResult/championnshipResult';
-import ModalCheck from '../modals/modalCheck';
-
+import countries from "i18n-iso-countries"
+// var countries = require("i18n-iso-countries");
+// 
 
 const StartingGrid = ({gridNextRound}) => {
-    const [loading, setLoading] = useState(true)
+    
     const [currentGrid, setCurrentGrid] = useState(gridNextRound)
+    countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+
+    const teamsColor = ["mercedes",	"ferrari", "redbull", "alpine", "haas", "alphatauri", "williams", "astonmartin", "alfaromeo", "mclaren", "myteam"]
+        // {
+        //     "color" : "mercedes",
+        //     "cars": [""]
+        //     },
+
     useEffect( () => {
         document.getElementById('starting-grid').innerHTML = null;
         if(gridNextRound !== null){
             setCurrentGrid(gridNextRound)
             gridNextRound.forEach((element, i) => {
-    
+                //Get the abbr nationanilty
+                const natAbbr = countries.getAlpha2Code(element.nationality, "en") ? countries.getAlpha2Code(element.nationality, "en").toLocaleLowerCase() : 'pl'
+                //get colors
+                const vmax = teamsColor.length - 1
+                const generated = Math.floor(Math.random()*(vmax - 0 + 1) + 0);
                 const j = i +1 
                 const driverInfo = {
                     "grid": {
                         "position": j,
                         "state": "ontrack"
                     },
-                    "color": "williams",
+                    "color": teamsColor[generated],
                     "firstname": element.firstName,
                     "lastname": element.lastName,
                     "constructor": element.car,
                     "number": element.ballast,
                     "abbreviation": "KUB",
-                    "nationality": "pl"
+                    "nationality": natAbbr
                 }
                 NewNameplate(driverInfo, "#starting-grid");
             });
@@ -37,6 +49,7 @@ const StartingGrid = ({gridNextRound}) => {
     }, [gridNextRound])
     return (
         <div id="starting-grid"></div>
+
     )
 }
 
