@@ -14,7 +14,6 @@ const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
             if(adminLocal === "true"){
                 lunchServer()
             }
-            
         }
         else if (mins === 0 && secs === 0) {
             setTime([hrs - 1, 59, 59]);
@@ -27,10 +26,8 @@ const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
 
 
     const reset = () => setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)]);
-
     
     React.useEffect(() => {
-
         const timerId = setInterval(() => tick(), 1000);
         return () => clearInterval(timerId);
     });

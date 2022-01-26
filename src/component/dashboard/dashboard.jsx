@@ -33,7 +33,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [showWheel, setShowWheel] = useState(false)
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
-    const [countdown, setCountdown] = useState(false)
+    const [countdownState, setCountdown] = useState(false)
 
 
     const getNextRoundInfo = (nextRoundInfo) => {
@@ -92,7 +92,6 @@ const Dashboard = ({admin, setAdmin}) => {
             setNewResult('Championship has been reset')
             setServerInfo(true)
         } else setServerInfo(false)
-
     }
     const registerToSSE =  async () => {
         const url = await readData.getTunnelUrl()
@@ -118,7 +117,6 @@ const Dashboard = ({admin, setAdmin}) => {
             getNextRoundInfo(result['nextRoundInfo'])
         });
         eventSource.addEventListener("startCountdown", e =>{
-            console.log('start countdown')
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
         });
@@ -138,10 +136,12 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }
     const startCountdown= (countdownSec ) => {
+        setCountdown(false)
         var hours = Math.floor(countdownSec / 60 / 60);
         var minutes = Math.floor(countdownSec / 60) - (hours * 60);
         var seconds = countdownSec % 60;
         const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
+        console.log("countdown full " + countdownFinal.minutes + ":" + countdownFinal.seconds)
         setCountdown(countdownFinal)
     }
     const getCustomEvent = async () => {
@@ -159,7 +159,7 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }
     const toggleCountdown = async () => {
-        if(countdown === false){
+        if(countdownState === false){
             let countdown = await readData.getLocalApi("get_countdown_value")
             readData.postLocalApi("start_countdown", countdown)
         } else {
@@ -175,7 +175,7 @@ const Dashboard = ({admin, setAdmin}) => {
             getCustomEvent()
             getCountDown()
         }
-    }, [])
+    }, [countdownState])
     return (
     <div className={'container'}>
         {
@@ -194,7 +194,7 @@ const Dashboard = ({admin, setAdmin}) => {
                     <div className="actionsContainer m-2">
                         <Button variant="primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
                         <Button variant="primary" onClick={toggleCountdown}>{
-                        countdown ? 
+                        countdownState ? 
                             "Stop the countdown"
                             :
                             "Start the countdown"
@@ -214,9 +214,9 @@ const Dashboard = ({admin, setAdmin}) => {
                 }              
                 {infoNextRound && 
                     <>
-                        {countdown !== false &&
+                        {countdownState !== false &&
                             <div className="row">
-                                <CountDownTimer hoursMinSecs={countdown} lunchServer={lunchServer} setCountdown={setCountdown} />
+                                <CountDownTimer hoursMinSecs={countdownState} lunchServer={lunchServer} setCountdown={setCountdown} />
                             </div>
                         }
                         <div className="row">

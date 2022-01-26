@@ -48,7 +48,7 @@
     "name" : "Nom",
     "car" : "Voiture",
     "point" : "Point",
-    "positionGained" : "Position gagnée",
+    "positionGained" : "Position gagnée/perdu",
     "totalPoint" : "Total de points",
     "race" : "Course"
   },
