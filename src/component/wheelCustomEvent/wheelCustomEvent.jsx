@@ -1,8 +1,7 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import ReadData from '../../services/readData'
-import Dropdown from 'react-bootstrap/Dropdown';
 import './wheelCustomEvent.css'
-import { useCookies } from 'react-cookie';
 import Wheel from '../wheel/wheel';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -12,7 +11,6 @@ import Spinner from 'react-bootstrap/Spinner';
 const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
     const readData = new ReadData()
 
-    const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const [loading, setLoading] = useState(false)
     const [userList, setUserList] = useState([])
     const [winner, setWinner] = useState(false)
@@ -24,7 +22,6 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
             setCustomEvent(customEvent)
-            
             users.push(customEvent[index]['userName'])
         })
         setUserList(users)
@@ -39,7 +36,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
         if(!loading){
             fecthCustomEvent()
         }
-    }, [])
+    })
 
     const onSelectItem = (winner, determinedWinnerLocal) => {
         if(winner !== false){

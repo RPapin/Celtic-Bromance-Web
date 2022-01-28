@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -8,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 const ChampionnshipResult = (props) => {  
     const colors = ['#dc0000', '#0600ef', '#006f62', '#2b4562', '#760163', '#267601']
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [currentTab, setCurrentTab] = useState('Standings');
     const positionColor = ['gold', 'silver', 'bronze']
     const displayStandings = (raceNumber) => {
@@ -23,19 +24,13 @@ const ChampionnshipResult = (props) => {
                     if(element['playerId'] === playerId){
                         //Check du podium
                         if(element['position'] <= positionColor.length)classe = positionColor[element['position'] - 1]
-                        // check du swap color
-                        // let style = {
-                        //     borderStyle: 'solid',
-                        //     borderWidth: '2px',
-                        //     borderColor: getSwappedColor(element, false, swappedPosition)
-                        // };
-                        let style = {}
-                        return <td key={playerId + i} className={'tdNumber '}><span className={'spanTd ' + classe} style={style}>{element['position']} </span></td>
+                        // check du swap 
+                        let htmlSwapped = element['swapped_with'] != null ? "(" + element['swapped_with'] + ")" : ""
+                        return <td key={playerId + i} className={'tdNumber '}><span className={'spanTd ' + classe}>{element['position']} </span > <span className={'html-swapped'}>{htmlSwapped}</span></td>
                     }//The driver DNS the race 
                     else if(j === answer[i + 1].length){
                         return <td key={playerId + i}>DNS</td>
                     } else j ++
-                
                 })
             })
             return inter
@@ -71,7 +66,6 @@ const ChampionnshipResult = (props) => {
                 <tbody>
                     
                     {props.fullResult['championnshipStanding'].map((driverInfo, i) => {     
-                        let swappedPosition = []
                         return (<tr key={i}><td></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td> {renderRacePosition(driverInfo['playerId'])}<td>{driverInfo['point']}</td></tr>) 
                     })}
                     

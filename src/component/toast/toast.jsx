@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import './toast.css'
 
@@ -6,13 +6,7 @@ import './toast.css'
 
 const ToastCustom = ({positionX, positionY, color, hideToast}) => {
     
-    const { t, i18n } = useTranslation();
-    const [openModal, setOpenModal] = useState(false)
-
-
-    const closeModal = () => {
-      setOpenModal(false)
-    }
+    const { t, } = useTranslation();
 
     useEffect( () => {
         setTimeout(() => {
@@ -31,7 +25,6 @@ const ToastCustom = ({positionX, positionY, color, hideToast}) => {
     </div>
     </div>
     );
-
 }
 
 export default ToastCustom

@@ -3,13 +3,12 @@ import Button from 'react-bootstrap/Button';
 import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
 import './modalCheck.css'
-import Form from 'react-bootstrap/Form'
 import { useCookies } from 'react-cookie';
 
 
 const ModalConnect = ({setAdmin}) => {
 
-  const [cookies, setCookie] = useCookies(['user']);
+  const [, setCookie] = useCookies(['user']);
   const readData = new ReadData()
   const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);

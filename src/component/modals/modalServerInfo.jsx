@@ -1,15 +1,14 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
 import './modalServerInfo.css'
-import Form from 'react-bootstrap/Form'
-import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';
 
 
 const ModalServerInfo = ({setModalInfo}) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const readData = new ReadData()
   // const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -42,7 +41,7 @@ const ModalServerInfo = ({setModalInfo}) => {
     Object.keys(paramFromApi['paramList']).map((fileName) => {
       paramFromApi['paramList'][fileName].map((param, i) => {
         list[param.name] = param.currentValue
-        if(param.name == 'weatherWeightConfiguration'){
+        if(param.name === 'weatherWeightConfiguration'){
           list['weatherPct'] = getWeatherPct(param.currentValue)
         }
     })

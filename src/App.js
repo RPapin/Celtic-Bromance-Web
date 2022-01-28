@@ -4,7 +4,6 @@ import Dashboard from './component/dashboard/dashboard';
 import Header from './component/header/header';
 import ModalConnect from './component/modals/modalConnect';
 import React, { useState, useEffect } from 'react'
-import ReadData from './services/readData'
 import OlderResult from './component/olderResult/olderResult';
 import { useCookies } from 'react-cookie';
 
@@ -17,7 +16,6 @@ function App() {
 
   useEffect(() => {
     console.log(cookies)
-    console.log('user' in cookies)
     let adminLocal = localStorage.getItem('admin')
     if(adminLocal !== "false")setAdmin(adminLocal)
   })

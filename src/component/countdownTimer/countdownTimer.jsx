@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './countdownTimer.css'
 
 const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
    
     const { hours = 0, minutes = 0, seconds = 60 } = hoursMinSecs;
     const [[hrs, mins, secs], setTime] = React.useState([hours, minutes, seconds]);
-    const [isRunningOut, setRunningOut] = useState(false)
 
     const tick = () => {
         if (hrs === 0 && mins === 0 && secs === 0){
@@ -23,9 +22,6 @@ const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
             setTime([hrs, mins, secs - 1]);
         }
     };
-
-
-    const reset = () => setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)]);
     
     React.useEffect(() => {
         const timerId = setInterval(() => tick(), 1000);

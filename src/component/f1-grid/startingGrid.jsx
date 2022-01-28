@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ReadData from '../../services/readData'
-import Button from 'react-bootstrap/Button';
 import './formula1.css'
 import NewNameplate from './formula1'
 import countries from "i18n-iso-countries"
@@ -9,7 +7,7 @@ import countries from "i18n-iso-countries"
 
 const StartingGrid = ({gridNextRound}) => {
     
-    const [currentGrid, setCurrentGrid] = useState(gridNextRound)
+    const [, setCurrentGrid] = useState(gridNextRound)
     countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
     const teamsColor = ["mercedes",	"ferrari", "redbull", "alpine", "haas", "alphatauri", "williams", "astonmartin", "alfaromeo", "mclaren", "myteam"]

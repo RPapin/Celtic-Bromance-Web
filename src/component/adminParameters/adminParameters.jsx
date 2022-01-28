@@ -1,6 +1,7 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
-import Accordion, {Item} from 'react-bootstrap/Accordion'
+import Accordion from 'react-bootstrap/Accordion'
 import './adminParameters.css'
 import ReadData from '../../services/readData'
 import ToastCustom from '../toast/toast';

@@ -1,15 +1,15 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
 import './modalEvent.css'
-import Form from 'react-bootstrap/Form'
 import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';
 
 const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCreated}) => {
  
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const readData = new ReadData()
   // const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);    
@@ -31,8 +31,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
   const fetchServerInfo = async () => {
     setLoading(false)
     let paramFromApi = await readData.getLocalApi("get_param_list")
-    //For testing purpose
-    let list = []
     //For testing purpose
     let trackList = []
     let carList = []

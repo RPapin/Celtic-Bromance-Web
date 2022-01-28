@@ -8,13 +8,13 @@ import { useTranslation } from 'react-i18next';
 
 
 const Joker = ({seeResult, updateJoker, serverStatus}) => {
-  const { t, i18n } = useTranslation();
+  const { t, } = useTranslation();
     const readData = new ReadData()
     const [openModal, setOpenModal] = useState(false)
     const [actionContext, setActionContext] = useState()
     const [swapCar, setSwapCar] = useState(null)
     const [swapPoint, setswapPoint] = useState(null)
-    const [cookies, setCookie] = useCookies(['user']);
+    const [cookies, ] = useCookies(['user']);
 
     const getJokerNumber = () => {
       readData.getLocalApi("get_param_list").then( response => {

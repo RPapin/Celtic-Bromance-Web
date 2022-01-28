@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';
 
 
 const ModalChooseDriver = (props) => {
-  const { t, i18n } = useTranslation();
+  const { t, } = useTranslation();
   const readData = new ReadData()
-  const [cookies, setCookie] = useCookies(['user']);
+  const [cookies, ] = useCookies(['user']);
   const [loading, setLoading] = useState(true);
   const [selectDriver, setSelectDriver] = useState([])
   const [driverSelected, setDriverSelected] = useState([])
