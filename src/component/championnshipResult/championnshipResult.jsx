@@ -25,7 +25,8 @@ const ChampionnshipResult = (props) => {
                         //Check du podium
                         if(element['position'] <= positionColor.length)classe = positionColor[element['position'] - 1]
                         // check du swap 
-                        let htmlSwapped = element['swapped_with'] != null ? "(" + element['swapped_with'] + ")" : ""
+                        let htmlSwapped = element['swapped_with'] != null ? "(" + element['swapped_with'] + ")" : "";
+                        htmlSwapped = "";
                         return <td key={playerId + i} className={'tdNumber '}><span className={'spanTd ' + classe}>{element['position']} </span > <span className={'html-swapped'}>{htmlSwapped}</span></td>
                     }//The driver DNS the race 
                     else if(j === answer[i + 1].length){
@@ -89,7 +90,8 @@ const ChampionnshipResult = (props) => {
                     </thead>
                     <tbody>
                         {props.fullResult['raceResult'][raceNumber][raceNumber + 1].map((driverInfo, i) => {                               
-                            let style = {backgroundColor: getSwappedColor(driverInfo, true, swappedPosition)};
+                            // let style = {backgroundColor: getSwappedColor(driverInfo, true, swappedPosition)};
+                            let style = {};
                             return (<tr key={i}><td className={'tdNumber '} ><span className='spanTd' style={style}>{i + 1}</span></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td><td>{driverInfo['carName']}</td><td>{driverInfo['point']}</td><td>{driverInfo['starting_place'] - driverInfo['position']}</td></tr>) 
                         })}
                         

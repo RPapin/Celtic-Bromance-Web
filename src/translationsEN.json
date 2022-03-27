@@ -1,4 +1,10 @@
 {
+  "connect" : {
+    "notInList": "You are not in the list ? ",
+    "connect": "Sign in",
+    "thoughSteam" : "Use Steam",
+    "fillForm" : "Fill this form !"
+  },
   "menu" : {
     "login": "Log in",
     "logout": "Log out",

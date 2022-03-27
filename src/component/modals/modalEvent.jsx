@@ -29,7 +29,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
 
 
   const fetchServerInfo = async () => {
-    setLoading(false)
+    
     let paramFromApi = await readData.getLocalApi("get_param_list")
     //For testing purpose
     let trackList = []
@@ -56,7 +56,8 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
         "index" : index,
         "available": false,
         "model": paramFromApi['cars'][index]['model'],
-        "class": paramFromApi['cars'][index]['class']
+        "class": paramFromApi['cars'][index]['class'],
+        "DLC": paramFromApi['cars'][index]['DLC'],
       })
     })
     Object.keys(paramFromApi['weather']).map((value, index) => {
@@ -68,6 +69,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     //fetch previously created event
     if(isAlreadyEventCreated){
       let customEvent = await readData.getLocalApi("fetch_custom_event")
+      setLoading(false)
       Object.keys(customEvent).map((index) => {
           if(customEvent[index]['steam id '] === cookies['user']){
             let carSelectedList = []
@@ -86,7 +88,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
           }
       })
     }
-
+    setLoading(false)
   }
   const handleCarChange = (e, index) => {
     if(carSelectionDisplay){
@@ -118,6 +120,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
   }
 
   const handleSubmitCustomEvent = async (e) => {
+    console.log(carList)
     e.preventDefault()
     const eventParam = {
       "steam id ": cookies['user'],
@@ -136,8 +139,10 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
   })
   return (
     <>
-    {!loading && 
+    
       <Modal show={true} onHide={handleClose} dialogClassName="modal-90w">
+      {!loading && 
+      <>
         <Modal.Header>
           <Modal.Title>{t("customEvent.createCustomEvent")}</Modal.Title>
         </Modal.Header>
@@ -214,8 +219,10 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
            {t("close")}
           </Button>
         </Modal.Footer>
+        </>
+        }
       </Modal>
-    }
+    
     </>
   );
 }
