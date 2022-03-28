@@ -19,14 +19,14 @@
     "swapPointAvailable": "Nombre de changements de point restant : ",
     "SwapCarBtn": "Changer de voiture",
     "SwapPointBtn": "Voler les points",
-    "customEventEditBtn": "Modifier l'évenement personnalisé",
-    "customEventCreateBtn": "Creer un évenement personnalisé",
+    "customEventEditBtn": "Modifier l'événement personnalisé",
+    "customEventCreateBtn": "Creer un événement personnalisé",
     "startingGrid": "Grille de départ :",
     "infoNextRound": "Information de la prochaine manche :"
 
   },
   "customEvent" : {
-    "createCustomEvent" : "Creer un évenement personnalisé",
+    "createCustomEvent" : "Creer un événement personnalisé",
     "trackSelection" : "Choisir un circuit",
     "carSelection": "Choisir les voitures",
     "weatherSelection": "Choisir la météo",
@@ -61,6 +61,25 @@
   "toast" : {
     "updateSuceed" : "Mise à jour réussi !",
     "info" : "Info"
+  },
+  "tutorial" : {
+    "firstTime": "Première fois ici ?",
+    "seeRules": "Clique pour voir les règles",
+    "welcome" : "Bienvenu au Fubarr's Party Night",
+    "serverInfoTitle": "Informations du server",
+    "serverInfo1" : "Nom du server : Fubarr's party",
+    "serverInfo2" : "Mot de passe : beer",
+    "formatTitle" : "Format",
+    "formatText" : "Le championnat commence à 20h CET. Les sessions sont de 6 minutes d'entraînement et de 12-15 minutes de courses.\n Une nouvelle course a lieu toutes les 30 minutes. Nous faisons généralement 5-6 courses en une soirée.\n La grille de départ est automatiquement déterminée par l'inverse de l'ordre du championnat. Chaque voiture, circuit et météo sont choisis au hasard",
+    "customEventTitle" : "Evénement personnalisé",
+    "customEventText" : "Vous avez la possibilité de créer votre propre événement. Après avoir cliqué sur le bouton suivant, vous pouvez choisir une piste, une liste de voiture (individuellement ou par classe) et une météo.",
+    "wheelTitle" : "LA ROUE DE LA MORT",
+    "wheelText": "Aléatoirement pendant la soirée, l'admin peut lancer la roue de la mort. Dans celle-ci, on retrouve le nom de chaque participant qui a créé un événement personnalisé. Une fois que quelqu'un est choisi, la prochaine course suivra les paramètres définis par cette utilisateur.",
+    "swapCarTitle" : "Echange de voiture",
+    "swapCarText" : "Pendant tout le championnat, vous aurez un nombre déterminé de jokers. Celui-ci, vous fera échanger votre voiture avant le début de la prochaine course. Ceci est utile lorsque vous voulez éviter de conduire une poubelle",
+    "swapPointTitle" : "Echange de point",
+    "swapPointText" : "Avec celui-ci, vous pouvez secrètement choisir une victime qui sera obligée d'échanger ses points avec vous après la course. Cependant il existe des règles de base : \n - Si votre victime termine derrière vous, il n'y a pas d'échange. \n - Si vous terminez dernier, il n'y a pas d'échange (cela évite de faire exprès) \n - Vous ne pouvez être victime qu'une seule fois dans un championnat",
+    "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page."
   },
   "save" : "Confirmer",
   "close" : "Fermer",
