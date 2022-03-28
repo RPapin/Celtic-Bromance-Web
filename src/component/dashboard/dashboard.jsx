@@ -13,6 +13,7 @@ import AdminParameters from '../adminParameters/adminParameters';
 import Joker from '../joker/joker';
 import ModalServerInfo from '../modals/modalServerInfo';
 import ModalEvent from '../modals/modalEvent';
+import ModalTutorial from '../modals/modalTutorial';
 import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
 
@@ -32,6 +33,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [modalInfo, setModalInfo] = useState(false)
     const [modalEvent, setModalEvent] = useState(false)
     const [showWheel, setShowWheel] = useState(false)
+    const [showTutorial, setShowTutorial] = useState(false)
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
     const [countdownState, setCountdown] = useState(false)
@@ -179,6 +181,15 @@ const Dashboard = ({admin, setAdmin}) => {
     }, [countdownState])
     return (
     <div className={'container'}>
+        <div className='tutorialLink'>
+            {t("tutorial.firstTime")} &nbsp;
+            <a href="#" onClick={() => {setShowTutorial(true)}}>{t("tutorial.seeRules")}</a>
+        </div>
+        {
+            showTutorial &&
+            <ModalTutorial setShowTutorial={setShowTutorial}/>
+
+        }
         {
             showWheel ?
             <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} getCountDown={getCountDown}/>
