@@ -22,8 +22,8 @@
     "customEventEditBtn": "Edit custom event",
     "customEventCreateBtn": "Create custom event",
     "startingGrid": "Starting grid :",
-    "infoNextRound": "Information for the next round :"
-
+    "infoNextRound": "Information for the next round :",
+    "waitingGrid": "Waiting for the new grid to be generated ..."
   },
   "customEvent" : {
     "createCustomEvent" : "Create custom event",

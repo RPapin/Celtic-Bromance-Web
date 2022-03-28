@@ -32,6 +32,7 @@ const Dashboard = ({admin, setAdmin}) => {
     const [updateJoker, setUpdateJoker] = useState(0)
     const [modalInfo, setModalInfo] = useState(false)
     const [modalEvent, setModalEvent] = useState(false)
+    const [waitingGrid, setWaitingGrid] = useState(false)
     const [showWheel, setShowWheel] = useState(false)
     const [showTutorial, setShowTutorial] = useState(false)
     const [determinedWinner, setDeterminedWinner] = useState(false)
@@ -48,6 +49,7 @@ const Dashboard = ({admin, setAdmin}) => {
         setInfoNextRound(eventInfoArray)
         setNewResult(nextRoundInfo.foundNewResults)   
         setUpdateJoker(updateJoker + 1)
+        setWaitingGrid(false)
     }
 
     const startChampionnship = async () => {
@@ -101,7 +103,12 @@ const Dashboard = ({admin, setAdmin}) => {
         const eventSource = new EventSource(url + "events");
         eventSource.addEventListener("dataUpdate", e =>{
             const result = JSON.parse(e.data)
-            getNextRoundInfo(result['nextRoundInfo'])
+            const size = Object.keys(result['nextRoundInfo']).length;
+            console.log(result)
+            if(size !== 0)getNextRoundInfo(result['nextRoundInfo'])
+            else {
+                setWaitingGrid(true)
+            }
             setFullResult(result['standings'])
             setServerInfo(true)
             setServerStatus(result['serverStatus'])
@@ -275,7 +282,10 @@ const Dashboard = ({admin, setAdmin}) => {
                                 <hr/>
                                 <div className="row">
                                     <h3>{t("dashboard.startingGrid")}</h3>
-                                    <StartingGrid gridNextRound={gridNextRound}/>
+                                    {!waitingGrid ? 
+                                        <StartingGrid gridNextRound={gridNextRound}/> :
+                                        <p>{t("dashboard.waitingGrid")}</p>
+                                    }
                                     </div>
                             {admin && 
                                 <div className="adminDiv">

@@ -1,6 +1,6 @@
 {  
   "connect" : {
-    "notInList": "Vous n'etez pas dans la liste ? ",
+    "notInList": "Vous n'êtes pas dans la liste ? ",
     "connect": "Se connecter",
     "thoughSteam" : "Utiliser Steam",
     "fillForm" : "Remplir ce formulaire !"
@@ -22,7 +22,8 @@
     "customEventEditBtn": "Modifier l'événement personnalisé",
     "customEventCreateBtn": "Creer un événement personnalisé",
     "startingGrid": "Grille de départ :",
-    "infoNextRound": "Information de la prochaine manche :"
+    "infoNextRound": "Information de la prochaine manche :",
+    "waitingGrid": "En attente de la nouvelle grille ..."
 
   },
   "customEvent" : {
