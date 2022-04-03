@@ -67,7 +67,7 @@ const ChampionnshipResult = (props) => {
                 <tbody>
                     
                     {props.fullResult['championnshipStanding'].map((driverInfo, i) => {     
-                        return (<tr key={i}><td></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td> {renderRacePosition(driverInfo['playerId'])}<td>{driverInfo['point']}</td></tr>) 
+                        return (<tr key={i}><td>{i + 1}</td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td> {renderRacePosition(driverInfo['playerId'])}<td>{driverInfo['point']}</td></tr>) 
                     })}
                     
                 </tbody>
@@ -92,7 +92,7 @@ const ChampionnshipResult = (props) => {
                         {props.fullResult['raceResult'][raceNumber][raceNumber + 1].map((driverInfo, i) => {                               
                             // let style = {backgroundColor: getSwappedColor(driverInfo, true, swappedPosition)};
                             let style = {};
-                            return (<tr key={i}><td className={'tdNumber '} ><span className='spanTd' style={style}>{i + 1}</span></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td><td>{driverInfo['carName']}</td><td>{driverInfo['point']}</td><td>{driverInfo['starting_place'] - driverInfo['position']}</td></tr>) 
+                            return (<tr key={i}><td className={'tdNumber '} ><span className='spanTd' >{i + 1}</span></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td><td>{driverInfo['carName']}</td><td>{driverInfo['point']}</td><td>{driverInfo['starting_place'] - driverInfo['position']}</td></tr>) 
                         })}
                         
                     </tbody>
