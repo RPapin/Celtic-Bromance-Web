@@ -26,12 +26,10 @@ export default function NewNameplate(json, target) {
 	let lastname = ElementAndClass("span", "lastname");
 	lastname.innerText = json.lastname;
 	let number = ElementAndClass("span", `number color-glow-${json.color}`);
-	number.innerText = json.number;
 	name.appendChild(firstname);
 	name.appendChild(lastname);
 	name.appendChild(number);
 	let team = ElementAndClass("div", "constructor");
-	team.innerText = json.constructor;
 	driver.appendChild(name);
 	driver.appendChild(team);
 	a.appendChild(driver);

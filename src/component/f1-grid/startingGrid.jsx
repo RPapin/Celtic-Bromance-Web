@@ -35,8 +35,6 @@ const StartingGrid = ({gridNextRound}) => {
                     "color": teamsColor[generated],
                     "firstname": element.firstName,
                     "lastname": element.lastName,
-                    "constructor": element.car,
-                    "number": element.ballast,
                     "abbreviation": "KUB",
                     "nationality": natAbbr
                 }
