@@ -23,7 +23,9 @@
     "customEventCreateBtn": "Create custom event",
     "startingGrid": "Starting grid :",
     "infoNextRound": "Information for the next round :",
-    "waitingGrid": "Waiting for the new grid to be generated ..."
+    "waitingGrid": "Waiting for the new grid to be generated ...",
+    "notInGrid": "Not in the grid ?",
+    "getInGrid": "Find a spot in the grid !"
   },
   "customEvent" : {
     "createCustomEvent" : "Create custom event",
@@ -70,7 +72,7 @@
     "serverInfo1" : "Server name : Fubarr's party",
     "serverInfo2" : "Password : beer",
     "formatTitle" : "Format",
-    "formatText" : "The party begins at 7pm BST. The sessions are 6 minutes of practice and 12-15 minutes of races.\n A new race start every 30 minutes. We are usually doing 5-6 races in one evening.\n Starting grid is automatically determined by reverse of the championship order. Each car, track and weather are chosen randomly. ",
+    "formatText" : "The party begins at 4pm BST. The sessions are 6 minutes of practice and 12-15 minutes of races.\n A new race start every 30 minutes. We are usually doing 5-6 races in one evening.\n Starting grid is automatically determined by reverse of the championship order. Each car, track and weather are chosen randomly. ",
     "customEventTitle" : "Custom events",
     "customEventText" : "You have the ability to create you're own event. After clicking the following button, you can choose a track, a pool of car (individually or by class) and a weather.",
     "wheelTitle" : "WHEEL OF DEATH",
@@ -81,7 +83,7 @@
     "swapPointText" : "With this one, you can secretly choose a victim which will be forced to swap his pointe with you after the race. However there are basics rules : \n - If your victim finish behind you, there is no swap. \n - If you finish last, there is no swap (avoid extreme sand-bagging) \n - You can only be the victim once in a championship ",
     "leaderboardText" : "You can find the leaderboard and the result of each race at the bottom of the page."
   },
-  "save" : "save",
-  "close" : "close",
-  "test" : "aaa"
+  "save" : "Save",
+  "close" : "Close",
+  "goBack" : "Back"
 }

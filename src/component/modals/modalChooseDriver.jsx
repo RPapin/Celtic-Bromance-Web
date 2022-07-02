@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import ReadData from '../../services/readData'
+import ReadData from '../../services/readData';
 import Modal from 'react-bootstrap/Modal';
 import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';

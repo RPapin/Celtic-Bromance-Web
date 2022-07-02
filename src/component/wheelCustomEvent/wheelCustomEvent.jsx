@@ -5,12 +5,13 @@ import './wheelCustomEvent.css'
 import Wheel from '../wheel/wheel';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import { useTranslation } from 'react-i18next';
 // import 'react-wheel-of-prizes/dist/index.css'
 
 
 const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
     const readData = new ReadData()
-
+    const { t, } = useTranslation();
     const [loading, setLoading] = useState(false)
     const [userList, setUserList] = useState([])
     const [winner, setWinner] = useState(false)
@@ -62,7 +63,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
     <>
     {loading ?
         <div className="container">
-            <Button onClick={() => {setShowWheel(false); getCountDown()}}>Back</Button>
+            <Button onClick={() => {setShowWheel(false); getCountDown()}}>{t("goBack")}</Button>
             <Wheel items={userList} onFinished={onSelectItem} determinedWinner={determinedWinner} />
             {winner && 
             <div className="winner">The winner is : <h3>{winner}</h3></div>

@@ -23,8 +23,9 @@
     "customEventCreateBtn": "Creer un événement personnalisé",
     "startingGrid": "Grille de départ :",
     "infoNextRound": "Information de la prochaine manche :",
-    "waitingGrid": "En attente de la nouvelle grille ..."
-
+    "waitingGrid": "En attente de la nouvelle grille ...",
+    "notInGrid": "Pas dans la grille de départ ?",
+    "getInGrid": "Rajoute moi pour la prochaine course !"
   },
   "customEvent" : {
     "createCustomEvent" : "Creer un événement personnalisé",
@@ -71,7 +72,7 @@
     "serverInfo1" : "Nom du server : Fubarr's party",
     "serverInfo2" : "Mot de passe : beer",
     "formatTitle" : "Format",
-    "formatText" : "Le championnat commence à 20h CET. Les sessions sont de 6 minutes d'entraînement et de 12-15 minutes de courses.\n Une nouvelle course a lieu toutes les 30 minutes. Nous faisons généralement 5-6 courses en une soirée.\n La grille de départ est automatiquement déterminée par l'inverse de l'ordre du championnat. Chaque voiture, circuit et météo sont choisis au hasard",
+    "formatText" : "Le championnat commence à 17h CET. Les sessions sont de 6 minutes d'entraînement et de 12-15 minutes de courses.\n Une nouvelle course a lieu toutes les 30 minutes. Nous faisons généralement 5-6 courses en une soirée.\n La grille de départ est automatiquement déterminée par l'inverse de l'ordre du championnat. Chaque voiture, circuit et météo sont choisis au hasard",
     "customEventTitle" : "Evénement personnalisé",
     "customEventText" : "Vous avez la possibilité de créer votre propre événement. Après avoir cliqué sur le bouton suivant, vous pouvez choisir une piste, une liste de voiture (individuellement ou par classe) et une météo.",
     "wheelTitle" : "LA ROUE DE LA MORT",
@@ -84,6 +85,6 @@
   },
   "save" : "Confirmer",
   "close" : "Fermer",
-  "test" : "bbb"
+  "goBack" : "Retour"
   
 }

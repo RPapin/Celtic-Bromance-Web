@@ -16,6 +16,7 @@ import ModalEvent from '../modals/modalEvent';
 import ModalTutorial from '../modals/modalTutorial';
 import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
+import GridSpotFinder from '../gridSpotFinder/gridSpotFinder';
 
 const Dashboard = ({admin, setAdmin}) => {
     const { t,  } = useTranslation();
@@ -38,7 +39,20 @@ const Dashboard = ({admin, setAdmin}) => {
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
     const [countdownState, setCountdown] = useState(false)
+    const [isInGrid, setIsInGrid] = useState(false)
 
+
+    const checkIsIngrid = () => {
+
+        console.log('checkIsIngrid')
+        console.log(gridNextRound)
+        if(gridNextRound){
+            const userIngrid = gridNextRound.find(element => element.playerID === cookies['user'])
+            
+            if(userIngrid === undefined)setIsInGrid(true)
+            else setIsInGrid(false)
+        }
+    }
 
     const getNextRoundInfo = (nextRoundInfo) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
@@ -178,14 +192,14 @@ const Dashboard = ({admin, setAdmin}) => {
     }
 
     useEffect( () => {
-        console.log('useEffect dash')
+        checkIsIngrid()
         if(!loading){
             seeResult()
             registerToSSE()
             getCustomEvent()
             getCountDown()
         }
-    }, [countdownState])
+    }, [countdownState, gridNextRound])
     return (
     <div className={'container'}>
         <div className='tutorialLink'>
@@ -280,6 +294,7 @@ const Dashboard = ({admin, setAdmin}) => {
                                     }
                                 </div>
                                 <hr/>
+                                {isInGrid && <><GridSpotFinder/><hr/></>}
                                 <div className="row">
                                     <h3>{t("dashboard.startingGrid")}</h3>
                                     {!waitingGrid ? 
