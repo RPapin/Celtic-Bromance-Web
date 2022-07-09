@@ -43,9 +43,6 @@ const Dashboard = ({admin, setAdmin}) => {
 
 
     const checkIsIngrid = () => {
-
-        console.log('checkIsIngrid')
-        console.log(gridNextRound)
         if(gridNextRound){
             const userIngrid = gridNextRound.find(element => element.playerID === cookies['user'])
             
@@ -58,9 +55,10 @@ const Dashboard = ({admin, setAdmin}) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
         const gridInfo = JSON.parse(JSON.stringify(nextRoundInfo.usersInfo.usersInfo))
         let eventInfoArray = [] 
-        Object.keys(eventInfo).forEach(key => eventInfoArray.push([key, eventInfo[key]]))
+        console.log(eventInfo)
+        // Object.keys(eventInfo).forEach(key => eventInfoArray.push([key, eventInfo[key]]))
         setGridNextRound(gridInfo)
-        setInfoNextRound(eventInfoArray)
+        setInfoNextRound(eventInfo)
         setNewResult(nextRoundInfo.foundNewResults)   
         setUpdateJoker(updateJoker + 1)
         setWaitingGrid(false)
@@ -74,7 +72,6 @@ const Dashboard = ({admin, setAdmin}) => {
         } else setServerInfo(false)
     }
     const lunchServer = async () => {
-        console.log('lunchServer')
         let serverStatus = await readData.getLocalApi("launch_server")
         setServerStatus(serverStatus['serverStatus'])
     }
@@ -118,7 +115,6 @@ const Dashboard = ({admin, setAdmin}) => {
         eventSource.addEventListener("dataUpdate", e =>{
             const result = JSON.parse(e.data)
             const size = Object.keys(result['nextRoundInfo']).length;
-            console.log(result)
             if(size !== 0)getNextRoundInfo(result['nextRoundInfo'])
             else {
                 setWaitingGrid(true)
@@ -150,7 +146,6 @@ const Dashboard = ({admin, setAdmin}) => {
         let adminLocal = localStorage.getItem('admin')
         if(adminLocal === 'false' || adminLocal === null){
             eventSource.addEventListener("syncWheel", e =>{
-                console.log("call to sync")
                 let result = JSON.parse(e.data)
                 setDeterminedWinner(result)
                 //reload component to lauch the "didMount"
@@ -165,7 +160,6 @@ const Dashboard = ({admin, setAdmin}) => {
         var minutes = Math.floor(countdownSec / 60) - (hours * 60);
         var seconds = countdownSec % 60;
         const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
-        console.log("countdown full " + countdownFinal.minutes + ":" + countdownFinal.seconds)
         setCountdown(countdownFinal)
     }
     const getCustomEvent = async () => {
@@ -177,7 +171,6 @@ const Dashboard = ({admin, setAdmin}) => {
     }
     const getCountDown = async () => {
         let countdown = await readData.getLocalApi("check_countdown")
-        console.log("countdown " + countdown)
         if(countdown){
             startCountdown(countdown)
         }
@@ -187,11 +180,12 @@ const Dashboard = ({admin, setAdmin}) => {
             let countdown = await readData.getLocalApi("get_countdown_value")
             readData.postLocalApi("start_countdown", countdown)
         } else {
-            readData.getLocalApi("stop_countdown")
+            readData.getLocalApi("stop_countdown_v2")
         }
     }
 
     useEffect( () => {
+        console.log(infoNextRound)
         checkIsIngrid()
         if(!loading){
             seeResult()
@@ -257,9 +251,9 @@ const Dashboard = ({admin, setAdmin}) => {
 
                             {serverStatus ? <>
                                 <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
-                                <p>
-                                    <b>Name :</b> Fubarr's party <br/>
-                                    <b>Password :</b> beer
+                                <p class="server-log-info">
+                                    <b>{t("serverSettings.name")} :</b> Fubarr's party <br/>
+                                    <b>{t("serverSettings.password")} :</b> beer
                                 </p>
                                 </> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
                             <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
@@ -274,13 +268,17 @@ const Dashboard = ({admin, setAdmin}) => {
                                     <div className="col-md-8">
                                         <h3>{t("dashboard.infoNextRound")}</h3>
                                             <ul>
-                                                {infoNextRound.map((label, i) => {
-                                                    return (<li key={i}>{label[0]} : {label[1]}</li>)
-                                                })}
+                                                <li><b>{t("infoNextRoundBloc.track")}</b> : <b>{infoNextRound['track']}</b></li>
+                                                <li><b>{t("infoNextRoundBloc.ambientTemperature")}</b> : {infoNextRound['Ambient temperature']}°C</li>
+                                                <li><b>{t("infoNextRoundBloc.cloudLevel")}</b> : {infoNextRound['Cloud level'] * 100}%</li>
+                                                <li><b>{t("infoNextRoundBloc.hourOfDay")}</b> : {infoNextRound['Hour of Day']}</li>
+                                                <li><b>{t("infoNextRoundBloc.rain")}</b> : {infoNextRound['Rain'] * 100}%</li>
+                                                <li><b>{t("infoNextRoundBloc.timeMultipler")}</b> : {infoNextRound['Time Multipler']}x</li>
+                                                <li><b>{t("infoNextRoundBloc.weatherRandomness")}</b> : {10*Math.floor((infoNextRound['Weather randomness'] * 100 / 7)/10)}%</li>
                                             </ul>
                                     </div>
-                                    {/* If user is connected */}
-                                    {  ('user' in cookies) &&
+                                    {/* If user is connected and is in grid*/}
+                                    {  ('user' in cookies) && !isInGrid &&
                                         <div className="col-md-4">
                                             <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
                                             <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>

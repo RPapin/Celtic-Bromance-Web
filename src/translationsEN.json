@@ -12,6 +12,7 @@
     "currentResult" : "View current championship"
   },
   "dashboard" : {
+    "countdown" : "Time before the next round will be lunched",
     "serverStatusDown": "Server is down ...",
     "serverStatusUp": "Server is up !",
     "serverSettings": "View server settings",
@@ -27,6 +28,15 @@
     "notInGrid": "Not in the grid ?",
     "getInGrid": "Find a spot in the grid !"
   },
+  "infoNextRoundBloc" : {
+    "track" : "Track",
+    "ambientTemperature": "Ambiant temperature",
+    "cloudLevel": "Cloud level",
+    "hourOfDay": "Hour of the day",
+    "rain": "Level of rain",
+    "timeMultipler": "Time multiplier ",
+    "weatherRandomness": "Weather randomness"
+  },
   "customEvent" : {
     "createCustomEvent" : "Create custom event",
     "trackSelection" : "Track selection",
@@ -36,6 +46,8 @@
     
   },
   "serverSettings" : {
+    "name": "Name",
+    "password" : "Password",
     "title" : "Server Informations",
     "pointDistribution" : "Point distribution : ",
     "weatherProba" : "Weather probability : ",
@@ -82,6 +94,12 @@
     "swapPointTitle" : "Swap point joker",
     "swapPointText" : "With this one, you can secretly choose a victim which will be forced to swap his pointe with you after the race. However there are basics rules : \n - If your victim finish behind you, there is no swap. \n - If you finish last, there is no swap (avoid extreme sand-bagging) \n - You can only be the victim once in a championship ",
     "leaderboardText" : "You can find the leaderboard and the result of each race at the bottom of the page."
+  },
+  "modal" : {
+    "newsTitle" : "Breaking News"
+  },
+  "wheel" : {
+    "winnerText" : "The winner is"
   },
   "save" : "Save",
   "close" : "Close",

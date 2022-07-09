@@ -32,19 +32,12 @@ const ModalConnect = ({setAdmin}) => {
       setShow(false);
     }
   }
-  const connectThroughSteam = () => {
-    console.log('connectThroughSteam ' + process.env.REACT_APP_STEAM_API_KEY)
-    passport.authenticate('steam', {failureRedirect: '/fail'}, () => {
-      console.log('callback')
-    })
-  }
   const handleConfirm = () => {
     let isAdmin = false
     var driverInfo = selectDriver.filter(obj => {
       return obj['Steam id '] === driverId
     })
     if(driverInfo[0]['isAdmin']){
-      console.log('Admd ddd')
       setAdmin(true)
       isAdmin = true
       localStorage.setItem('admin', true);

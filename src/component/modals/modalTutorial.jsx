@@ -10,9 +10,6 @@ const ModalTutorial = ({setShowTutorial}) => {
   const handleClose = () => {
     setShowTutorial(false);
   }
-  useEffect( () => { 
-    console.log("ModalTutorial")
-  })
   return (
     <>
       <Modal show={true} onHide={handleClose} backdrop='static' size="lg">

@@ -105,7 +105,6 @@ const AdminParameters = () => {
       document.getElementById('toggleUser').click()
     }
     const toggleToast = (result) => {
-      console.log('toggle toast')
       setShowToast(true)
     }
     useEffect(() => {

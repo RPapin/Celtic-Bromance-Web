@@ -12,6 +12,7 @@
     "currentResult" : "Voir le championnat en cours"
   },
   "dashboard" : {
+    "countdown" : "Temps restant avant le début de la prochaine course",
     "serverStatusDown": "Le serveur est éteint ...",
     "serverStatusUp": "Le serveur est actif !",
     "serverSettings": "Voir les réglages du serveur",
@@ -27,6 +28,15 @@
     "notInGrid": "Pas dans la grille de départ ?",
     "getInGrid": "Rajoute moi pour la prochaine course !"
   },
+  "infoNextRoundBloc" : {
+    "track" : "Circuit",
+    "ambientTemperature": "Température ambiante",
+    "cloudLevel": "Niveau de nuage",
+    "hourOfDay": "Heure de la journée",
+    "rain": "Niveau de pluie",
+    "timeMultipler": "Multiplicateur du temps",
+    "weatherRandomness": "Niveau d'aléatoire de la météo"
+  },
   "customEvent" : {
     "createCustomEvent" : "Creer un événement personnalisé",
     "trackSelection" : "Choisir un circuit",
@@ -36,6 +46,8 @@
     
   },
   "serverSettings" : {
+    "name": "Nom",
+    "password" : "Mot de passe",
     "title" : "Informations du serveur",
     "pointDistribution" : "Distribution des points : ",
     "weatherProba" : "Probabilité de la météo : ",
@@ -82,6 +94,12 @@
     "swapPointTitle" : "Echange de point",
     "swapPointText" : "Avec celui-ci, vous pouvez secrètement choisir une victime qui sera obligée d'échanger ses points avec vous après la course. Cependant il existe des règles de base : \n - Si votre victime termine derrière vous, il n'y a pas d'échange. \n - Si vous terminez dernier, il n'y a pas d'échange (cela évite de faire exprès) \n - Vous ne pouvez être victime qu'une seule fois dans un championnat",
     "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page."
+  },
+  "modal" : {
+    "newsTitle" : "Breaking News"
+  },
+  "wheel" : {
+    "winnerText" : "Le gagnant est "
   },
   "save" : "Confirmer",
   "close" : "Fermer",

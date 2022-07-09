@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './modalCheck.css'
+import { useTranslation } from 'react-i18next';
 
 
 const ModalCheck = (props) => {
     const [show, setShow] = useState(true);
-
+    const { t, } = useTranslation();
     const handleClose = () => setShow(false);
   
     return (
@@ -14,12 +15,12 @@ const ModalCheck = (props) => {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Breaking News</Modal.Title>
+            <Modal.Title>{t("modal.newsTitle")}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{props.text}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+            {t("close")}
             </Button>
           </Modal.Footer>
         </Modal>

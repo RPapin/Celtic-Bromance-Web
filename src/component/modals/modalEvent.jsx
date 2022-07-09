@@ -29,7 +29,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
 
 
   const fetchServerInfo = async () => {
-    
     let paramFromApi = await readData.getLocalApi("get_param_list")
     //For testing purpose
     let trackList = []
@@ -120,7 +119,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
   }
 
   const handleSubmitCustomEvent = async (e) => {
-    console.log(carList)
     e.preventDefault()
     const eventParam = {
       "steam id ": cookies['user'],

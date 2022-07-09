@@ -33,8 +33,6 @@ const ModalServerInfo = ({setModalInfo}) => {
     return weatherPct
   }
   const fetchServerInfo = async () => {
-  
-    
     let paramFromApi = await readData.getLocalApi("get_param_list")
     //For testing purpose
     let list = []
@@ -51,7 +49,6 @@ const ModalServerInfo = ({setModalInfo}) => {
   }
 
   useEffect( () => {
-    console.log('useeffect info')
     if(loading)fetchServerInfo()
   })
   return (

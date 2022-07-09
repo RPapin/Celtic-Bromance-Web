@@ -1,8 +1,9 @@
 import React from 'react'
 import './countdownTimer.css'
+import { useTranslation } from 'react-i18next';
 
 const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
-   
+    const { t } = useTranslation();
     const { hours = 0, minutes = 0, seconds = 60 } = hoursMinSecs;
     const [[hrs, mins, secs], setTime] = React.useState([hours, minutes, seconds]);
 
@@ -31,7 +32,7 @@ const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
     
     return (
         <div className="col-md-12 d-flex justify-center countdown-container">
-            <span>Time before the next round will be lunched : </span>
+            <span>{t("dashboard.countdown")} : </span>
             <p className="countdownText">{`${hrs.toString().padStart(2, '0')}:${mins
             .toString()
             .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}</p> 

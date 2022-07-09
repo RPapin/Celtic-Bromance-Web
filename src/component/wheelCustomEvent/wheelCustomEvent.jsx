@@ -66,7 +66,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
             <Button onClick={() => {setShowWheel(false); getCountDown()}}>{t("goBack")}</Button>
             <Wheel items={userList} onFinished={onSelectItem} determinedWinner={determinedWinner} />
             {winner && 
-            <div className="winner">The winner is : <h3>{winner}</h3></div>
+            <div className="winner">{t("wheel.winnerText")} : <h3>{winner}</h3></div>
             }
         </div>
         :

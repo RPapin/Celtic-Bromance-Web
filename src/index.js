@@ -7,19 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import './css/themed_bootstrap.css';
 import { CookiesProvider } from 'react-cookie';
 import './i18n';
-import passport from 'passport'
-import SteamStrategy from 'passport-steam'
 
-passport.use(new SteamStrategy({
-  returnURL: 'http://localhost:3000/',
-  realm: 'http://localhost:3000/',
-  apiKey: process.env.REACT_APP_STEAM_API_KEY
-},
-function(identifier, profile, done) {
-  console.log(identifier)
-  console.log(profile)
-}
-));
 
 ReactDOM.render(
   <CookiesProvider>

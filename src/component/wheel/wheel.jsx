@@ -28,7 +28,6 @@ export default class Wheel extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount " + this.props.determinedWinner)
     if(this.props.determinedWinner !== false){
       document.getElementById("wheel-container").click();
     }
