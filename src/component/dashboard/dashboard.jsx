@@ -248,7 +248,7 @@ const Dashboard = ({admin, setAdmin}) => {
                             {serverStatus ? <>
                                 <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
                                 <p className="server-log-info">
-                                    <b>{t("serverSettings.name")} :</b> Fubarr's party <br/>
+                                    <b>{t("serverSettings.name")} :</b> 2RC x Papin <br/>
                                     <b>{t("serverSettings.password")} :</b> beer
                                 </p>
                                 </> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
