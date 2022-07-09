@@ -28,7 +28,6 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
         setUserList(users)
         if(determinedWinner !== false){
             setTimeout(() => {
-                console.log("show winner" + users[determinedWinner])
                 setWinner(users[determinedWinner])
             }, 4000);
         }

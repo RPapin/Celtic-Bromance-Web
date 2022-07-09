@@ -21,8 +21,6 @@ const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
         localStorage.setItem('admin', false);
     }
     useEffect( () => {
-        
-        console.log('useEffect header ' + logIn)
     }, [logIn])
     return (
     <div className={'header'}>

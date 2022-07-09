@@ -15,7 +15,6 @@ function App() {
   const [isOlderResult, setIsOlderResult] = useState(false)
 
   useEffect(() => {
-    console.log(cookies)
     let adminLocal = localStorage.getItem('admin')
     if(adminLocal !== "false")setAdmin(adminLocal)
   })

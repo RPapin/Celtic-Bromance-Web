@@ -42,8 +42,9 @@
     "trackSelection" : "Choisir un circuit",
     "carSelection": "Choisir les voitures",
     "weatherSelection": "Choisir la météo",
-    "nightSelection": "Nocturne "
-    
+    "nightSelection": "Nocturne ",
+    "showIndividual": "Montrer les voitures",
+    "showCarClass": "Montrer les classes"
   },
   "serverSettings" : {
     "name": "Nom",

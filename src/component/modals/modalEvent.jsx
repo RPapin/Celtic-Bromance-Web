@@ -30,11 +30,12 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
 
   const fetchServerInfo = async () => {
     let paramFromApi = await readData.getLocalApi("get_param_list")
+    setLoading(false)
     //For testing purpose
     let trackList = []
     let carList = []
     let carClassList = []
-    let weatherList = []
+    let weatherList = {}
     Object.keys(paramFromApi['tracks']).map((index) => {
       trackList.push({
         "index" : index,
@@ -60,7 +61,8 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
       })
     })
     Object.keys(paramFromApi['weather']).map((value, index) => {
-      weatherList.push(value)
+      weatherList[value] = paramFromApi['weather'][value]['name']
+      // weatherList.push(paramFromApi['weather'][value]['name'])
     })
     setCarList(carList)
     setCarClassList(carClassList)
@@ -68,7 +70,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     //fetch previously created event
     if(isAlreadyEventCreated){
       let customEvent = await readData.getLocalApi("fetch_custom_event")
-      setLoading(false)
       Object.keys(customEvent).map((index) => {
           if(customEvent[index]['steam id '] === cookies['user']){
             let carSelectedList = []
@@ -87,7 +88,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
           }
       })
     }
-    setLoading(false)
   }
   const handleCarChange = (e, index) => {
     if(carSelectionDisplay){
@@ -133,6 +133,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     handleClose()
   }
   useEffect( () => {
+    console.log(weatherList)
     if(loading)fetchServerInfo()
   })
   return (
@@ -162,7 +163,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
            <div className="row">
             <div className="col-md-2">
               <Button onClick={() => {setCarSelectionDisplay(!carSelectionDisplay)}}>
-                {carSelectionDisplay ? "Show individual car" : "Show car class"}</Button>
+                {carSelectionDisplay ? t("customEvent.showIndividual") : t("customEvent.showCarClass")}</Button>
             </div>
             </div>
             <div className="row">
@@ -195,8 +196,10 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
               <div className="col-md-6">
                 <select className="form-select" aria-label="Default select example" onChange={(e) => {setWeatherSelected(e.target.value)}} value={weatherSelected}>
                   <option></option>
-                  {weatherList.map((element, index) => {
-                    return <option id={index} value={element}  key={index}>{element}</option>
+                  {Object.entries(weatherList).map(([key, value]) => {
+                    console.log(value)
+                    // return element
+                    return <option value={key} key={key}>{value}</option>
                   })}
                 </select>
               </div>

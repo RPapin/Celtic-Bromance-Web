@@ -54,9 +54,6 @@ const Dashboard = ({admin, setAdmin}) => {
     const getNextRoundInfo = (nextRoundInfo) => {
         const eventInfo = JSON.parse(JSON.stringify(nextRoundInfo.eventInfo))
         const gridInfo = JSON.parse(JSON.stringify(nextRoundInfo.usersInfo.usersInfo))
-        let eventInfoArray = [] 
-        console.log(eventInfo)
-        // Object.keys(eventInfo).forEach(key => eventInfoArray.push([key, eventInfo[key]]))
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfo)
         setNewResult(nextRoundInfo.foundNewResults)   
@@ -185,7 +182,6 @@ const Dashboard = ({admin, setAdmin}) => {
     }
 
     useEffect( () => {
-        console.log(infoNextRound)
         checkIsIngrid()
         if(!loading){
             seeResult()
@@ -251,7 +247,7 @@ const Dashboard = ({admin, setAdmin}) => {
 
                             {serverStatus ? <>
                                 <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
-                                <p class="server-log-info">
+                                <p className="server-log-info">
                                     <b>{t("serverSettings.name")} :</b> Fubarr's party <br/>
                                     <b>{t("serverSettings.password")} :</b> beer
                                 </p>

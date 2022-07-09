@@ -52,6 +52,7 @@ const ModalConnect = ({setAdmin}) => {
   const fetchDriver = async () => {
     let allInfo = await readData.getLocalApi("fetch_drivers")
     if(allInfo){
+      allInfo.sort((a, b) => (a.Surname > b.Surname) ? 1 : -1)
       setSelectDriver(allInfo)
       setLoading(false)
     }

@@ -42,7 +42,9 @@
     "trackSelection" : "Track selection",
     "carSelection": "Car selection",
     "weatherSelection": "Weather selection",
-    "nightSelection": "Night time"
+    "nightSelection": "Night time",
+    "showIndividual": "Show individual car",
+    "showCarClass": "Show car class"
     
   },
   "serverSettings" : {
