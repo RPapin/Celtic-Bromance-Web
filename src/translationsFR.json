@@ -102,6 +102,9 @@
   "wheel" : {
     "winnerText" : "Le gagnant est "
   },
+  "error" : {
+    "serverNotFound" : "Désolé, le site est hors ligne."
+  },
   "save" : "Confirmer",
   "close" : "Fermer",
   "goBack" : "Retour"

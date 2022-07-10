@@ -133,7 +133,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     handleClose()
   }
   useEffect( () => {
-    console.log(weatherList)
     if(loading)fetchServerInfo()
   })
   return (
@@ -197,8 +196,6 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
                 <select className="form-select" aria-label="Default select example" onChange={(e) => {setWeatherSelected(e.target.value)}} value={weatherSelected}>
                   <option></option>
                   {Object.entries(weatherList).map(([key, value]) => {
-                    console.log(value)
-                    // return element
                     return <option value={key} key={key}>{value}</option>
                   })}
                 </select>

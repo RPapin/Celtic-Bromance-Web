@@ -29,3 +29,8 @@ h1 { font-family: 'Formula1 Display', serif; font-size: 45px; font-weight: norma
 #shadow-background{
   background-color: black;
 }
+.error {
+  font-size: 1.8rem;
+  margin: 1rem;
+  margin-top: 5rem;
+}

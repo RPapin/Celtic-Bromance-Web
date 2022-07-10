@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
-import ReadData from '../../services/readData'
 import Modal from 'react-bootstrap/Modal';
 import './modalCheck.css'
 import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';
-import passport from 'passport'
 
-const ModalConnect = ({setAdmin}) => {
+const ModalConnect = ({setAdmin, selectDriver}) => {
   const { t, } = useTranslation();
   const [, setCookie] = useCookies(['user']);
-  const readData = new ReadData()
   const [show, setShow] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [selectDriver, setSelectDriver] = useState([])
   const [isEmpty, setIsEmpty] = useState(true)
   const [driverId, setDriverId] = useState()
   const [driverName, setDriverName] = useState()
@@ -49,49 +44,36 @@ const ModalConnect = ({setAdmin}) => {
     setCookie('name', driverName, {path: '/'})
     handleClose(isAdmin);
   }
-  const fetchDriver = async () => {
-    let allInfo = await readData.getLocalApi("fetch_drivers")
-    if(allInfo){
-      allInfo.sort((a, b) => (a.Surname > b.Surname) ? 1 : -1)
-      setSelectDriver(allInfo)
-      setLoading(false)
-    }
-  }
-    useEffect( () => { 
-      if(loading)fetchDriver()
-  })
+
   return (
     <>
+    <Modal show={show} onHide={handleClose} backdrop='static'>
+      <Modal.Header>
+        <Modal.Title>{t("connect.connect")}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
+        <option></option>
+        {selectDriver.map((element) => {
+          return <option id={element["Steam id "]} value={element["Steam id "]} drivername={element["First name"] + ' ' + element["Surname"]} key={element["Steam id "]}>{element["First name"]} {element["Surname"]}</option>
+        })}
+      </select>
+      <div>
+        {t("connect.notInList")} 
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfb6ECB7ahE3GrvNVjRdRGYnXhlAMl9cMJ8qmwA5YEDnudJeg/viewform" target={"_blank"}>{t("connect.fillForm")}</a>
+        {/* <Button variant="secondary" onClick={connectThroughSteam} >
+          {t("connect.thoughSteam")}
+        </Button> */}
+      </div>
 
-    {!loading && 
-      <Modal show={show} onHide={handleClose} backdrop='static'>
-        <Modal.Header>
-          <Modal.Title>{t("connect.connect")}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
-          <option></option>
-          {selectDriver.map((element) => {
-            return <option id={element["Steam id "]} value={element["Steam id "]} drivername={element["First name"] + ' ' + element["Surname"]} key={element["Steam id "]}>{element["First name"]} {element["Surname"]}</option>
-          })}
-        </select>
-        <div>
-          {t("connect.notInList")} 
-           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfb6ECB7ahE3GrvNVjRdRGYnXhlAMl9cMJ8qmwA5YEDnudJeg/viewform" target={"_blank"}>{t("connect.fillForm")}</a>
-          {/* <Button variant="secondary" onClick={connectThroughSteam} >
-            {t("connect.thoughSteam")}
-          </Button> */}
-        </div>
-
-        </Modal.Body>
-        <Modal.Footer>
-          
-          <Button variant="secondary" onClick={handleConfirm} disabled={isEmpty}>
-          {t("save")}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    }
+      </Modal.Body>
+      <Modal.Footer>
+        
+        <Button variant="secondary" onClick={handleConfirm} disabled={isEmpty}>
+        {t("save")}
+        </Button>
+      </Modal.Footer>
+    </Modal>
     </>
   );
 }

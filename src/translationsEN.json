@@ -103,6 +103,9 @@
   "wheel" : {
     "winnerText" : "The winner is"
   },
+  "error" : {
+    "serverNotFound" : "Sorry the website is offline."
+  },
   "save" : "Save",
   "close" : "Close",
   "goBack" : "Back"
