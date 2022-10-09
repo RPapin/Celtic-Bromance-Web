@@ -2,6 +2,7 @@
 @import "node_modules/bootstrap/scss/functions";
 @import "src/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/buttons";
 
 // Optional
 /*@import "node_modules/bootstrap/scss/root";
@@ -18,30 +19,6 @@
 .row>h5
 {
     margin-top: 1em;
-}
-
-.btn
-{
-    min-width: 6em;
-	width: 8em;
-
-    margin-left: 1px;
-    margin-right: 1px;
-	
-    -webkit-clip-path: polygon(10% 0, 0 100%, 90% 100%, 100% 0);
-    clip-path: polygon(10% 0, 0 100%, 90% 100%, 100% 0);
-
-    border-radius: 0px;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-left-style: none;
-    border-right-style: none;
-}
-
-.btn:hover
-{
-    color: $light;
-    text-decoration: none;
 }
 
 .modal-content

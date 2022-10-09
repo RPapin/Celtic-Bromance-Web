@@ -22,20 +22,20 @@
     "SwapPointBtn": "Swap point",
     "customEventEditBtn": "Edit custom event",
     "customEventCreateBtn": "Create custom event",
-    "startingGrid": "Starting grid :",
+    "startingGrid": "Starting Grid",
     "infoNextRound": "Information for the next round :",
     "waitingGrid": "Waiting for the new grid to be generated ...",
-    "notInGrid": "Not in the grid ?",
-    "getInGrid": "Find a spot in the grid !"
+    "notInGrid": "You are not on the grid!",
+    "getInGrid": "Join Grid"
   },
   "infoNextRoundBloc" : {
     "track" : "Track",
-    "ambientTemperature": "Ambiant temperature",
-    "cloudLevel": "Cloud level",
-    "hourOfDay": "Hour of the day",
-    "rain": "Level of rain",
-    "timeMultipler": "Time multiplier ",
-    "weatherRandomness": "Weather randomness"
+    "ambientTemperature": "Ambient",
+    "cloudLevel": "Cloud",
+    "hourOfDay": "Time",
+    "rain": "Rain",
+    "timeMultipler": "Time Multiplier",
+    "weatherRandomness": "Randomness"
   },
   "customEvent" : {
     "createCustomEvent" : "Create custom event",

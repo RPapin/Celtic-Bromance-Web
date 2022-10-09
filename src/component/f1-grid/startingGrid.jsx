@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import './formula1.css'
 import GridNameplate from './GridNameplate'
 import countries from "i18n-iso-countries"
 import ReadData from '../../services/readData'
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
+import GridSpotFinder from './gridSpotFinder';
 
 
-const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
-
+const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waitingGrid }) => {
+    const { t, } = useTranslation();
     countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
     const readData = new ReadData()
@@ -41,14 +42,14 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
                     if (isSwappingPoints) {
                         setIsSwappingPoints(false)
                     }
-                    if (isSwappingCar){
+                    if (isSwappingCar) {
                         setIsSwappingCar(false)
                     }
                 }
             })
         })
         readData.postLocalApi("getSwapPointVictim", cookies['user']).then(response => {
-            console.log("Your Vicitm is: "+response);
+            console.log("Your Vicitm is: " + response);
             setSwapPointVictimId(response)
         })
     }
@@ -77,17 +78,28 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
             swapCar={swapCar}
             swapPoint={swapPoint}
             isSwappingCar={isSwappingCar}
-            isSwappingPoints={isSwappingPoints} 
-            swapPointVictimId={swapPointVictimId}/>
+            isSwappingPoints={isSwappingPoints}
+            swapPointVictimId={swapPointVictimId}
+            isInGrid={isInGrid} />
     )
 
     return (
         <>
-
-            <div className="starting-grid">
-                {grid}
+            <div className="mt-5 mb-5 border border-secondary rounded-bottom rounded-3">
+                <div className="mb-3 w-100 bg-secondary">
+                    <h3 className="text-white pl-2 pt-2 pb-2">{t("dashboard.startingGrid")}</h3>
+                </div>
+                {isInGrid && <><GridSpotFinder /><hr /></>}
+                <div className="container text-center d-flex flex-column align-items-center justify-content-center">
+                    {!waitingGrid ?
+                        <div className="container d-flex flex-column align-items-center justify-content-center">
+                            {grid}
+                        </div>
+                        :
+                        <p>{t("dashboard.waitingGrid")}</p>
+                    }
+                </div>
             </div>
-
         </>
     )
 }

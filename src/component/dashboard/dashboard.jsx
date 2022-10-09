@@ -16,13 +16,14 @@ import ModalEvent from '../modals/modalEvent';
 import ModalTutorial from '../modals/modalTutorial';
 import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
-import GridSpotFinder from '../gridSpotFinder/gridSpotFinder';
+import GridSpotFinder from '../f1-grid/gridSpotFinder';
+import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
 
-const Dashboard = ({admin, setAdmin}) => {
-    const { t,  } = useTranslation();
+const Dashboard = ({ admin, setAdmin }) => {
+    const { t, } = useTranslation();
     const readData = new ReadData()
 
-    const [cookies, ] = useCookies(['user']);
+    const [cookies,] = useCookies(['user']);
     const [infoNextRound, setInfoNextRound] = useState()
     const [gridNextRound, setGridNextRound] = useState()
     const [newResult, setNewResult] = useState(false)
@@ -43,10 +44,10 @@ const Dashboard = ({admin, setAdmin}) => {
 
 
     const checkIsIngrid = () => {
-        if(gridNextRound){
+        if (gridNextRound) {
             const userIngrid = gridNextRound.find(element => element.playerID === cookies['user'])
-            
-            if(userIngrid === undefined)setIsInGrid(true)
+
+            if (userIngrid === undefined) setIsInGrid(true)
             else setIsInGrid(false)
         }
     }
@@ -56,14 +57,14 @@ const Dashboard = ({admin, setAdmin}) => {
         const gridInfo = JSON.parse(JSON.stringify(nextRoundInfo.usersInfo.usersInfo))
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfo)
-        setNewResult(nextRoundInfo.foundNewResults)   
+        setNewResult(nextRoundInfo.foundNewResults)
         setUpdateJoker(updateJoker + 1)
         setWaitingGrid(false)
     }
 
     const startChampionnship = async () => {
         let firstRoundInfo = await readData.getLocalApi("start_championnship")
-        if(firstRoundInfo){
+        if (firstRoundInfo) {
             getNextRoundInfo(firstRoundInfo)
             setServerInfo(true)
         } else setServerInfo(false)
@@ -78,15 +79,15 @@ const Dashboard = ({admin, setAdmin}) => {
     }
     const newDraw = async () => {
         let allInfo = await readData.getLocalApi("new_draw")
-        if(allInfo){
+        if (allInfo) {
             getNextRoundInfo(allInfo)
         } else setServerInfo(false)
     }
     const seeResult = async () => {
         setLoading(true)
         let allInfo = await readData.getLocalApi("display_result")
-        if(allInfo){
-            if(allInfo['nextRoundInfo']){
+        if (allInfo) {
+            if (allInfo['nextRoundInfo']) {
                 allInfo['nextRoundInfo']['foundNewResults'] = allInfo['foundNewResults']
                 getNextRoundInfo(allInfo['nextRoundInfo'])
             }
@@ -98,7 +99,7 @@ const Dashboard = ({admin, setAdmin}) => {
     }
     const resetChampionnship = async () => {
         let resetStatus = await readData.getLocalApi("reset_championnship")
-        if(resetStatus){
+        if (resetStatus) {
             setGridNextRound(null)
             setInfoNextRound(null)
             setFullResult(null)
@@ -106,13 +107,13 @@ const Dashboard = ({admin, setAdmin}) => {
             setServerInfo(true)
         } else setServerInfo(false)
     }
-    const registerToSSE =  async () => {
+    const registerToSSE = async () => {
         const url = await readData.getTunnelUrl()
         const eventSource = new EventSource(url + "events");
-        eventSource.addEventListener("dataUpdate", e =>{
+        eventSource.addEventListener("dataUpdate", e => {
             const result = JSON.parse(e.data)
             const size = Object.keys(result['nextRoundInfo']).length;
-            if(size !== 0)getNextRoundInfo(result['nextRoundInfo'])
+            if (size !== 0) getNextRoundInfo(result['nextRoundInfo'])
             else {
                 setWaitingGrid(true)
             }
@@ -120,29 +121,29 @@ const Dashboard = ({admin, setAdmin}) => {
             setServerInfo(true)
             setServerStatus(result['serverStatus'])
         });
-        eventSource.addEventListener("updateServerStatus", e =>{
+        eventSource.addEventListener("updateServerStatus", e => {
             const result = JSON.parse(e.data)
             setServerStatus(result['serverStatus'])
         });
-        eventSource.addEventListener("newDraw", e =>{
+        eventSource.addEventListener("newDraw", e => {
             const result = JSON.parse(e.data)
             getNextRoundInfo(result)
         });
-        eventSource.addEventListener("carSwap", e =>{
+        eventSource.addEventListener("carSwap", e => {
             let result = JSON.parse(e.data)
             result['nextRoundInfo']['foundNewResults'] = false
             getNextRoundInfo(result['nextRoundInfo'])
         });
-        eventSource.addEventListener("startCountdown", e =>{
+        eventSource.addEventListener("startCountdown", e => {
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
         });
-        eventSource.addEventListener("stopCountdown", e =>{
+        eventSource.addEventListener("stopCountdown", e => {
             setCountdown(false)
         });
         let adminLocal = localStorage.getItem('admin')
-        if(adminLocal === 'false' || adminLocal === null){
-            eventSource.addEventListener("syncWheel", e =>{
+        if (adminLocal === 'false' || adminLocal === null) {
+            eventSource.addEventListener("syncWheel", e => {
                 let result = JSON.parse(e.data)
                 setDeterminedWinner(result)
                 //reload component to lauch the "didMount"
@@ -151,29 +152,29 @@ const Dashboard = ({admin, setAdmin}) => {
             });
         }
     }
-    const startCountdown= (countdownSec ) => {
+    const startCountdown = (countdownSec) => {
         setCountdown(false)
         var hours = Math.floor(countdownSec / 60 / 60);
         var minutes = Math.floor(countdownSec / 60) - (hours * 60);
         var seconds = countdownSec % 60;
-        const countdownFinal = { hours : hours, minutes : minutes, seconds : seconds }
+        const countdownFinal = { hours: hours, minutes: minutes, seconds: seconds }
         setCountdown(countdownFinal)
     }
     const getCustomEvent = async () => {
-        
+
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
-            if(customEvent[index]['steam id '] === cookies['user'])setIsAlreadyEventCreated(true)
+            if (customEvent[index]['steam id '] === cookies['user']) setIsAlreadyEventCreated(true)
         })
     }
     const getCountDown = async () => {
         let countdown = await readData.getLocalApi("check_countdown")
-        if(countdown){
+        if (countdown) {
             startCountdown(countdown)
         }
     }
     const toggleCountdown = async () => {
-        if(countdownState === false){
+        if (countdownState === false) {
             let countdown = await readData.getLocalApi("get_countdown_value")
             readData.postLocalApi("start_countdown", countdown)
         } else {
@@ -181,9 +182,9 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }
 
-    useEffect( () => {
+    useEffect(() => {
         checkIsIngrid()
-        if(!loading){
+        if (!loading) {
             seeResult()
             registerToSSE()
             getCustomEvent()
@@ -191,141 +192,123 @@ const Dashboard = ({admin, setAdmin}) => {
         }
     }, [countdownState, gridNextRound])
     return (
-    <div className={'container'}>
-        <div className='tutorialLink'>
-            {t("tutorial.firstTime")} &nbsp;
-            <a href="#" onClick={() => {setShowTutorial(true)}}>{t("tutorial.seeRules")}</a>
-        </div>
-        {
-            showTutorial &&
-            <ModalTutorial setShowTutorial={setShowTutorial}/>
+        <div className={'container'}>
+            <div className='tutorialLink'>
+                {t("tutorial.firstTime")} &nbsp;
+                <a href="#" onClick={() => { setShowTutorial(true) }}>{t("tutorial.seeRules")}</a>
+            </div>
+            {
+                showTutorial &&
+                <ModalTutorial setShowTutorial={setShowTutorial} />
 
-        }
-        {
-            showWheel ?
-            <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} getCountDown={getCountDown}/>
-            :
-            <>
-            {!serverInfo && loading ?
-                // <div className="server-info"> The ACC server is not connected</div>
-                <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
-            :
-            <>
-            {admin &&
-                <div className="container">
-                    <AdminParameters />
-                    <div className="actionsContainer m-2">
-                        <Button variant="primary" onClick={() => {setShowWheel(true)}}>Spin the wheel !</Button>
-                        <Button variant="primary" onClick={toggleCountdown}>{
-                        countdownState ? 
-                            "Stop the countdown"
-                            :
-                            "Start the countdown"
-                        }</Button>
-                    </div>
-                </div>
             }
-            {newResult &&
-                <ModalCheck text={newResult}/>
-            }
-                
-            <div className={'container'}>
-                {!fullResult && loading && admin && serverInfo &&
-                <div className='actionsContainer'>
-                    <Button variant="primary" onClick={startChampionnship}>Start a new championship !</Button>
-                </div>
-                }              
-                {infoNextRound && 
+            {
+                showWheel ?
+                    <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} getCountDown={getCountDown} />
+                    :
                     <>
-                        {countdownState !== false &&
-                            <div className="row">
-                                <CountDownTimer hoursMinSecs={countdownState} lunchServer={lunchServer} setCountdown={setCountdown} />
-                            </div>
-                        }
-                        <div className="row">
-                            <div className="serverStatus ">
-
-                            {serverStatus ? <>
-                                <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
-                                <p className="server-log-info">
-                                    <b>{t("serverSettings.name")} :</b> 2RC x Papin <br/>
-                                    <b>{t("serverSettings.password")} :</b> beer
-                                </p>
-                                </> :  <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
-                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
-                                {t("dashboard.serverSettings")}
-                            </Button>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div className="row">
-                            <div className="infoNextRound col-md-12">
-                                <div className="row">
-                                    <div className="col-md-8">
-                                        <h3>{t("dashboard.infoNextRound")}</h3>
-                                            <ul>
-                                                <li><b>{t("infoNextRoundBloc.track")}</b> : <b>{infoNextRound['track']}</b></li>
-                                                <li><b>{t("infoNextRoundBloc.ambientTemperature")}</b> : {infoNextRound['Ambient temperature']}°C</li>
-                                                <li><b>{t("infoNextRoundBloc.cloudLevel")}</b> : {infoNextRound['Cloud level'] * 100}%</li>
-                                                <li><b>{t("infoNextRoundBloc.hourOfDay")}</b> : {infoNextRound['Hour of Day']}</li>
-                                                <li><b>{t("infoNextRoundBloc.rain")}</b> : {infoNextRound['Rain'] * 100}%</li>
-                                                <li><b>{t("infoNextRoundBloc.timeMultipler")}</b> : {infoNextRound['Time Multipler']}x</li>
-                                                <li><b>{t("infoNextRoundBloc.weatherRandomness")}</b> : {10*Math.floor((infoNextRound['Weather randomness'] * 100 / 7)/10)}%</li>
-                                            </ul>
-                                    </div>
-                                    {/* If user is connected and is in grid*/}
-                                    {  ('user' in cookies) && !isInGrid &&
-                                        <div className="col-md-4">
-                                            {/* <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/> */}
-                                            <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
-                                                {isAlreadyEventCreated ?
-                                                    t("dashboard.customEventEditBtn")
+                        {!serverInfo && loading ?
+                            // <div className="server-info"> The ACC server is not connected</div>
+                            <div className="spinnerContainer"><Spinner animation="grow" variant="danger" /></div>
+                            :
+                            <>
+                                {admin &&
+                                    <div className="container">
+                                        <AdminParameters />
+                                        <div className="actionsContainer m-2">
+                                            <Button variant="primary" onClick={() => { setShowWheel(true) }}>Spin the wheel !</Button>
+                                            <Button variant="primary" onClick={toggleCountdown}>{
+                                                countdownState ?
+                                                    "Stop the countdown"
                                                     :
-                                                    t("dashboard.customEventCreateBtn")
-                                                }
-                                            </Button>
+                                                    "Start the countdown"
+                                            }</Button>
+                                        </div>
+                                    </div>
+                                }
+                                {newResult &&
+                                    <ModalCheck text={newResult} />
+                                }
+
+                                <div className={'container'}>
+                                    {!fullResult && loading && admin && serverInfo &&
+                                        <div className='actionsContainer'>
+                                            <Button variant="primary" onClick={startChampionnship}>Start a new championship !</Button>
                                         </div>
                                     }
-                                </div>
-                                <hr/>
-                                {isInGrid && <><GridSpotFinder/><hr/></>}
-                                <div className="row">
-                                    <h3>{t("dashboard.startingGrid")}</h3>
-                                    {!waitingGrid ? 
-                                        <StartingGrid seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound}/> :
-                                        <p>{t("dashboard.waitingGrid")}</p>
+                                    {infoNextRound &&
+                                        <>
+                                            {countdownState !== false &&
+                                                <div className="row">
+                                                    <CountDownTimer hoursMinSecs={countdownState} lunchServer={lunchServer} setCountdown={setCountdown} />
+                                                </div>
+                                            }
+                                            <div className="row">
+                                                <div className="serverStatus ">
+
+                                                    {serverStatus ? <>
+                                                        <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
+                                                        <p className="server-log-info">
+                                                            <b>{t("serverSettings.name")} :</b> 2RC x Papin <br />
+                                                            <b>{t("serverSettings.password")} :</b> beer
+                                                        </p>
+                                                    </> : <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
+                                                    <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
+                                                        {t("dashboard.serverSettings")}
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div className="row">
+                                                <div className="infoNextRound col-md-12">
+                                                    <div className="row">
+                                                        {/* If user is connected and is in grid*/}
+                                                        {('user' in cookies) && !isInGrid &&
+                                                            <div className="col-md-4">
+                                                                {/* <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/> */}
+                                                                <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
+                                                                    {isAlreadyEventCreated ?
+                                                                        t("dashboard.customEventEditBtn")
+                                                                        :
+                                                                        t("dashboard.customEventCreateBtn")
+                                                                    }
+                                                                </Button>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <hr />
+                                                    <NextRoundTrackInfo infoNextRound={infoNextRound} />
+                                                    <StartingGrid isInGrid={isInGrid} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
+                                                    {admin &&
+                                                        <div className="adminDiv">
+                                                            {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
+                                                            <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
+                                                            <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
+                                                            <Button variant="outline-danger" onClick={() => {
+                                                                if (window.confirm("You are going to delete the current championnship")) resetChampionnship()
+                                                            }}>Reset Championnship</Button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </>
                                     }
-                                    </div>
-                            {admin && 
-                                <div className="adminDiv">
-                                {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
-                                <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
-                                <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
-                                <Button variant="outline-danger" onClick={() => {
-                                    if(window.confirm("You are going to delete the current championnship"))resetChampionnship()
-                                }}>Reset Championnship</Button>
                                 </div>
-                            }
-                            </div>
-                        </div>
-                        </>
-                    }   
-                </div>
-                <hr/>
-                <ChampionnshipResult fullResult={fullResult}/>
-                {
-                    modalInfo &&
-                    <ModalServerInfo setModalInfo={setModalInfo}/>
-                }
-                {
-                    modalEvent &&
-                    <ModalEvent setModalEvent={setModalEvent} isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated}/>
-                }
-                </>
+                                <hr />
+                                <ChampionnshipResult fullResult={fullResult} />
+                                {
+                                    modalInfo &&
+                                    <ModalServerInfo setModalInfo={setModalInfo} />
+                                }
+                                {
+                                    modalEvent &&
+                                    <ModalEvent setModalEvent={setModalEvent} isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated} />
+                                }
+                            </>
+                        }
+                    </>
             }
-            </>
-        }
-    </div>
+        </div>
     )
 
 }
