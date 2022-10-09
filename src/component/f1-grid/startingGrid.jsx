@@ -16,7 +16,7 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
     const [cookies,] = useCookies(['user'])
     const [isSwappingPoints, setIsSwappingPoints] = useState(false)
     const [isSwappingCar, setIsSwappingCar] = useState(false)
-
+    const [swapPointVictimId, setSwapPointVictimId] = useState()
 
     const doSwap = async (action, victim) => {
         if (!isSwappingPoints && !isSwappingCar) {
@@ -25,6 +25,7 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
             })
             if (action === "swapPoint") {
                 setIsSwappingPoints(true)
+                setSwapPointVictimId(victim)
             } else if (action === "swapCar") {
                 setIsSwappingCar(true)
             }
@@ -45,6 +46,10 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
                     }
                 }
             })
+        })
+        readData.postLocalApi("getSwapPointVictim", cookies['user']).then(response => {
+            console.log("Your Vicitm is: "+response);
+            setSwapPointVictimId(response)
         })
     }
 
@@ -72,7 +77,8 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
             swapCar={swapCar}
             swapPoint={swapPoint}
             isSwappingCar={isSwappingCar}
-            isSwappingPoints={isSwappingPoints} />
+            isSwappingPoints={isSwappingPoints} 
+            swapPointVictimId={swapPointVictimId}/>
     )
 
     return (

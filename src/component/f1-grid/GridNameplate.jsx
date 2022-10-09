@@ -66,7 +66,7 @@ const getLogoImage = {
 }
 
 
-export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint, isSwappingCar, isSwappingPoints }) {
+export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint, isSwappingCar, isSwappingPoints, swapPointVictimId }) {
     const [cookies,] = useCookies(['user']);
 
     const swapPointsButton = () => {
@@ -106,6 +106,9 @@ export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint, 
                 </div>
                 <div className="nameplate-constructor-container">
                     <p className="nameplate-constructor">{driverInfo.constructor.toUpperCase()}</p>
+                    {swapPointVictimId == driverInfo.playerId &&
+                        <span className="nameplate-points-swap-victim">Points Swap!</span>
+                    }
                 </div>
 
             </div>
