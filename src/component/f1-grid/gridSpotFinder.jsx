@@ -10,7 +10,7 @@ const GridSpotFinder = () => {
     const readData = new ReadData()
     
     const findSpotInGrid = () => {
-        readData.postLocalApi( 'find_spot_in_grid',{userId : cookies['user']}).then((e) => {
+        readData.postLocalApi( 'find_spot_in_grid',cookies['user']).then((e) => {
         })
     }
     useEffect(() => {
