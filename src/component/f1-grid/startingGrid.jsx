@@ -17,17 +17,18 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
     const [isSwappingPoints, setIsSwappingPoints] = useState(false)
     const [isSwappingCar, setIsSwappingCar] = useState(false)
 
+
     const doSwap = async (action, victim) => {
-        if ((!isSwappingPoints && action === "swapPoint") || (!isSwappingCar && action === "swapCar")) {
+        if (!isSwappingPoints && !isSwappingCar) {
             readData.postLocalApi(action, [cookies['user'], victim]).then((e) => {
                 seeResult()
             })
             if (action === "swapPoint") {
                 setIsSwappingPoints(true)
-            } else {
+            } else if (action === "swapCar") {
                 setIsSwappingCar(true)
             }
-        } 
+        }
     }
 
     const getJokerNumber = () => {
@@ -36,8 +37,12 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
                 if (driver['Steam id '] === cookies['user']) {
                     setSwapCar(driver['swapCar'])
                     setSwapPoint(driver['swapPoint'])
-                    setIsSwappingCar(false)
-                    setIsSwappingPoints(false)
+                    if (isSwappingPoints) {
+                        setIsSwappingPoints(false)
+                    }
+                    if (isSwappingCar){
+                        setIsSwappingCar(false)
+                    }
                 }
             })
         })
@@ -67,7 +72,7 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
             swapCar={swapCar}
             swapPoint={swapPoint}
             isSwappingCar={isSwappingCar}
-            isSwappingPoints={isSwappingPoints}/>
+            isSwappingPoints={isSwappingPoints} />
     )
 
     return (

@@ -69,6 +69,27 @@ const getLogoImage = {
 export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint, isSwappingCar, isSwappingPoints }) {
     const [cookies,] = useCookies(['user']);
 
+    const swapPointsButton = () => {
+        if (swapPoint > 0) {
+            return (
+                <div className="nameplate-swap-points-container" onClick={() => doSwap('swapPoint', driverInfo.playerId)}>
+                    <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}>
+                        {swapPoint > 0 && isSwappingPoints ?
+                            `Swapping...`
+                            : `Swap Points`(swapPoint || 0)
+                        }
+                    </span>
+                </div>)
+        }
+        if (swapPoint == 0) {
+            return (<div className="nameplate-swap-points-container" style={{ backgroundColor: 'gray' }}>
+                <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> No Point Swaps</span>
+            </div>)
+        }
+    }
+
+
+
     return (
         <div className="complete-container">
             <div className="nameplate-container" >
@@ -90,33 +111,44 @@ export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint, 
             </div>
             {driverInfo.playerId !== cookies['user'] &&
                 <>
-                    {swapPoint > 0 && !isSwappingPoints &&
+                    {swapPoint > 0 && !isSwappingCar &&
                         <div className="nameplate-swap-points-container" onClick={() => doSwap('swapPoint', driverInfo.playerId)}>
-                            <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> Swap Points ({swapPoint || 0})</span>
+                            <img src={swapcar} height="18px" width="18px" alt="swap points" />
+                            {isSwappingPoints
+                                ? <span style={{ fontSize: '12px' }}> Swapping... </span>
+                                : <span style={{ fontSize: '12px' }}> Swap Points ({swapPoint || 0}) </span>
+                            }
                         </div>
                     }
-                    {swapPoint > 0 && isSwappingPoints &&
-                        <div className="nameplate-swap-points-container" onClick={() => doSwap('swapPoint', driverInfo.playerId)}>
-                            <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> Swapping...</span>
+                    {swapPoint > 0 && isSwappingCar &&
+                        <div className="nameplate-swap-points-container" style={{ backgroundColor: 'gray' }}>
+                            <img src={swapcar} height="18px" width="18px" alt="swap points" />
+                            {isSwappingPoints
+                                ? <span style={{ fontSize: '12px' }}> Swapping... </span>
+                                : <span style={{ fontSize: '12px' }}> Swap Points ({swapPoint || 0}) </span>
+                            }
                         </div>
                     }
-                    {swapPoint == 0 && 
-                        <div className="nameplate-swap-points-container" style={{backgroundColor: 'gray'}}>
+                    {swapPoint == 0 &&
+                        <div className="nameplate-swap-points-container" style={{ backgroundColor: 'gray' }}>
                             <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> No Point Swaps</span>
                         </div>
                     }
 
-
-                    {swapCar > 0 && !isSwappingCar &&
+                    {swapCar > 0 && !isSwappingPoints &&
                         <div className="nameplate-swap-car-container" onClick={() => doSwap('swapCar', driverInfo.playerId)}>
                             <img src={swapcar} height="18px" width="18px" alt="swap car" />
-                            <span style={{ fontSize: '12px' }}> Swap Car ({swapCar})</span>
+                            {isSwappingCar
+                                ? <span style={{ fontSize: '12px' }}> Swapping...</span>
+                                : <span style={{ fontSize: '12px' }}> Swap Car ({swapCar})</span>}
                         </div>
                     }
-                    {swapCar > 0 && isSwappingCar &&
-                        <div className="nameplate-swap-car-container" onClick={() => doSwap('swapCar', driverInfo.playerId)}>
+                    {swapCar > 0 && isSwappingPoints &&
+                        <div className="nameplate-swap-car-container" style={{ backgroundColor: 'gray' }}>
                             <img src={swapcar} height="18px" width="18px" alt="swap car" />
-                            <span style={{ fontSize: '12px' }}> Swapping...</span>
+                            {isSwappingCar
+                                ? <span style={{ fontSize: '12px' }}> Swapping...</span>
+                                : <span style={{ fontSize: '12px' }}> Swap Car ({swapCar})</span>}
                         </div>
                     }
                     {swapCar == 0 &&
