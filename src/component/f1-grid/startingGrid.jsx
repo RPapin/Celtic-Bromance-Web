@@ -14,13 +14,20 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
     const [swapCar, setSwapCar] = useState(0)
     const [swapPoint, setSwapPoint] = useState(0)
     const [cookies,] = useCookies(['user'])
-
-
+    const [isSwappingPoints, setIsSwappingPoints] = useState(false)
+    const [isSwappingCar, setIsSwappingCar] = useState(false)
 
     const doSwap = async (action, victim) => {
-        readData.postLocalApi(action, [cookies['user'], victim]).then((e) => {
-            seeResult()
-        })
+        if ((!isSwappingPoints && action === "swapPoint") || (!isSwappingCar && action === "swapCar")) {
+            readData.postLocalApi(action, [cookies['user'], victim]).then((e) => {
+                seeResult()
+            })
+            if (action === "swapPoint") {
+                setIsSwappingPoints(true)
+            } else {
+                setIsSwappingCar(true)
+            }
+        } 
     }
 
     const getJokerNumber = () => {
@@ -29,7 +36,8 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
                 if (driver['Steam id '] === cookies['user']) {
                     setSwapCar(driver['swapCar'])
                     setSwapPoint(driver['swapPoint'])
-                    console.log("Swap Car: " + driver['swapCar'])
+                    setIsSwappingCar(false)
+                    setIsSwappingPoints(false)
                 }
             })
         })
@@ -57,16 +65,18 @@ const StartingGrid = ({ updateJoker, seeResult, gridNextRound }) => {
             }}
             seeResult={seeResult}
             swapCar={swapCar}
-            swapPoint={swapPoint} />
+            swapPoint={swapPoint}
+            isSwappingCar={isSwappingCar}
+            isSwappingPoints={isSwappingPoints}/>
     )
 
     return (
         <>
-            
-                <div className="starting-grid">
-                    {grid}
-                </div>
-            
+
+            <div className="starting-grid">
+                {grid}
+            </div>
+
         </>
     )
 }
