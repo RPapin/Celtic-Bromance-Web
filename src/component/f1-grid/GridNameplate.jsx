@@ -1,6 +1,8 @@
 import React from 'react'
 import logos from '../../logo/manufacturers'
 import ac from '../../logo/assettocorsa.png'
+import swapcar from '../../svgs/swapcar.svg'
+import { useCookies } from 'react-cookie';
 
 /* driverInfo
 "grid": {
@@ -64,13 +66,12 @@ const getLogoImage = {
 }
 
 
-export default function GridNameplate({ driverInfo }) {
-    console.log();
+export default function GridNameplate({ doSwap, driverInfo, swapCar, swapPoint }) {
+    const [cookies,] = useCookies(['user']);
 
     return (
-        <>
-            <div className="nameplate-container" style={{marginLeft: driverInfo.grid.position % 2 === 0 && `40%`}} >
-
+        <div className="complete-container">
+            <div className="nameplate-container" >
                 <div className="nameplate-number-container">
                     <p className="nameplate-number">{driverInfo.grid.position}</p>
                 </div>
@@ -80,12 +81,28 @@ export default function GridNameplate({ driverInfo }) {
                 <div className="nameplate-country-container" style={{ backgroundImage: `linear-gradient(to left, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 1) 90%), url('https://flagcdn.com/${driverInfo.nationality}.svg')` }}>
                 </div>
                 <div className="nameplate-constructor-logo-container">
-                    <img className="nameplate-constructor-logo" src={getLogoImage[driverInfo.constructor.toUpperCase()] || ac} />
+                    <img className="nameplate-constructor-logo" src={getLogoImage[driverInfo.constructor.toUpperCase()] || ac} alt="ACC" />
                 </div>
                 <div className="nameplate-constructor-container">
                     <p className="nameplate-constructor">{driverInfo.constructor.toUpperCase()}</p>
                 </div>
+
             </div>
-        </>
+            {driverInfo.playerId !== cookies['user'] &&
+                <>
+                    {swapPoint > 0 &&
+                    <div className="nameplate-swap-points-container" onClick={() => doSwap('swapPoint', driverInfo.playerId)}>
+                        <img src={swapcar} height="18px" width="18px" alt="swap points"/><span style={{ fontSize: '12px' }}> Swap Points ({swapPoint || 0})</span>
+                    </div>
+                    }
+                    {swapCar > 0 &&
+                        <div className="nameplate-swap-car-container" onClick={() => doSwap('swapCar', driverInfo.playerId)}>
+                            <img src={swapcar} height="18px" width="18px" alt="swap car"/>
+                            <span style={{ fontSize: '12px' }}> Swap Car ({swapCar})</span>
+                        </div>
+                    }
+                </>
+            }
+        </div>
     )
 }

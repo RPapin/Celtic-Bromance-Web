@@ -276,7 +276,7 @@ const Dashboard = ({admin, setAdmin}) => {
                                     {/* If user is connected and is in grid*/}
                                     {  ('user' in cookies) && !isInGrid &&
                                         <div className="col-md-4">
-                                            <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/>
+                                            {/* <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/> */}
                                             <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
                                                 {isAlreadyEventCreated ?
                                                     t("dashboard.customEventEditBtn")
@@ -292,7 +292,7 @@ const Dashboard = ({admin, setAdmin}) => {
                                 <div className="row">
                                     <h3>{t("dashboard.startingGrid")}</h3>
                                     {!waitingGrid ? 
-                                        <StartingGrid gridNextRound={gridNextRound}/> :
+                                        <StartingGrid seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound}/> :
                                         <p>{t("dashboard.waitingGrid")}</p>
                                     }
                                     </div>
