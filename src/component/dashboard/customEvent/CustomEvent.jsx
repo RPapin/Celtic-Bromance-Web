@@ -146,13 +146,13 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
             <div className="mt-5 mb-5 border border-secondary rounded-bottom rounded-3">
                 <div className="w-100 bg-secondary d-flex flex-row align-items-center" style={{ cursor: 'pointer' }} onClick={() => { setCollapsed(!collapsed) }}>
                     <h3 className="text-white pl-2 pt-2 pb-2">Your Custom Event</h3>
-
+                    {eventSavedNotif && <p className="text-white mb-0 ml-5">Your event has been saved!</p>}
                     <p className="text-white fw-bold ml-auto mr-4 mb-0 align-self-center">
                         {collapsed
                             ? "Show Event"
                             : "Hide Event"}
                     </p>
-                    {eventSavedNotif && <p className="text-white mb-0 ml-5">Your event has been saved!</p>}
+
                 </div>
                 <div style={{ display: collapsed ? 'none' : 'block' }}>
                     <div className="container text-center mt-3" >
