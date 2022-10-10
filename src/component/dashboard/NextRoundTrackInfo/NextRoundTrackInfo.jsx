@@ -32,7 +32,7 @@ export default function NextRoundTrackInfo({ infoNextRound }) {
                         <p><b>{t("infoNextRoundBloc.cloudLevel")}</b><br />{infoNextRound['Cloud level'] * 100}%</p>
                     </div>
                     <div className="col">
-                        <p><b>{t("infoNextRoundBloc.weatherRandomness")}</b><br />{10 * Math.floor((infoNextRound['Weather randomness'] * 100 / 7) / 10)}%</p>
+                        <p><b>{t("infoNextRoundBloc.weatherRandomness")}</b><br />{(infoNextRound['Weather randomness'])} out of 7 </p>
                     </div>
                 </div>
             </div>
