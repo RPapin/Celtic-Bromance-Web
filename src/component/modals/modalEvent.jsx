@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import './modalEvent.css'
 import { useCookies } from 'react-cookie';
 import { useTranslation } from 'react-i18next';
+import getCleanTrackName from '../../helpers/getCleanTrackName';
 
 const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCreated}) => {
  
@@ -39,7 +40,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
     Object.keys(paramFromApi['tracks']).map((index) => {
       trackList.push({
         "index" : index,
-        "name": paramFromApi['tracks'][index]['tracks'][0]
+        "name": getCleanTrackName(paramFromApi['tracks'][index]['tracks'][0])
       })
     })
     setTrackList(trackList)
@@ -138,7 +139,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
   return (
     <>
     
-      <Modal show={true} onHide={handleClose} dialogClassName="modal-90w">
+      <Modal show={true} size="lg" onHide={handleClose} >
       {!loading && 
       <>
         <Modal.Header>
@@ -173,7 +174,7 @@ const ModalEvent = ({setModalEvent, isAlreadyEventCreated, setIsAlreadyEventCrea
                   return (
                   <div className="form-check car-class" key={i}>
                     <input className="form-check-input" type="checkbox" id={"carClass" + i} name={"carClass" + i} value={param.class} onChange={e => handleCarChange(e, i)} checked={param.available}></input>
-                    <label className="form-check-label">{param.class}</label>
+                    <label className="form-check-label">{param.class.toUpperCase()}</label>
                   </div>)
                 })
                   : 

@@ -36,6 +36,7 @@ const ModalChooseDriver = (props) => {
         }
       });
       setSelectDriver(driverAvailable)
+      console.log(driverAvailable);
       setLoading(false)
     }
   }

@@ -18,6 +18,7 @@ import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
 import GridSpotFinder from '../f1-grid/gridSpotFinder';
 import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
+import CustomEvent from "./customEvent/CustomEvent";
 
 const Dashboard = ({ admin, setAdmin }) => {
     const { t, } = useTranslation();
@@ -261,21 +262,10 @@ const Dashboard = ({ admin, setAdmin }) => {
                                             <hr />
                                             <div className="row">
                                                 <div className="infoNextRound col-md-12">
-                                                    <div className="row">
-                                                        {/* If user is connected and is in grid*/}
-                                                        {('user' in cookies) && !isInGrid &&
-                                                            <div className="col-md-4">
-                                                                {/* <Joker seeResult={seeResult} updateJoker={updateJoker} serverStatus={serverStatus}/> */}
-                                                                <Button className="btnJoker mb-2" variant="info" onClick={() => setModalEvent(true)}>
-                                                                    {isAlreadyEventCreated ?
-                                                                        t("dashboard.customEventEditBtn")
-                                                                        :
-                                                                        t("dashboard.customEventCreateBtn")
-                                                                    }
-                                                                </Button>
-                                                            </div>
-                                                        }
-                                                    </div>
+                                                    {/* If user is connected and is in grid*/}
+                                                    {('user' in cookies) && !isInGrid &&
+                                                        <CustomEvent isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated} />
+                                                    }
                                                     <hr />
                                                     <NextRoundTrackInfo infoNextRound={infoNextRound} />
                                                     <StartingGrid isInGrid={isInGrid} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />

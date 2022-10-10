@@ -1,0 +1,16 @@
+.carSelectGrid {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 0.8fr 0.6fr 1.6fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+    "grid1 grid2 grid3"
+    "grid1 grid2 grid4"
+    "grid1 grid2 grid5"; 
+}
+
+.Gt3 { grid-area: grid1; }
+.Gt4 { grid-area: grid2; }
+.grid3 { grid-area: grid3; }
+.grid4 { grid-area: grid4; }
+.grid5 { grid-area: grid5; }
