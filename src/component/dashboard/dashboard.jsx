@@ -59,6 +59,7 @@ const Dashboard = ({ admin, setAdmin }) => {
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfo)
         setNewResult(nextRoundInfo.foundNewResults)
+        console.log(nextRoundInfo)
         setUpdateJoker(updateJoker + 1)
         setWaitingGrid(false)
     }
@@ -147,7 +148,7 @@ const Dashboard = ({ admin, setAdmin }) => {
             eventSource.addEventListener("syncWheel", e => {
                 let result = JSON.parse(e.data)
                 setDeterminedWinner(result)
-                //reload component to lauch the "didMount"
+            //    reload component to lauch the "didMount"
                 setShowWheel(false)
                 setShowWheel(true)
             });
@@ -227,10 +228,10 @@ const Dashboard = ({ admin, setAdmin }) => {
                                         </div>
                                     </div>
                                 }
-                                {newResult &&
+                                {/* TODO: Another hacky work-around...pls fix me */}
+                                {newResult && newResult.includes("Championnship ") &&
                                     <ModalCheck text={newResult} />
                                 }
-
                                 <div className={'container'}>
                                     {!fullResult && loading && admin && serverInfo &&
                                         <div className='actionsContainer'>
@@ -267,7 +268,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                                         <CustomEvent isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated} />
                                                     }
                                                     <hr />
-                                                    <NextRoundTrackInfo infoNextRound={infoNextRound} />
+                                                    <NextRoundTrackInfo infoNextRound={infoNextRound} newResult={newResult} />
                                                     <StartingGrid isInGrid={isInGrid} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
                                                     {admin &&
                                                         <div className="adminDiv">

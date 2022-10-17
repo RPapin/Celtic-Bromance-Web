@@ -14,6 +14,7 @@ export default class Wheel extends React.Component {
   selectItem() {
     let adminLocal = localStorage.getItem('admin')
     if (this.state.selectedItem === null) {
+
       const selectedItem = this.props.determinedWinner === false ? Math.floor(Math.random() * this.props.items.length) : this.props.determinedWinner;
       if (this.props.onSelectItem) {
         this.props.onSelectItem(selectedItem);

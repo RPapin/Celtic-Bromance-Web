@@ -47,7 +47,6 @@ const getLogoImage = {
 }
 
 function getCarLogo(carName) {
-    console.log(carName);
     return getLogoImage[carName.toUpperCase()] || ac;
 }
 

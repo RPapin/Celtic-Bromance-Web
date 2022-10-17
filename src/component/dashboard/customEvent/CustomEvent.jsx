@@ -17,12 +17,11 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
     const [carList, setCarList] = useState([])
     const [carClassList, setCarClassList] = useState([])
     const [weatherList, setWeatherList] = useState([])
-    const [carSelectionDisplay, setCarSelectionDisplay] = useState(true);
     const [trackSelected, setTrackSelected] = useState();
     const [weatherSelected, setWeatherSelected] = useState();
     const [nightTime, setNightTime] = useState(false);
     const [cookies] = useCookies(['name']);
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const [eventSavedNotif, setEventSavedNotif] = useState(false);
 
     const handleClose = () => {
@@ -133,7 +132,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
                         isAllTrue = false;
                 }
             })
-            
+
             const classList = [...carClassList];
             let classIndex = classList.findIndex((item) => item.class === carClass);
             if (list[index]["available"] !== classList[classIndex]["available"]) {
@@ -165,7 +164,7 @@ return (
     <>
         <div className="mt-5 mb-5 border border-secondary rounded-bottom rounded-3">
             <div className="w-100 bg-secondary d-flex flex-row align-items-center" style={{ cursor: 'pointer' }} onClick={() => { setCollapsed(!collapsed) }}>
-                <h3 className="text-white pl-2 pt-2 pb-2">Your Custom Event</h3>
+                <h3 className="text-white pl-2 pt-2 pb-2 mb-0">Your Custom Event</h3>
                 {eventSavedNotif && <p className="text-white mb-0 ml-5">Your event has been saved!</p>}
                 <p className="text-white fw-bold ml-auto mr-4 mb-0 align-self-center">
                     {collapsed
