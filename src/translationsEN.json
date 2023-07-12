@@ -17,9 +17,9 @@
     "serverStatusUp": "Server is up !",
     "serverSettings": "View server settings",
     "swapCarAvailable": "Car swap available : ",
-    "swapPointAvailable": "Point swap available : ",
+    "teamWithAvailable": "Team With available : ",
     "SwapCarBtn": "Swap car",
-    "SwapPointBtn": "Swap point",
+    "TeamWithBtn": "Swap point",
     "customEventEditBtn": "Edit custom event",
     "customEventCreateBtn": "Create custom event",
     "startingGrid": "Starting Grid",
@@ -61,7 +61,7 @@
   "swapCar" : {
     "title" : "Choose the driver you want to change your car with"
   },
-  "swapPoint" : {
+  "teamWith" : {
     "title" : "Choose the driver you want to change your point during the next round "
   },
   "championshipResult" :{
@@ -93,8 +93,8 @@
     "wheelText": "Randomly during the party, the admin can roll the wheel of death. In this, you can find the name of each participant who created a custom event. Once someone is picked, the next race will follow the parameters set by these user.",
     "swapCarTitle" : "Swap car joker",
     "swapCarText" : "During the whole championship, you will have a determined number of jokers. This one, will make you swapped your car before the beginning of the next race. This is useful when you want to avoid trashes.",
-    "swapPointTitle" : "Swap point joker",
-    "swapPointText" : "With this one, you can secretly choose a victim which will be forced to swap his pointe with you after the race. However there are basics rules : \n - If your victim finish behind you, there is no swap. \n - If you finish last, there is no swap (avoid extreme sand-bagging) \n - You can only be the victim once in a championship ",
+    "teamWithTitle" : "Swap point joker",
+    "teamWithText" : "With this one, you can secretly choose a victim which will be forced to swap his pointe with you after the race. However there are basics rules : \n - If your victim finish behind you, there is no swap. \n - If you finish last, there is no swap (avoid extreme sand-bagging) \n - You can only be the victim once in a championship ",
     "leaderboardText" : "You can find the leaderboard and the result of each race at the bottom of the page."
   },
   "modal" : {
@@ -107,6 +107,8 @@
     "serverNotFound" : "Sorry the website is offline."
   },
   "save" : "Save",
+  "chooseYourself" : "Choose yourself in the list below",
+  "clickHere" : "Click here",
   "close" : "Close",
   "goBack" : "Back"
 }

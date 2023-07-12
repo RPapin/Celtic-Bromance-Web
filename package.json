@@ -20,6 +20,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.3",
     "react-cookie": "^4.1.1",
+    "react-custom-roulette-skate": "^1.2.3",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.14.2",
     "react-scripts": "4.0.3",
@@ -28,8 +29,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start ",
+    "build": "react-scripts --openssl-legacy-provider build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sass": "node-sass src/scss/ -o src/css/ --output-style compressed"

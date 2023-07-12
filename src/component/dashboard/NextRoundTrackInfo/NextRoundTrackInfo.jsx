@@ -5,7 +5,6 @@ import getCleanTrackName from '../../../helpers/getCleanTrackName';
 export default function NextRoundTrackInfo({ infoNextRound, newResult }) {
     const { t, } = useTranslation();
     var cleanTrack = getCleanTrackName(infoNextRound['track'])
-    console.log(newResult);
     var eventStr = newResult.toString()
     return (
         <div className="mt-5 mb-5 border border-primary rounded-bottom rounded-3">

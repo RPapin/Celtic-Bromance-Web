@@ -1,9 +1,9 @@
-const baseURL = 'https://celtic-bromance-url.herokuapp.com/'
+const baseURL = 'https://api.jsonbin.io/v3/b/64aede3d9d312622a37e69ee/4'
 
 export default class ReadData {
 
     async getTunnelUrl() {
-        const fecthedData = await fetch(baseURL + 'get_url')
+        const fecthedData = await fetch(baseURL)
         .then(res => {
             return res.json()
         })
@@ -12,7 +12,7 @@ export default class ReadData {
                 console.log('There has been a problem with your url operation:', data.error);
                 return data.error
             } 
-            else return data.url
+            else return data.record.tunnel_url
         })
         return fecthedData
     }

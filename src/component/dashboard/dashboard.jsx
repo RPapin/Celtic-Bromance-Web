@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ReadData from '../../services/readData'
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import GridSpotFinder from '../f1-grid/gridSpotFinder';
 import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
 import CustomEvent from "./customEvent/CustomEvent";
+import WheelThemed from '../wheelThemed/wheelThemed';
 
 const Dashboard = ({ admin, setAdmin }) => {
     const { t, } = useTranslation();
@@ -41,15 +42,14 @@ const Dashboard = ({ admin, setAdmin }) => {
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
     const [countdownState, setCountdown] = useState(false)
-    const [isInGrid, setIsInGrid] = useState(false)
+    const isInGrid = useRef(false)
 
 
     const checkIsIngrid = () => {
+        
         if (gridNextRound) {
-            const userIngrid = gridNextRound.find(element => element.playerID === cookies['user'])
-
-            if (userIngrid === undefined) setIsInGrid(true)
-            else setIsInGrid(false)
+            const userIngrid = gridNextRound.find(element => element.playerID === cookies['user']);
+            isInGrid.current = userIngrid !== undefined;
         }
     }
 
@@ -59,7 +59,6 @@ const Dashboard = ({ admin, setAdmin }) => {
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfo)
         setNewResult(nextRoundInfo.foundNewResults)
-        console.log(nextRoundInfo)
         setUpdateJoker(updateJoker + 1)
         setWaitingGrid(false)
     }
@@ -71,7 +70,7 @@ const Dashboard = ({ admin, setAdmin }) => {
             setServerInfo(true)
         } else setServerInfo(false)
     }
-    const lunchServer = async () => {
+    const launchServer = async () => {
         let serverStatus = await readData.getLocalApi("launch_server")
         setServerStatus(serverStatus['serverStatus'])
     }
@@ -146,11 +145,16 @@ const Dashboard = ({ admin, setAdmin }) => {
         let adminLocal = localStorage.getItem('admin')
         if (adminLocal === 'false' || adminLocal === null) {
             eventSource.addEventListener("syncWheel", e => {
-                let result = JSON.parse(e.data)
-                setDeterminedWinner(result)
-            //    reload component to lauch the "didMount"
-                setShowWheel(false)
-                setShowWheel(true)
+                console.log(isInGrid.current)
+                //CHECK IF THE USER IS IN THE CHAMP
+                if(isInGrid.current){
+                    console.log("SPIN")
+                    let result = JSON.parse(e.data)
+                    setDeterminedWinner(result)
+                //    reload component to lauch the "didMount"
+                    setShowWheel(false)
+                    setShowWheel(true)
+                }
             });
         }
     }
@@ -183,14 +187,24 @@ const Dashboard = ({ admin, setAdmin }) => {
             readData.getLocalApi("stop_countdown_v2")
         }
     }
-
+    const handleLoad = () => {
+         
+    }
+    window.onfocus = function () {
+        //When the page is loaded we update the countdown
+        console.log("page loaded");
+        getCountDown()
+     };
+    useEffect(() => { 
+        window.addEventListener('load', handleLoad);
+    },[]);
     useEffect(() => {
         checkIsIngrid()
         if (!loading) {
+            console.log("Check everything")
             seeResult()
             registerToSSE()
             getCustomEvent()
-            getCountDown()
         }
     }, [countdownState, gridNextRound])
     return (
@@ -207,6 +221,7 @@ const Dashboard = ({ admin, setAdmin }) => {
             {
                 showWheel ?
                     <WheelCustomEvent setShowWheel={setShowWheel} determinedWinner={determinedWinner} getCountDown={getCountDown} />
+                    // <WheelThemed />
                     :
                     <>
                         {!serverInfo && loading ?
@@ -242,7 +257,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                         <>
                                             {countdownState !== false &&
                                                 <div className="row">
-                                                    <CountDownTimer hoursMinSecs={countdownState} lunchServer={lunchServer} setCountdown={setCountdown} />
+                                                    <CountDownTimer hoursMinSecs={countdownState} launchServer={launchServer} setCountdown={setCountdown} />
                                                 </div>
                                             }
                                             <div className="row">
@@ -264,15 +279,15 @@ const Dashboard = ({ admin, setAdmin }) => {
                                             <div className="row">
                                                 <div className="infoNextRound col-md-12">
                                                     {/* If user is connected and is in grid*/}
-                                                    {('user' in cookies) && !isInGrid &&
+                                                    {('user' in cookies) && isInGrid.current &&
                                                         <CustomEvent isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated} />
                                                     }
                                                     <hr />
                                                     <NextRoundTrackInfo infoNextRound={infoNextRound} newResult={newResult} />
-                                                    <StartingGrid isInGrid={isInGrid} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
+                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
                                                     {admin &&
                                                         <div className="adminDiv">
-                                                            {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={lunchServer} className="bottomBtn">Launch the server </Button>}
+                                                            {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={launchServer} className="bottomBtn">Launch the server </Button>}
                                                             <Button variant="outline-primary" onClick={seeResult} className="bottomBtn">Check Result</Button>
                                                             <Button variant="outline-primary" onClick={newDraw} className="bottomBtn">New draw</Button>
                                                             <Button variant="outline-danger" onClick={() => {

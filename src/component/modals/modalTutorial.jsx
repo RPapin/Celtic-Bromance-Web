@@ -28,8 +28,8 @@ const ModalTutorial = ({setShowTutorial}) => {
           <p className="tutorial-p">{t("tutorial.wheelText")}</p>
           <h3>{t("tutorial.swapCarTitle")}</h3>
           <p className="tutorial-p">{t("tutorial.swapCarText")}</p>
-          {/* <h3>{t("tutorial.swapPointTitle")}</h3>
-          <p className="tutorial-p">{t("tutorial.swapPointText")}</p> */}
+          {/* <h3>{t("tutorial.teamWithTitle")}</h3>
+          <p className="tutorial-p">{t("tutorial.teamWithText")}</p> */}
           <p className="tutorial-p">{t("tutorial.leaderboardText")}</p>
         </Modal.Body>
         <Modal.Footer>

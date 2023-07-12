@@ -1,8 +1,9 @@
 import React from 'react'
 import './countdownTimer.css'
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
-const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
+const CountDownTimer = ({hoursMinSecs, launchServer, setCountdown}) => {
     const { t } = useTranslation();
     const { hours = 0, minutes = 0, seconds = 60 } = hoursMinSecs;
     const [[hrs, mins, secs], setTime] = React.useState([hours, minutes, seconds]);
@@ -12,7 +13,7 @@ const CountDownTimer = ({hoursMinSecs, lunchServer, setCountdown}) => {
             setCountdown(false)
             let adminLocal = localStorage.getItem('admin')
             if(adminLocal === "true"){
-                lunchServer()
+                launchServer()
             }
         }
         else if (mins === 0 && secs === 0) {

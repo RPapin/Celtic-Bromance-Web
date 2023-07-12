@@ -17,9 +17,9 @@
     "serverStatusUp": "Le serveur est actif !",
     "serverSettings": "Voir les réglages du serveur",
     "swapCarAvailable": "Nombre de changements de voiture restant : ",
-    "swapPointAvailable": "Nombre de changements de point restant : ",
+    "teamWithAvailable": "Nombre de changements de point restant : ",
     "SwapCarBtn": "Changer de voiture",
-    "SwapPointBtn": "Voler les points",
+    "TeamWithBtn": "Voler les points",
     "customEventEditBtn": "Modifier l'événement personnalisé",
     "customEventCreateBtn": "Creer un événement personnalisé",
     "startingGrid": "Grille de départ :",
@@ -30,12 +30,12 @@
   },
   "infoNextRoundBloc" : {
     "track" : "Circuit",
-    "ambientTemperature": "Température ambiante",
-    "cloudLevel": "Niveau de nuage",
-    "hourOfDay": "Heure de la journée",
-    "rain": "Niveau de pluie",
-    "timeMultipler": "Multiplicateur du temps",
-    "weatherRandomness": "Niveau d'aléatoire de la météo"
+    "ambientTemperature": "Température",
+    "cloudLevel": "Nuage",
+    "hourOfDay": "Heure",
+    "rain": "Pluie",
+    "timeMultipler": "Multiplicateur",
+    "weatherRandomness": "Aléatoire"
   },
   "customEvent" : {
     "createCustomEvent" : "Creer un événement personnalisé",
@@ -60,7 +60,7 @@
   "swapCar" : {
     "title" : "Choisir le pilote avec lequel vous voulez échanger de voiture"
   },
-  "swapPoint" : {
+  "teamWith" : {
     "title" : "Choisir le pilote avec lequel vous voulez échanger de point sur le résultat de la prochaine manche"
   },
   "championshipResult" :{
@@ -92,8 +92,8 @@
     "wheelText": "Aléatoirement pendant la soirée, l'admin peut lancer la roue de la mort. Dans celle-ci, on retrouve le nom de chaque participant qui a créé un événement personnalisé. Une fois que quelqu'un est choisi, la prochaine course suivra les paramètres définis par cette utilisateur.",
     "swapCarTitle" : "Echange de voiture",
     "swapCarText" : "Pendant tout le championnat, vous aurez un nombre déterminé de jokers. Celui-ci, vous fera échanger votre voiture avant le début de la prochaine course. Ceci est utile lorsque vous voulez éviter de conduire une poubelle",
-    "swapPointTitle" : "Echange de point",
-    "swapPointText" : "Avec celui-ci, vous pouvez secrètement choisir une victime qui sera obligée d'échanger ses points avec vous après la course. Cependant il existe des règles de base : \n - Si votre victime termine derrière vous, il n'y a pas d'échange. \n - Si vous terminez dernier, il n'y a pas d'échange (cela évite de faire exprès) \n - Vous ne pouvez être victime qu'une seule fois dans un championnat",
+    "teamWithTitle" : "Echange de point",
+    "teamWithText" : "Avec celui-ci, vous pouvez secrètement choisir une victime qui sera obligée d'échanger ses points avec vous après la course. Cependant il existe des règles de base : \n - Si votre victime termine derrière vous, il n'y a pas d'échange. \n - Si vous terminez dernier, il n'y a pas d'échange (cela évite de faire exprès) \n - Vous ne pouvez être victime qu'une seule fois dans un championnat",
     "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page."
   },
   "modal" : {
@@ -106,6 +106,8 @@
     "serverNotFound" : "Désolé, le site est hors ligne."
   },
   "save" : "Confirmer",
+  "chooseYourself" : "Choisis ton nom dans la liste ci-dessous",
+  "clickHere" : "Clic ici",
   "close" : "Fermer",
   "goBack" : "Retour"
   

@@ -54,7 +54,7 @@
     "nameplate-number-container nameplate-constructor-container nameplate-constructor-container nameplate-constructor-container"; 
 }
 
-.nameplate-container p, span {
+.nameplate-container p, .spanF1 {
   transform: skewX(20deg);
   margin: 0;
 }

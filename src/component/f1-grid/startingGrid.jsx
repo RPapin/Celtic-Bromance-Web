@@ -13,20 +13,20 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
 
     const readData = new ReadData()
     const [swapCar, setSwapCar] = useState(0)
-    const [swapPoint, setSwapPoint] = useState(0)
+    const [teamWith, setTeamWith] = useState(0)
     const [cookies,] = useCookies(['user'])
     const [isSwappingPoints, setIsSwappingPoints] = useState(false)
     const [isSwappingCar, setIsSwappingCar] = useState(false)
-    const [swapPointVictimId, setSwapPointVictimId] = useState()
+    const [teamWithVictimId, setTeamWithVictimId] = useState()
 
     const doSwap = async (action, victim) => {
         if (!isSwappingPoints && !isSwappingCar) {
             readData.postLocalApi(action, [cookies['user'], victim]).then((e) => {
                 seeResult()
             })
-            if (action === "swapPoint") {
+            if (action === "teamWith") {
                 setIsSwappingPoints(true)
-                setSwapPointVictimId(victim)
+                setTeamWithVictimId(victim)
             } else if (action === "swapCar") {
                 setIsSwappingCar(true)
             }
@@ -38,7 +38,7 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
             response.entry.forEach(driver => {
                 if (driver['Steam id '] === cookies['user']) {
                     setSwapCar(driver['swapCar'])
-                    setSwapPoint(driver['swapPoint'])
+                    setTeamWith(driver['teamWith'])
                     if (isSwappingPoints) {
                         setIsSwappingPoints(false)
                     }
@@ -48,9 +48,8 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
                 }
             })
         })
-        readData.postLocalApi("getSwapPointVictim", cookies['user']).then(response => {
-            console.log("Your Vicitm is: " + response);
-            setSwapPointVictimId(response)
+        readData.postLocalApi("getTeamWithVictim", cookies['user']).then(response => {
+            setTeamWithVictimId(response)
         })
     }
 
@@ -58,7 +57,7 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
         getJokerNumber();
     }, [updateJoker])
 
-    const grid = gridNextRound.map((element, i) =>
+    const grid = gridNextRound ? gridNextRound.map((element, i) =>
         <GridNameplate
             key={element.playerID}
             doSwap={doSwap}
@@ -76,12 +75,12 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
             }}
             seeResult={seeResult}
             swapCar={swapCar}
-            swapPoint={swapPoint}
+            teamWith={teamWith}
             isSwappingCar={isSwappingCar}
             isSwappingPoints={isSwappingPoints}
-            swapPointVictimId={swapPointVictimId}
+            teamWithVictimId={teamWithVictimId}
             isInGrid={isInGrid} />
-    )
+    ): <></>
 
     return (
         <>
@@ -89,7 +88,7 @@ const StartingGrid = ({ isInGrid, updateJoker, seeResult, gridNextRound, waiting
                 <div className="mb-3 w-100 bg-secondary">
                     <h3 className="text-white pl-2 pt-2 pb-2">{t("dashboard.startingGrid")}</h3>
                 </div>
-                {isInGrid && <><GridSpotFinder /><hr /></>}
+                {!isInGrid && <><GridSpotFinder /><hr /></>}
                 <div className="container text-center d-flex flex-column align-items-center justify-content-center">
                     {!waitingGrid ?
                         <div className="container d-flex flex-column align-items-center justify-content-center">
