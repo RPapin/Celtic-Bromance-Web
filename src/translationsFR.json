@@ -97,13 +97,24 @@
     "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page."
   },
   "modal" : {
-    "newsTitle" : "Breaking News"
+    "newsTitle" : "Breaking News",
+    "swapCar" : " a pris ta voiture !",
+    "teamWith" : "Tu fais équipe avec : "
   },
   "wheel" : {
     "winnerText" : "Le gagnant est "
   },
   "error" : {
     "serverNotFound" : "Désolé, le site est hors ligne."
+  },
+  "grid" : {
+    "swapping" : "Echange en cours ...",
+    "teaming" : "Création de l'équipe ...",
+    "swapCar" : "Echange de voiture",
+    "teamWith" : "Faire équipe avec",
+    "youTeamWith" : "Equipier",
+    "noTeamingLeft" : "Pas de joker restant",
+    "gotATeam" : "A une équipe"
   },
   "save" : "Confirmer",
   "chooseYourself" : "Choisis ton nom dans la liste ci-dessous",

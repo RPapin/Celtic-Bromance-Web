@@ -33,6 +33,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
 
 
     const fetchServerInfo = async () => {
+        console.log("call fetch custom event")
         let paramFromApi = await readData.getLocalApi("get_param_list")
         setLoading(false)
         //For testing purpose
@@ -156,10 +157,26 @@ const handleSubmitCustomEvent = async (e) => {
     setIsAlreadyEventCreated(true)
     handleClose()
 }
-useEffect(() => {
-    if (loading) fetchServerInfo()
-})
+  useEffect(() => {
+    let shouldUpdate = true;
 
+    const fetchAllData = () => {
+        setLoading(true);
+        console.log("fetchAllData Custom event");
+        const resourceOne = fetchServerInfo()
+
+        Promise.all([resourceOne]).then(() => {
+            if (shouldUpdate) {
+            setLoading(false);
+            }
+        });
+    };
+
+    fetchAllData();
+    return () => {
+      shouldUpdate = false;
+    };
+  }, []);
 return (
     <>
         <div className="mt-5 mb-5 border border-secondary rounded-bottom rounded-3">

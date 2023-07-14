@@ -42,6 +42,9 @@ const Dashboard = ({ admin, setAdmin }) => {
     const [determinedWinner, setDeterminedWinner] = useState(false)
     const [isAlreadyEventCreated, setIsAlreadyEventCreated] = useState(false)
     const [countdownState, setCountdown] = useState(false)
+    const [swapModal, setSwapModal] = useState(false)
+    const [swapModalText, setSwapModalText] = useState("")
+    const [teamInfoParent, setTeamInfoParent] = useState([])
     const isInGrid = useRef(false)
 
 
@@ -112,6 +115,7 @@ const Dashboard = ({ admin, setAdmin }) => {
         const url = await readData.getTunnelUrl()
         const eventSource = new EventSource(url + "events");
         eventSource.addEventListener("dataUpdate", e => {
+            console.log("dataUpdate")
             const result = JSON.parse(e.data)
             const size = Object.keys(result['nextRoundInfo']).length;
             if (size !== 0) getNextRoundInfo(result['nextRoundInfo'])
@@ -130,11 +134,11 @@ const Dashboard = ({ admin, setAdmin }) => {
             const result = JSON.parse(e.data)
             getNextRoundInfo(result)
         });
-        eventSource.addEventListener("carSwap", e => {
-            let result = JSON.parse(e.data)
-            result['nextRoundInfo']['foundNewResults'] = false
-            getNextRoundInfo(result['nextRoundInfo'])
-        });
+        // eventSource.addEventListener("carSwap", e => {
+        //     let result = JSON.parse(e.data)
+        //     result['nextRoundInfo']['foundNewResults'] = false
+        //     getNextRoundInfo(result['nextRoundInfo'])
+        // });
         eventSource.addEventListener("startCountdown", e => {
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
@@ -157,6 +161,30 @@ const Dashboard = ({ admin, setAdmin }) => {
                 }
             });
         }
+        eventSource.addEventListener("justSwapped", e => {
+            const result = JSON.parse(e.data)
+            result.nri.nextRoundInfo.foundNewResults = false
+            console.log(result)
+            getNextRoundInfo(result.nri.nextRoundInfo);
+            //Is the victim
+            if(result.victim.id === cookies['user']){
+                if(result.action === "swapCar"){
+                    setSwapModalText(result.leader.name + t("modal.swapCar"))
+                } else {
+                    //TeamWith
+                    setSwapModalText(t("modal.teamWith") + result.leader.name)
+                    //refresh grid
+                    setUpdateJoker(updateJoker + 1)
+                    readData
+                    .postLocalApi("getTeamInfo", cookies["user"])
+                    .then((response) => {
+                        console.log("getTeamInfo")
+                        console.log(response)
+                    });
+                }
+                setSwapModal(true)
+            }
+        });
     }
     const startCountdown = (countdownSec) => {
         setCountdown(false)
@@ -192,7 +220,6 @@ const Dashboard = ({ admin, setAdmin }) => {
     }
     window.onfocus = function () {
         //When the page is loaded we update the countdown
-        console.log("page loaded");
         getCountDown()
      };
     useEffect(() => { 
@@ -247,6 +274,9 @@ const Dashboard = ({ admin, setAdmin }) => {
                                 {newResult && newResult.includes("Championnship ") &&
                                     <ModalCheck text={newResult} />
                                 }
+                                {swapModal &&
+                                    <ModalCheck text={swapModalText} setModalCheck={setSwapModal} />
+                                }
                                 <div className={'container'}>
                                     {!fullResult && loading && admin && serverInfo &&
                                         <div className='actionsContainer'>
@@ -284,7 +314,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                                     }
                                                     <hr />
                                                     <NextRoundTrackInfo infoNextRound={infoNextRound} newResult={newResult} />
-                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
+                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} teamInfo={teamInfoParent} />
                                                     {admin &&
                                                         <div className="adminDiv">
                                                             {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={launchServer} className="bottomBtn">Launch the server </Button>}
