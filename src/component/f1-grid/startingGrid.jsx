@@ -12,8 +12,7 @@ const StartingGrid = ({
   updateJoker,
   seeResult,
   gridNextRound,
-  waitingGrid,
-  teamInfoParent
+  waitingGrid
 }) => {
   const MAX_TEAM_VICTIM = 2;
   const { t } = useTranslation();
@@ -27,7 +26,8 @@ const StartingGrid = ({
   const [disabledTeaming, setDisabledTeaming] = useState(false);
   const [isSwappingCar, setIsSwappingCar] = useState(false);
   const [teamWithVictimId, setTeamWithVictimId] = useState();
-  const [teamInfo, setTeamInfo] = useState(teamInfoParent);
+  const [teamInfo, setTeamInfo] = useState();
+  const [teamVictimList, setTeamVictimList] = useState([]);
 
   const doSwap = async (action, victim) => {
     if (!isTeamingWith && !isSwappingCar) {

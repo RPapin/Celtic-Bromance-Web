@@ -44,7 +44,6 @@ const Dashboard = ({ admin, setAdmin }) => {
     const [countdownState, setCountdown] = useState(false)
     const [swapModal, setSwapModal] = useState(false)
     const [swapModalText, setSwapModalText] = useState("")
-    const [teamInfoParent, setTeamInfoParent] = useState([])
     const isInGrid = useRef(false)
 
 
@@ -62,8 +61,9 @@ const Dashboard = ({ admin, setAdmin }) => {
         setGridNextRound(gridInfo)
         setInfoNextRound(eventInfo)
         setNewResult(nextRoundInfo.foundNewResults)
-        setUpdateJoker(updateJoker + 1)
-        setWaitingGrid(false)
+        //refresh grid
+        setUpdateJoker((updateJoker) => updateJoker + 1);
+        setWaitingGrid(nextRoundInfo["gridStatus"] !== "READY")
     }
 
     const startChampionnship = async () => {
@@ -98,7 +98,8 @@ const Dashboard = ({ admin, setAdmin }) => {
             setFullResult(allInfo['standings'])
             setServerInfo(true)
             setServerStatus(allInfo['serverStatus'])
-            setUpdateJoker(updateJoker + 1)
+            //refresh grid
+            setUpdateJoker((updateJoker) => updateJoker + 1);
         } else setServerInfo(false)
     }
     const resetChampionnship = async () => {
@@ -116,12 +117,12 @@ const Dashboard = ({ admin, setAdmin }) => {
         const eventSource = new EventSource(url + "events");
         eventSource.addEventListener("dataUpdate", e => {
             console.log("dataUpdate")
+            
             const result = JSON.parse(e.data)
+            console.log(result)
             const size = Object.keys(result['nextRoundInfo']).length;
             if (size !== 0) getNextRoundInfo(result['nextRoundInfo'])
-            else {
-                setWaitingGrid(true)
-            }
+            if (result['gridStatus'].length !== 0)setWaitingGrid(result['gridStatus'] !== "READY")
             setFullResult(result['standings'])
             setServerInfo(true)
             setServerStatus(result['serverStatus'])
@@ -134,11 +135,6 @@ const Dashboard = ({ admin, setAdmin }) => {
             const result = JSON.parse(e.data)
             getNextRoundInfo(result)
         });
-        // eventSource.addEventListener("carSwap", e => {
-        //     let result = JSON.parse(e.data)
-        //     result['nextRoundInfo']['foundNewResults'] = false
-        //     getNextRoundInfo(result['nextRoundInfo'])
-        // });
         eventSource.addEventListener("startCountdown", e => {
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
@@ -174,13 +170,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                     //TeamWith
                     setSwapModalText(t("modal.teamWith") + result.leader.name)
                     //refresh grid
-                    setUpdateJoker(updateJoker + 1)
-                    readData
-                    .postLocalApi("getTeamInfo", cookies["user"])
-                    .then((response) => {
-                        console.log("getTeamInfo")
-                        console.log(response)
-                    });
+                    setUpdateJoker((updateJoker) => updateJoker + 1);
                 }
                 setSwapModal(true)
             }
@@ -272,7 +262,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                 }
                                 {/* TODO: Another hacky work-around...pls fix me */}
                                 {newResult && newResult.includes("Championnship ") &&
-                                    <ModalCheck text={newResult} />
+                                    <ModalCheck text={newResult} setModalCheck={setSwapModal}/>
                                 }
                                 {swapModal &&
                                     <ModalCheck text={swapModalText} setModalCheck={setSwapModal} />
@@ -314,7 +304,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                                     }
                                                     <hr />
                                                     <NextRoundTrackInfo infoNextRound={infoNextRound} newResult={newResult} />
-                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} teamInfo={teamInfoParent} />
+                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
                                                     {admin &&
                                                         <div className="adminDiv">
                                                             {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={launchServer} className="bottomBtn">Launch the server </Button>}
