@@ -13,7 +13,7 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
   const [openModal, setOpenModal] = useState(false)
   const [actionContext, setActionContext] = useState()
   const [swapCar, setSwapCar] = useState(null)
-  const [swapPoint, setswapPoint] = useState(null)
+  const [teamWith, setteamWith] = useState(null)
   const [cookies, ] = useCookies(['user']);
 
   const getJokerNumber = () => {
@@ -21,7 +21,7 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
       response.entry.forEach(driver => {
         if(driver['Steam id '] === cookies['user']){
           setSwapCar(driver['swapCar'])
-          setswapPoint(driver['swapPoint'])
+          setteamWith(driver['teamWith'])
         }
       })
     })
@@ -46,8 +46,8 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
           }
         </div>
         <div className="col-md-6">
-          {swapPoint > 0 &&
-            <div>{t("dashboard.swapPointAvailable")}{swapPoint}</div>
+          {teamWith > 0 &&
+            <div>{t("dashboard.teamWithAvailable")}{teamWith}</div>
           }
         </div>
       </div>
@@ -60,9 +60,9 @@ const Joker = ({seeResult, updateJoker, serverStatus}) => {
           }
         </div>
         <div className="col-md-6 d-flex justify-content-center">
-        {swapPoint > 0 && 
-          <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("swapPoint")} disabled={serverStatus}>
-            {t("dashboard.SwapPointBtn")}
+        {teamWith > 0 && 
+          <Button className="btnJoker mb-2" variant="primary" onClick={() => openDriverChoose("teamWith")} disabled={serverStatus}>
+            {t("dashboard.TeamWithBtn")}
           </Button>
         }
         </div>

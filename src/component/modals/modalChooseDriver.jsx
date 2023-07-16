@@ -13,7 +13,7 @@ const ModalChooseDriver = (props) => {
   const [loading, setLoading] = useState(true);
   const [selectDriver, setSelectDriver] = useState([])
   const [driverSelected, setDriverSelected] = useState([])
-  const title = props.context === "swapCar" ? t("swapCar.title") : t("swapPoint.title");
+  const title = props.context === "swapCar" ? t("swapCar.title") : t("teamWith.title");
 
   const handleSelect = (e) => {
     setDriverSelected(e.target.value)
@@ -30,7 +30,7 @@ const ModalChooseDriver = (props) => {
             }
         }
         else {
-          if(element['available'] && element['Steam id '] !== cookies['user'] && element['swapPointVictim'] < 1){
+          if(element['available'] && element['Steam id '] !== cookies['user'] && element['teamWithVictim'] < 1){
             driverAvailable.push(element)
           }
         }
@@ -46,6 +46,7 @@ const ModalChooseDriver = (props) => {
     props.closeModal()
   }
   useEffect( () => {
+    console.log("useEffect choose")
     if(loading)fetchDriver()
   })
 
@@ -57,6 +58,7 @@ const ModalChooseDriver = (props) => {
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+       
         <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
           <option></option>
           {selectDriver.map((element) => {

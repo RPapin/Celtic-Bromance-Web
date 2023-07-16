@@ -14,10 +14,18 @@ const ModalConnect = ({setAdmin, selectDriver}) => {
   const [driverName, setDriverName] = useState()
 
   const handleSelect = (e) => {
-    const currentDrivername = document.getElementById(e.target.value).getAttribute('drivername')
-    setDriverId(e.target.value)
-    setDriverName(currentDrivername)
-    setIsEmpty(false)
+    const driverInfo = selectDriver.find(driver => {
+      return driver["First name"] + " " + driver["Surname"] === e.target.value
+    })
+
+    if(driverInfo !== undefined){
+      setDriverId(driverInfo["Steam id "])
+      setDriverName(e.target.value)
+      setIsEmpty(false)
+    } else {
+      setIsEmpty(true)
+    }
+
   }
 
   const handleClose = (isAdmin = false) => {
@@ -44,7 +52,12 @@ const ModalConnect = ({setAdmin, selectDriver}) => {
     setCookie('name', driverName, {path: '/'})
     handleClose(isAdmin);
   }
-
+  const resetDatalist = () => {
+    console.log("resetDatalist")
+    const datalist = document.getElementById("inputListDrivers");
+    console.log(datalist)
+    datalist.value = "";
+  }
   return (
     <>
     <Modal show={show} onHide={handleClose} backdrop='static'>
@@ -52,12 +65,19 @@ const ModalConnect = ({setAdmin, selectDriver}) => {
         <Modal.Title>{t("connect.connect")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
+      <h4>{t("chooseYourself")}</h4>
+      {/* <select className="form-select" aria-label="Default select example" >
         <option></option>
         {selectDriver.map((element) => {
           return <option id={element["Steam id "]} value={element["Steam id "]} drivername={element["First name"] + ' ' + element["Surname"]} key={element["Steam id "]}>{element["First name"]} {element["Surname"]}</option>
         })}
-      </select>
+      </select> */}
+      <input className="form-control" list="listDrivers" id="inputListDrivers" placeholder={t("clickHere")} onChange={handleSelect} onFocus={resetDatalist}/>
+      <datalist id="listDrivers" >
+        {selectDriver.map((element) => {
+          return <option id={element["Steam id "]} value={element["First name"] + " " + element["Surname"]} drivername={element["First name"] + ' ' + element["Surname"]} key={element["Steam id "]}></option>
+        })}
+      </datalist>
       <div>
         {t("connect.notInList")} 
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfb6ECB7ahE3GrvNVjRdRGYnXhlAMl9cMJ8qmwA5YEDnudJeg/viewform" target={"_blank"}>{t("connect.fillForm")}</a>

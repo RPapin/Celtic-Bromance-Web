@@ -1,9 +1,10 @@
-const baseURL = 'https://celtic-bromance-url.herokuapp.com/'
+const baseURL = 'https://api.jsonbin.io/v3/b/64aede3d9d312622a37e69ee/4'
 
 export default class ReadData {
-
+    
     async getTunnelUrl() {
-        const fecthedData = await fetch(baseURL + 'get_url')
+        console.log('getTunnelUrl')
+        const fecthedData = await fetch(baseURL)
         .then(res => {
             return res.json()
         })
@@ -12,12 +13,19 @@ export default class ReadData {
                 console.log('There has been a problem with your url operation:', data.error);
                 return data.error
             } 
-            else return data.url
+            else {
+                localStorage.setItem('tunnelUrl', data.record.tunnel_url);
+                return data.record.tunnel_url
+            }
         })
         return fecthedData
+        
     }
     async getLocalApi(parameter) {
-        let url = await this.getTunnelUrl()
+        let tunnelUrl = localStorage.getItem('tunnelUrl')
+        let url = 'no url found'
+        if(tunnelUrl !== '')url = tunnelUrl
+        else url = await this.getTunnelUrl()
         if(url !== "no url found"){
             const fecthedData = await fetch(url + parameter)
             .then(res => {
@@ -27,6 +35,8 @@ export default class ReadData {
                 return data
             }).catch(error => {
                 console.log('There has been a problem with your url operation:', error);
+                //Maybe the backend url has changed
+                this.getTunnelUrl()
                 return false
             })
             return fecthedData
@@ -38,7 +48,10 @@ export default class ReadData {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         };
-        let url = await this.getTunnelUrl()
+        let tunnelUrl = localStorage.getItem('tunnelUrl')
+        let url = 'no url found'
+        if(tunnelUrl !== '')url = tunnelUrl
+        else url = await this.getTunnelUrl()
         if(url !== "no url found"){
             const fecthedData = await fetch(url + parameter, requestOptions)
             .then(res => {
@@ -46,6 +59,11 @@ export default class ReadData {
             })
             .then((data) => {
                 return data
+            }).catch(error => {
+                console.log('There has been a problem with your url operation:', error);
+                //Maybe the backend url has changed
+                this.getTunnelUrl()
+                return false
             })
             return fecthedData
         } else return false

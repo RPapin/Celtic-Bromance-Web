@@ -17,31 +17,30 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
     const [winner, setWinner] = useState(false)
     const [customEvent, setCustomEvent] = useState({})
 
-    const fecthCustomEvent = async () => {
+    const fetchCustomEvent = async () => {
         let users = []
-        setLoading(true)
         let customEvent = await readData.getLocalApi("fetch_custom_event")
         Object.keys(customEvent).map((index) => {
             setCustomEvent(customEvent)
             users.push(customEvent[index]['userName'])
         })
-        setUserList(users)
+        setUserList(users, setLoading(true))
         if(determinedWinner !== false){
             setTimeout(() => {
                 setWinner(users[determinedWinner])
-            }, 4000);
+            }, 6500);
         }
     }
     useEffect( () => {
         if(!loading){
-            fecthCustomEvent()
+            fetchCustomEvent()
         }
-    })
+    }, [])
 
     const onSelectItem = (winner, determinedWinnerLocal) => {
         if(winner !== false){
             let winnerEvent
-            //Lauch the event for everyone 
+            //Launch the event for everyone 
             Object.keys(customEvent).map((steamId, index) => {
                 if (index === winner){
                     winnerEvent = customEvent[steamId]
@@ -52,7 +51,7 @@ const WheelCustomEvent = ({setShowWheel, determinedWinner, getCountDown}) => {
                 setTimeout(() => {
                     setWinner(userList[winner])
                     readData.postLocalApi("set_next_round_from_spin", winnerEvent)
-                }, 4000);
+                }, 6500);
             } 
         } else {
             setWinner("")

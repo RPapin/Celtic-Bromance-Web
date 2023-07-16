@@ -8,7 +8,10 @@ import { useTranslation } from 'react-i18next';
 const ModalCheck = (props) => {
     const [show, setShow] = useState(true);
     const { t, } = useTranslation();
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      props.setModalCheck(false);
+      setShow(false);
+    }
   
     return (
       <>

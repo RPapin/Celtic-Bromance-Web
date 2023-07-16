@@ -3,19 +3,20 @@
   --wheel-size: 400px;
   --wheel-slice-spacing: 50px;
   --wheel-border-size: 5px;
-  --wheel-color: #da3768;
+  --wheel-color: #00B3C6;
+  --wheel-color-secondary: #d12036;
   --neutral-color: white;
   --PI: 3.14159265358979;
   --nb-item: 1;
   --item-nb: 0;
   --selected-item: 0;
-  --nb-turn: 5;
-  --spinning-duration: 4s;
+  --nb-turn: 4;
+  --spinning-duration: 6s;
   --reset-duration: 0.25s;
 }
 
 /* Conteneur de la roue = cercle rose extérieur */
-.wheel-container {
+#wheel-container {
   display: block;
   position: relative;
   box-sizing: content-box;
@@ -30,8 +31,8 @@
 }
 
 /* Triangle de sélection = 1 rose +  1 blanc */
-.wheel-container::before,
-.wheel-container::after {
+#wheel-container::before,
+#wheel-container::after {
   content: '';
   display: block;
   position: absolute;
@@ -44,12 +45,12 @@
   border-left-width: 0;
 }
 
-.wheel-container::before {
+#wheel-container::before {
   right: 0px;
   border-right-color: var(--wheel-color);
 }
 
-.wheel-container::after {
+#wheel-container::after {
   right: -5px;
   border-right-color: var(--neutral-color);
 }
@@ -110,6 +111,10 @@
   padding: 0 25px 0 50px;
   font-family: var(--wheel-font);
 }
+
+/* .wheel-item:nth-child(even) {
+  background-color: #00B3C6;
+} */
 
 /* Background de l'élément = triangle rose plus clair */
 .wheel-item:before {
