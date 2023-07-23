@@ -46,7 +46,6 @@ export default class Wheel extends React.Component {
       '--selected-item': selectedItem,
     };
     const spinning = selectedItem !== null ? 'spinning' : '';
-    console.log(wheelVars)
     return (
       <div id="wheel-container" >
         <div className={`wheel ${spinning}`} style={wheelVars} onClick={this.selectItem} id="wheel-id">

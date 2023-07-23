@@ -36,7 +36,7 @@ const getLogoImage = {
     "MCLAREN 650S GT3 2015": logos.mclaren,
     "MCLAREN 720S GT3 2019": logos.mclaren,
     "MCLAREN 720S GT3 EVO 2023": logos.mclaren,
-    "MERCEDES AMG GT4": logos.mercerdes,
+    "MERCEDES AMG GT4": logos.mercedes,
     "MERCEDES-AMG GT3": logos.mercedes,
     "MERCEDES-AMG GT3 2015": logos.mercedes,
     "NISSAN GT-R NISMO GT3 2015": logos.nissan,

@@ -33,7 +33,6 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
 
 
     const fetchServerInfo = async () => {
-        console.log("call fetch custom event")
         let paramFromApi = await readData.getLocalApi("get_param_list")
         setLoading(false)
         //For testing purpose
@@ -162,7 +161,6 @@ const handleSubmitCustomEvent = async (e) => {
 
     const fetchAllData = () => {
         setLoading(true);
-        console.log("fetchAllData Custom event");
         const resourceOne = fetchServerInfo()
 
         Promise.all([resourceOne]).then(() => {

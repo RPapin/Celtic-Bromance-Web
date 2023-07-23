@@ -46,7 +46,6 @@ const ModalChooseDriver = (props) => {
     props.closeModal()
   }
   useEffect( () => {
-    console.log("useEffect choose")
     if(loading)fetchDriver()
   })
 

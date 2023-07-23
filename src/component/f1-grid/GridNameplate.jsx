@@ -10,10 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, teamWith, isSwappingCar, isTeamingWith, teamWithVictimId, disabledTeaming, serverStatus }) {
     const [cookies,] = useCookies(['user']);
     const { t, } = useTranslation();
-    useEffect(() => {
-        console.log("useEffect GridNameplate")
-        console.log(serverStatus)
-    })
+
     return (
         <div className="complete-container">
             <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId && '#ac1e16' }}>

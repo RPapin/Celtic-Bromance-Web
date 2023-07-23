@@ -145,10 +145,8 @@ const Dashboard = ({ admin, setAdmin }) => {
         let adminLocal = localStorage.getItem('admin')
         if (adminLocal === 'false' || adminLocal === null) {
             eventSource.addEventListener("syncWheel", e => {
-                console.log(isInGrid.current)
                 //CHECK IF THE USER IS IN THE CHAMP
                 if(isInGrid.current){
-                    console.log("SPIN")
                     let result = JSON.parse(e.data)
                     setDeterminedWinner(result)
                 //    reload component to lauch the "didMount"

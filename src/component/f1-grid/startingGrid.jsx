@@ -107,9 +107,7 @@ const StartingGrid = ({
   };
   useEffect(() => {
     let shouldUpdate = true;
-    console.log("useEffect starting grid");
     const fetchAllData = () => {
-      console.log("fetchAllData starting grid");
       const resourceOne = readData
         .getLocalApi("get_param_list")
         .then((response) => {
@@ -118,8 +116,6 @@ const StartingGrid = ({
       const resourceTwo = readData
         .postLocalApi("getTeamInfo", cookies["user"])
         .then((response) => {
-          console.log("getTeamInfo in starting")
-          console.log(response)
           handleTeamInfo(response);
         });
 

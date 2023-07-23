@@ -53,9 +53,7 @@ const ModalConnect = ({setAdmin, selectDriver}) => {
     handleClose(isAdmin);
   }
   const resetDatalist = () => {
-    console.log("resetDatalist")
     const datalist = document.getElementById("inputListDrivers");
-    console.log(datalist)
     datalist.value = "";
   }
   return (
