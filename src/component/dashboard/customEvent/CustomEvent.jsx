@@ -43,7 +43,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
         Object.keys(paramFromApi['tracks']).map((index) => {
             trackList.push({
                 "index": index,
-                "name": getCleanTrackName(paramFromApi['tracks'][index]['tracks'][0])
+                "name": paramFromApi['tracks'][index]['tracks'][0]
             })
         })
         setTrackList(trackList)
@@ -197,7 +197,7 @@ return (
                                 <select className="form-select" aria-label="Default select example" onChange={(e) => { setTrackSelected(e.target.value) }} value={trackSelected}>
                                     <option></option>
                                     {trackList.map((element, index) => {
-                                        return <option id={index} value={element.name} key={index}>{element.name}</option>
+                                        return <option id={index} value={element.name} key={index}>{getCleanTrackName(element.name)}</option>
                                     })}
                                 </select>
                             </div>
