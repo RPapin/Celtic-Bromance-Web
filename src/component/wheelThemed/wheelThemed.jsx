@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import './wheelThemed.css'
-import { Wheel } from 'react-custom-roulette-skate'
 
 
 const data = [
@@ -46,7 +45,7 @@ const WheelThemed = () => {
     })
     return (
         <>
-            <Wheel
+            {/* <Wheel
                 mustStartSpinning={mustSpin}
                 prizeNumber={prizeNumber}
                 data={data}
@@ -66,7 +65,7 @@ const WheelThemed = () => {
                 onStopSpinning={() => {
                     setMustSpin(false);
                 }}
-            />
+            /> */}
       </>
     );
 }
