@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logos from '../../logo/manufacturers'
 import ac from '../../logo/assettocorsa.png'
 import swapcar from '../../svgs/swapcar.svg'
@@ -7,10 +7,13 @@ import getCarLogo from '../../helpers/getCarLogo';
 import './formula1.css';
 import { useTranslation } from 'react-i18next';
 
-export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, teamWith, isSwappingCar, isTeamingWith, teamWithVictimId, disabledTeaming }) {
+export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, teamWith, isSwappingCar, isTeamingWith, teamWithVictimId, disabledTeaming, serverStatus }) {
     const [cookies,] = useCookies(['user']);
     const { t, } = useTranslation();
-    
+    useEffect(() => {
+        console.log("useEffect GridNameplate")
+        console.log(serverStatus)
+    })
     return (
         <div className="complete-container">
             <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId && '#ac1e16' }}>
@@ -36,7 +39,7 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
             </div>
             {isInGrid &&
                 <>
-                    {driverInfo.playerId !== cookies['user'] &&
+                    {driverInfo.playerId !== cookies['user'] && !serverStatus &&
                         <>
                         {/* Team container */}
                         {/* <div className="nameplate-swap-points-container" onClick={!disabledTeaming || teamWith > 0 ? () => doSwap('teamWith', driverInfo.playerId) : undefined} 
@@ -51,7 +54,7 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
                                         : <span style={{ fontSize: '12px' }} className='spanF1'> {t("grid.teamWith")} ({teamWith || 0}) </span>
                             }
                         </div> */}
-                            {teamWith > 0 && !isSwappingCar && !disabledTeaming &&
+                            {teamWith > 0 && !isSwappingCar && !disabledTeaming && 
                                 <div className="nameplate-swap-points-container" onClick={() => doSwap('teamWith', driverInfo.playerId)}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap points" />
                                     {isTeamingWith
@@ -69,18 +72,18 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
                                     }
                                 </div>
                             }
-                            {teamWith === 0 &&
+                            {teamWith === 0 && 
                                 <div className="nameplate-swap-points-container" style={{ backgroundColor: 'gray' }}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> {t("grid.noTeamingLeft")}</span>
                                 </div>
                             }
-                            { disabledTeaming  && teamWith > 0 &&
+                            { disabledTeaming  && teamWith > 0 && 
                                 <div className="nameplate-swap-points-container" style={{ backgroundColor: 'gray' }}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap points" /><span style={{ fontSize: '12px' }}> {t("grid.gotATeam")}</span>
                                 </div>
                             }
 
-                            {swapCar > 0 && !isTeamingWith &&
+                            {swapCar > 0 && !isTeamingWith && 
                                 <div className="nameplate-swap-car-container" onClick={() => doSwap('swapCar', driverInfo.playerId)}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap car" />
                                     {isSwappingCar
@@ -88,7 +91,7 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
                                         : <span style={{ fontSize: '12px' }} className='spanF1'> {t("grid.swapCar")} ({swapCar})</span>}
                                 </div>
                             }
-                            {swapCar > 0 && isTeamingWith &&
+                            {swapCar > 0 && isTeamingWith && 
                                 <div className="nameplate-swap-car-container" style={{ backgroundColor: 'gray' }}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap car" />
                                     {isSwappingCar
@@ -96,7 +99,7 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
                                         : <span style={{ fontSize: '12px' }} className='spanF1'> {t("grid.swapCar")} ({swapCar})</span>}
                                 </div>
                             }
-                            {swapCar == 0 &&
+                            {swapCar == 0 && 
                                 <div className="nameplate-swap-car-container" style={{ backgroundColor: 'gray' }}>
                                     <img src={swapcar} height="18px" width="18px" alt="swap car" />
                                     <span style={{ fontSize: '12px' }} className='spanF1'> No Car Swaps</span>

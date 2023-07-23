@@ -12,7 +12,8 @@ const StartingGrid = ({
   updateJoker,
   seeResult,
   gridNextRound,
-  waitingGrid
+  waitingGrid,
+  serverStatus
 }) => {
   const MAX_TEAM_VICTIM = 2;
   const { t } = useTranslation();
@@ -166,6 +167,7 @@ const StartingGrid = ({
           teamWithVictimId={teamWithVictimId}
           isInGrid={isInGrid}
           disabledTeaming={disabledTeaming || isInTeam(element.playerID)}
+          serverStatus={serverStatus}
         />
       ))
     ) : (

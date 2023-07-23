@@ -286,7 +286,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                                     {serverStatus ? <>
                                                         <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
                                                         <p className="server-log-info">
-                                                            <b>{t("serverSettings.name")} :</b> 2RC x Papin <br />
+                                                            <b>{t("serverSettings.name")} :</b> Celtic Bromance Party Night <br />
                                                             <b>{t("serverSettings.password")} :</b> beer
                                                         </p>
                                                     </> : <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
@@ -304,7 +304,7 @@ const Dashboard = ({ admin, setAdmin }) => {
                                                     }
                                                     <hr />
                                                     <NextRoundTrackInfo infoNextRound={infoNextRound} newResult={newResult} />
-                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} />
+                                                    <StartingGrid isInGrid={isInGrid.current} seeResult={seeResult} updateJoker={updateJoker} gridNextRound={gridNextRound} waitingGrid={waitingGrid} serverStatus={serverStatus}/>
                                                     {admin &&
                                                         <div className="adminDiv">
                                                             {serverStatus ? <Button variant="outline-primary" onClick={shutDownServer} className="bottomBtn">Shut down the server </Button> : <Button variant="outline-primary" onClick={launchServer} className="bottomBtn">Launch the server </Button>}
