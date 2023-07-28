@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 
 const ChampionnshipResult = (props) => {  
-    const colors = ['#dc0000', '#0600ef', '#006f62', '#2b4562', '#760163', '#267601']
     const { t } = useTranslation();
     const [currentTab, setCurrentTab] = useState('Standings');
     const positionColor = ['gold', 'silver', 'bronze']
@@ -37,19 +36,6 @@ const ChampionnshipResult = (props) => {
             return inter
         }
 
-        const getSwappedColor = (driverInfo, isInverted, swappedPosition) => {
-            if(driverInfo['swapped_with'] != null){
-                if(!swappedPosition.includes(driverInfo['position'])){
-                    swappedPosition.push(driverInfo['swapped_with'])
-                    let opacity = isInverted ? 'a3' : 'e0'
-                    return colors[swappedPosition.length - 1] + opacity
-                } else {
-                    let opacity = isInverted ? 'e0' : 'a3'
-                    return colors[swappedPosition.indexOf(driverInfo['position'])] + opacity
-                }
-            } else return '#ffffff';
-        }
-
         if(raceNumber === -1){
             //Display standings
             return (
@@ -59,7 +45,7 @@ const ChampionnshipResult = (props) => {
                     <th>{t("championshipResult.position")}</th>
                     <th>{t("championshipResult.name")}</th>
                     {props.fullResult['raceResult'].map((answer, i) => {       
-                        return (<th>{t("championshipResult.race")} {i + 1}</th>) 
+                        return (<th key={i}>{t("championshipResult.race")} {i + 1}</th>) 
                     })}
                     <th>{t("championshipResult.totalPoint")}</th>
                     </tr>
@@ -73,7 +59,6 @@ const ChampionnshipResult = (props) => {
                 </tbody>
             </Table>)
         } else {
-            let swappedPosition = []
             //display race result
             return (
             <>
@@ -89,9 +74,7 @@ const ChampionnshipResult = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.fullResult['raceResult'][raceNumber][raceNumber + 1].map((driverInfo, i) => {                               
-                            // let style = {backgroundColor: getSwappedColor(driverInfo, true, swappedPosition)};
-                            let style = {};
+                        {props.fullResult['raceResult'][raceNumber][raceNumber + 1].map((driverInfo, i) => {                       
                             return (<tr key={i}><td className={'tdNumber '} ><span className='spanTd' >{i + 1}</span></td><td>{driverInfo['firstName'] + ' ' + driverInfo['lastName']}</td><td>{driverInfo['carName']}</td><td>{driverInfo['point']}</td><td>{driverInfo['starting_place'] - driverInfo['position']}</td></tr>) 
                         })}
                         

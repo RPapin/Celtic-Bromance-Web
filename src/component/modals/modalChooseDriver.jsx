@@ -40,7 +40,7 @@ const ModalChooseDriver = (props) => {
     }
   }
   const confirmSelect = async () => {
-    readData.postLocalApi(props.context, [cookies['user'], driverSelected]).then((e) => {
+    readData.postLocalApi(props.context, [cookies['user'], driverSelected]).then(() => {
       props.seeResult()
     })
     props.closeModal()

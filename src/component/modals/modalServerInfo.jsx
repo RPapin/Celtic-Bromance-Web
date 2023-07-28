@@ -16,7 +16,6 @@ const ModalServerInfo = ({setModalInfo}) => {
 
 
   const handleClose = () => {
-
     setModalInfo(false);
   }
 
@@ -37,7 +36,7 @@ const ModalServerInfo = ({setModalInfo}) => {
     //For testing purpose
     let list = []
     Object.keys(paramFromApi['paramList']).map((fileName) => {
-      paramFromApi['paramList'][fileName].map((param, i) => {
+      paramFromApi['paramList'][fileName].map((param) => {
         list[param.name] = param.currentValue
         if(param.name === 'weatherWeightConfiguration'){
           list['weatherPct'] = getWeatherPct(param.currentValue)
@@ -70,8 +69,8 @@ const ModalServerInfo = ({setModalInfo}) => {
           <div className="row">
             <div className="col-md-12">
               <div className="info-title">{t("serverSettings.weatherProba")} </div>
-              <div>{t("serverSettings.Flooded")} => {inputList["weatherPct"][0]}% , {t("serverSettings.Wet")} => {inputList["weatherPct"][1]}% , 
-              {t("serverSettings.Damp")} => {inputList["weatherPct"][2]}% , {t("serverSettings.Dry")} => {inputList["weatherPct"][3]}% </div>
+              <div>{t("serverSettings.Flooded") + " => " + inputList["weatherPct"][0]}% , {t("serverSettings.Wet") + " => " + inputList["weatherPct"][1]}% , 
+              {t("serverSettings.Damp") + " => " + inputList["weatherPct"][2]}% , {t("serverSettings.Dry") + " => " + inputList["weatherPct"][3]}% </div>
             </div>
           </div>
         </Modal.Body>

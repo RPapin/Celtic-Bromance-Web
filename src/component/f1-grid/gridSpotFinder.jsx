@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ReadData from '../../services/readData'
@@ -10,13 +10,9 @@ const GridSpotFinder = () => {
     const readData = new ReadData()
     
     const findSpotInGrid = () => {
-        readData.postLocalApi( 'find_spot_in_grid',cookies['user']).then((e) => {
+        readData.postLocalApi( 'find_spot_in_grid',cookies['user']).then(() => {
         })
     }
-    useEffect(() => {
-
-    });
-
     
     return (
         <div className="col-md-12 d-flex flex-column align-items-center justify-center">

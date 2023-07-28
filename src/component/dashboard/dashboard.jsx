@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
 import CustomEvent from "./customEvent/CustomEvent";
 
-const Dashboard = ({ admin, setAdmin }) => {
+const Dashboard = ({ admin }) => {
     const { t, } = useTranslation();
     const readData = new ReadData()
 
@@ -135,7 +135,7 @@ const Dashboard = ({ admin, setAdmin }) => {
             let countdownSec = JSON.parse(e.data)
             startCountdown(countdownSec)
         });
-        eventSource.addEventListener("stopCountdown", e => {
+        eventSource.addEventListener("stopCountdown", () => {
             setCountdown(false)
         });
         let adminLocal = localStorage.getItem('admin')

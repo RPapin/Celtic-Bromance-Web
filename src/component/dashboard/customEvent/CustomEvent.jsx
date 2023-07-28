@@ -12,7 +12,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
     const { t } = useTranslation();
     const readData = new ReadData()
     // const [show, setShow] = useState(true);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const [trackList, setTrackList] = useState([])
     const [carList, setCarList] = useState([])
     const [carClassList, setCarClassList] = useState([])
@@ -64,7 +64,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
                 "DLC": paramFromApi['cars'][index]['DLC'],
             })
         })
-        Object.keys(paramFromApi['weather']).map((value, index) => {
+        Object.keys(paramFromApi['weather']).map((value) => {
             weatherList[value] = paramFromApi['weather'][value]['name']
             // weatherList.push(paramFromApi['weather'][value]['name'])
         })
@@ -117,7 +117,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
             })
             setCarList(carList)
 
-        } else if (type = "car") {
+        } else if (type === "car") {
             const list = [...carList];
             list[index]["available"] = !carList[index]["available"]
             setCarList(list);
@@ -127,7 +127,7 @@ const CustomEvent = ({ isAlreadyEventCreated, setIsAlreadyEventCreated }) => {
 
             const carClass = list[index]["class"];
             let isAllTrue = true;
-            list.forEach((element, index) => {
+            list.forEach((element) => {
                 if (element.class === carClass && !element.available) {
                         isAllTrue = false;
                 }
@@ -212,7 +212,7 @@ return (
                             <div className="col d-flex justify-content-center">
                                 <div className="form-check form-switch">
                                     <div><label className="form-check-label h5" htmlFor="flexSwitchCheckDefault">{t("customEvent.nightSelection")}</label></div>
-                                    <div className="pl-5 pt-2"><input className="form-check-input" type="checkbox" role="switch" onChange={e => setNightTime(!nightTime)} checked={nightTime} /></div>
+                                    <div className="pl-5 pt-2"><input className="form-check-input" type="checkbox" role="switch" onChange={() => setNightTime(!nightTime)} checked={nightTime} /></div>
                                 </div>
                             </div>
                             <div className="row">
@@ -233,7 +233,7 @@ return (
                                             }
                                         })
                                         return (
-                                            <div className={classParam.class}>
+                                            <div className={classParam.class} key={i}>
                                                 <div className="form-check car-class" key={i}>
                                                     <Button className="btn-secondary" onClick={(e => handleCarChange("class", e, i))}><b>{classParam.class.toUpperCase()} ({t("toggleAll")})</b></Button>
                                                 </div>

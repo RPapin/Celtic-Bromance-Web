@@ -17,6 +17,7 @@ const StartingGrid = ({
 }) => {
   const MAX_TEAM_VICTIM = 2;
   const { t } = useTranslation();
+  // eslint-disable-next-line no-undef
   countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
   const readData = new ReadData();
   const [swapCar, setSwapCar] = useState(0);
@@ -32,7 +33,7 @@ const StartingGrid = ({
 
   const doSwap = async (action, victim) => {
     if (!isTeamingWith && !isSwappingCar) {
-      readData.postLocalApi(action, [cookies["user"], victim]).then((e) => {
+      readData.postLocalApi(action, [cookies["user"], victim]).then(() => {
         seeResult();
       });
       if (action === "teamWith") {

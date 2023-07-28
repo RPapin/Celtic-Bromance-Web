@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import './olderResult.css'
 import ChampionnshipResult from '../championnshipResult/championnshipResult';
 
-const OlderResult = ({admin, setAdmin}) => {
+const OlderResult = () => {
     const readData = new ReadData()
 
     const [isResultDisplay, setIsResultDisplay] = useState(false)
@@ -44,7 +44,7 @@ const OlderResult = ({admin, setAdmin}) => {
         <div className={"btnContainer"}>
         {fullResult.map((tempResult, i) => {
             return (
-                <Button variant={activeBtn === i ? "primary" : "outline-primary"} onClick={(e) => { toggleChampionship(e, tempResult, i)}}>{tempResult['date']}</Button>
+                <Button key={i} variant={activeBtn === i ? "primary" : "outline-primary"} onClick={(e) => { toggleChampionship(e, tempResult, i)}}>{tempResult['date']}</Button>
             )
         })
         }

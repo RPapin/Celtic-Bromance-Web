@@ -12,7 +12,7 @@ export default function NextRoundTrackInfo({ infoNextRound, newResult }) {
                 <h3 className="text-white pl-2 pt-2 pb-2">Next Race</h3>
                 {/* TODO: This is super hacky. Probably best to store the name of who's event it is as its own variable somewhere */}
                 {newResult && newResult.includes("Welcome to") &&
-                    <p className="text-white m-0">&nbsp;({eventStr.replace("Welcome to ","").replace(" event !","")}'s Event)</p>
+                    <p className="text-white m-0">&nbsp;({eventStr.replace("Welcome to ","").replace(" event !","") + t("infoNextRoundBloc.event")})</p>
                 }
             </div>
             <div className="container text-center">

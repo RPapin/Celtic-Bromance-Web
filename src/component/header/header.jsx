@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../languageSwitcher/languageSwitcher';
 
 
-const Header = ({admin, setAdmin, olderResult, setIsOlderResult}) => {
+const Header = ({setAdmin, olderResult, setIsOlderResult}) => {
     
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [logIn, setLogIn] = useState(false)
-    const [cookies, setCookie, removeCookie] = useCookies(['name']);
+    const [cookies, removeCookie] = useCookies(['name']);
 
     const logOut = () => {
         setLogIn(false)

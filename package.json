@@ -32,7 +32,8 @@
     "build": "react-scripts --openssl-legacy-provider build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "node-sass src/scss/ -o src/css/ --output-style compressed"
+    "sass": "node-sass src/scss/ -o src/css/ --output-style compressed",
+    "lint": "eslint --fix --ext .js,.jsx ."
   },
   "eslintConfig": {
     "extends": [
@@ -55,5 +56,9 @@
   "engines": {
     "node": "18.12.1",
     "npm": "8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.33.0"
   }
 }

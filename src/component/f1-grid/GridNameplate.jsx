@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import swapcar from '../../svgs/swapcar.svg'
 import { useCookies } from 'react-cookie';
 import getCarLogo from '../../helpers/getCarLogo';

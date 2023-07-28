@@ -1,7 +1,6 @@
 import React from 'react'
 import './countdownTimer.css'
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 const CountDownTimer = ({hoursMinSecs, launchServer, setCountdown}) => {
     const { t } = useTranslation();

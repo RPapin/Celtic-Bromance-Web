@@ -29,7 +29,7 @@ const AdminParameters = () => {
       let trackList = []
       let carList = []
       Object.keys(paramFromApi['paramList']).map((fileName) => {
-        paramFromApi['paramList'][fileName].map((param, i) => {
+        paramFromApi['paramList'][fileName].map((param) => {
           list.push({
             "file": fileName,
             "name" : param.name,
@@ -100,11 +100,11 @@ const AdminParameters = () => {
     }
     const handleSubmitUser = async (e) => {
       e.preventDefault()
-      let newEntryList = await readData.postLocalApi("update_user_parameter", userList)
+      await readData.postLocalApi("update_user_parameter", userList)
       toggleToast(true)
       document.getElementById('toggleUser').click()
     }
-    const toggleToast = (result) => {
+    const toggleToast = () => {
       setShowToast(true)
     }
     useEffect(() => {

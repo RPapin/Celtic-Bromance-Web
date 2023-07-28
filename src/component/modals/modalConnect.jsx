@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './modalCheck.css'
@@ -78,7 +78,7 @@ const ModalConnect = ({setAdmin, selectDriver}) => {
       </datalist>
       <div>
         {t("connect.notInList")} 
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfb6ECB7ahE3GrvNVjRdRGYnXhlAMl9cMJ8qmwA5YEDnudJeg/viewform" target={"_blank"}>{t("connect.fillForm")}</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfb6ECB7ahE3GrvNVjRdRGYnXhlAMl9cMJ8qmwA5YEDnudJeg/viewform" target={"_blank"} rel="noreferrer">{t("connect.fillForm")}</a>
         {/* <Button variant="secondary" onClick={connectThroughSteam} >
           {t("connect.thoughSteam")}
         </Button> */}
