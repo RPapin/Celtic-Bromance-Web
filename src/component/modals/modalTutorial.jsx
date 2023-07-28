@@ -16,7 +16,11 @@ const ModalTutorial = ({setShowTutorial}) => {
         <Modal.Header>
           <Modal.Title>{t("tutorial.welcome")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='tuto-text-container'>
+          <div className='find-more-link'>
+            <p className="tutorial-p find-more">{t("tutorial.findMore")}</p>
+            <a className="tutorial-p find-more " href={t("tutorial.discordLink")}>{t("tutorial.discordLink")}</a>
+          </div>
           <h3>{t("tutorial.serverInfoTitle")}</h3>
           <div>- {t("tutorial.serverInfo1")}</div>
           <div>- {t("tutorial.serverInfo2")}</div>
@@ -26,11 +30,14 @@ const ModalTutorial = ({setShowTutorial}) => {
           <p className="tutorial-p">{t("tutorial.customEventText")}</p>
           <h3>{t("tutorial.wheelTitle")}</h3>
           <p className="tutorial-p">{t("tutorial.wheelText")}</p>
+          <h2>{t("tutorial.jokersTitle")}</h2>
           <h3>{t("tutorial.swapCarTitle")}</h3>
           <p className="tutorial-p">{t("tutorial.swapCarText")}</p>
-          {/* <h3>{t("tutorial.teamWithTitle")}</h3>
-          <p className="tutorial-p">{t("tutorial.teamWithText")}</p> */}
+          <h3>{t("tutorial.teamWithTitle")}</h3>
+          <p className="tutorial-p">{t("tutorial.teamWithText")}</p>
           <p className="tutorial-p">{t("tutorial.leaderboardText")}</p>
+          
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

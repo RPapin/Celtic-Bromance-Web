@@ -1,9 +1,0 @@
-.car-full-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.car-individual {
-    flex: 1;
-    min-width: 33%;
-}

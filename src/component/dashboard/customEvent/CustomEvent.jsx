@@ -169,7 +169,6 @@ const handleSubmitCustomEvent = async (e) => {
             }
         });
     };
-
     fetchAllData();
     return () => {
       shouldUpdate = false;
@@ -179,12 +178,12 @@ return (
     <>
         <div className="mt-5 mb-5 border border-secondary rounded-bottom rounded-3">
             <div className="w-100 bg-secondary d-flex flex-row align-items-center" style={{ cursor: 'pointer' }} onClick={() => { setCollapsed(!collapsed) }}>
-                <h3 className="text-white pl-2 pt-2 pb-2 mb-0">Your Custom Event</h3>
+                <h3 className="text-white pl-2 pt-2 pb-2 mb-0">{t("customEvent.title")}</h3>
                 {eventSavedNotif && <p className="text-white mb-0 ml-5">Your event has been saved!</p>}
                 <p className="text-white fw-bold ml-auto mr-4 mb-0 align-self-center">
                     {collapsed
-                        ? "Show Event"
-                        : "Hide Event"}
+                        ? t("customEvent.showEvent")
+                        : t("customEvent.hideEvent")}
                 </p>
 
             </div>
@@ -236,7 +235,7 @@ return (
                                         return (
                                             <div className={classParam.class}>
                                                 <div className="form-check car-class" key={i}>
-                                                    <Button className="btn-secondary" onClick={(e => handleCarChange("class", e, i))}><b>{classParam.class.toUpperCase()} (Toggle All)</b></Button>
+                                                    <Button className="btn-secondary" onClick={(e => handleCarChange("class", e, i))}><b>{classParam.class.toUpperCase()} ({t("toggleAll")})</b></Button>
                                                 </div>
                                                 <div>
                                                     {classCarList}

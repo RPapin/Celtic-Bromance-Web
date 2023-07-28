@@ -15,6 +15,7 @@ const getLogoImage = {
     "BMW M4 GT4": logos.bmw,
     "BMW M6 GT3 2017": logos.bmw,
     "BMW M4 GT3": logos.bmw,
+    "BMW M2 CS RACING": logos.bmw,
     "CHEVROLET CAMARO GT4.R": logos.chevrolet,
     "FERRARI 488 CHALLENGE EVO": logos.ferrari,
     "FERRARI 488 GT3 2018": logos.ferrari,

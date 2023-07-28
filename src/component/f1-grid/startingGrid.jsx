@@ -184,7 +184,7 @@ const StartingGrid = ({
               {t("dashboard.startingGrid")}
             </h3>
           </div>
-          {!isInGrid && (
+          {!isInGrid && !waitingGrid && (
             <>
               <GridSpotFinder />
               <hr />

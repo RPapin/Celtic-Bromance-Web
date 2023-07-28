@@ -10,16 +10,12 @@ import StartingGrid from '../f1-grid/startingGrid';
 import { useCookies } from 'react-cookie';
 import ModalCheck from '../modals/modalCheck';
 import AdminParameters from '../adminParameters/adminParameters';
-import Joker from '../joker/joker';
 import ModalServerInfo from '../modals/modalServerInfo';
-import ModalEvent from '../modals/modalEvent';
 import ModalTutorial from '../modals/modalTutorial';
 import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
-import GridSpotFinder from '../f1-grid/gridSpotFinder';
 import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
 import CustomEvent from "./customEvent/CustomEvent";
-import WheelThemed from '../wheelThemed/wheelThemed';
 
 const Dashboard = ({ admin, setAdmin }) => {
     const { t, } = useTranslation();
@@ -35,7 +31,6 @@ const Dashboard = ({ admin, setAdmin }) => {
     const [serverStatus, setServerStatus] = useState(false)
     const [updateJoker, setUpdateJoker] = useState(0)
     const [modalInfo, setModalInfo] = useState(false)
-    const [modalEvent, setModalEvent] = useState(false)
     const [waitingGrid, setWaitingGrid] = useState(false)
     const [showWheel, setShowWheel] = useState(false)
     const [showTutorial, setShowTutorial] = useState(false)
@@ -48,7 +43,6 @@ const Dashboard = ({ admin, setAdmin }) => {
 
 
     const checkIsIngrid = () => {
-        
         if (gridNextRound) {
             const userIngrid = gridNextRound.find(element => element.playerID === cookies['user']);
             isInGrid.current = userIngrid !== undefined;
@@ -117,11 +111,10 @@ const Dashboard = ({ admin, setAdmin }) => {
         const eventSource = new EventSource(url + "events");
         eventSource.addEventListener("dataUpdate", e => {
             console.log("dataUpdate")
-            
             const result = JSON.parse(e.data)
             console.log(result)
-            const size = Object.keys(result['nextRoundInfo']).length;
-            if (size !== 0) getNextRoundInfo(result['nextRoundInfo'])
+            const sizeNextRoundInfo = Object.keys(result['nextRoundInfo']).length;
+            if (sizeNextRoundInfo !== 0) getNextRoundInfo(result['nextRoundInfo'])
             if (result['gridStatus'].length !== 0)setWaitingGrid(result['gridStatus'] !== "READY")
             setFullResult(result['standings'])
             setServerInfo(true)
@@ -132,8 +125,11 @@ const Dashboard = ({ admin, setAdmin }) => {
             setServerStatus(result['serverStatus'])
         });
         eventSource.addEventListener("newDraw", e => {
+            console.log('newDraw sse')
             const result = JSON.parse(e.data)
             getNextRoundInfo(result)
+            //refresh grid
+            setUpdateJoker((updateJoker) => updateJoker + 1);
         });
         eventSource.addEventListener("startCountdown", e => {
             let countdownSec = JSON.parse(e.data)
@@ -203,16 +199,10 @@ const Dashboard = ({ admin, setAdmin }) => {
             readData.getLocalApi("stop_countdown_v2")
         }
     }
-    const handleLoad = () => {
-         
-    }
     window.onfocus = function () {
         //When the page is loaded we update the countdown
         getCountDown()
      };
-    useEffect(() => { 
-        window.addEventListener('load', handleLoad);
-    },[]);
     useEffect(() => {
         checkIsIngrid()
         if (!loading) {
@@ -220,6 +210,7 @@ const Dashboard = ({ admin, setAdmin }) => {
             seeResult()
             registerToSSE()
             getCustomEvent()
+            getCountDown()
         }
     }, [countdownState, gridNextRound])
     return (
@@ -323,10 +314,6 @@ const Dashboard = ({ admin, setAdmin }) => {
                                 {
                                     modalInfo &&
                                     <ModalServerInfo setModalInfo={setModalInfo} />
-                                }
-                                {
-                                    modalEvent &&
-                                    <ModalEvent setModalEvent={setModalEvent} isAlreadyEventCreated={isAlreadyEventCreated} setIsAlreadyEventCreated={setIsAlreadyEventCreated} />
                                 }
                             </>
                         }

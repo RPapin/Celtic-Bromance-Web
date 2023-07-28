@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-import logos from '../../logo/manufacturers'
-import ac from '../../logo/assettocorsa.png'
 import swapcar from '../../svgs/swapcar.svg'
 import { useCookies } from 'react-cookie';
 import getCarLogo from '../../helpers/getCarLogo';

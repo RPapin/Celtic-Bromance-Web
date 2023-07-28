@@ -26,7 +26,7 @@
     "infoNextRound": "Information de la prochaine manche :",
     "waitingGrid": "En attente de la nouvelle grille ...",
     "notInGrid": "Pas dans la grille de départ ?",
-    "getInGrid": "Rajoute moi pour la prochaine course !"
+    "getInGrid": "Rejoindre la grille !"
   },
   "infoNextRoundBloc" : {
     "track" : "Circuit",
@@ -38,13 +38,16 @@
     "weatherRandomness": "Aléatoire"
   },
   "customEvent" : {
+    "title" : "Ton événement personalisé",
     "createCustomEvent" : "Creer un événement personnalisé",
     "trackSelection" : "Choisir un circuit",
     "carSelection": "Choisir les voitures",
     "weatherSelection": "Choisir la météo",
     "nightSelection": "Nocturne ",
     "showIndividual": "Montrer les voitures",
-    "showCarClass": "Montrer les classes"
+    "showCarClass": "Montrer les classes",
+    "showEvent": "Voir mon événement",
+    "hideEvent": "Cacher"
   },
   "serverSettings" : {
     "name": "Nom",
@@ -82,19 +85,22 @@
     "seeRules": "Clique pour voir les règles",
     "welcome" : "Bienvenu au Fubarr's Party Night",
     "serverInfoTitle": "Informations du server",
-    "serverInfo1" : "Nom du server : Fubarr's party",
+    "serverInfo1" : "Nom du server : Party Night",
     "serverInfo2" : "Mot de passe : beer",
     "formatTitle" : "Format",
-    "formatText" : "Le championnat commence à 17h CET. Les sessions sont de 6 minutes d'entraînement et de 12-15 minutes de courses.\n Une nouvelle course a lieu toutes les 30 minutes. Nous faisons généralement 5-6 courses en une soirée.\n La grille de départ est automatiquement déterminée par l'inverse de l'ordre du championnat. Chaque voiture, circuit et météo sont choisis au hasard",
+    "formatText" : "Les sessions sont de 5 minutes d'entraînement et de 12-15 minutes de courses.\n Une nouvelle course a lieu environ toutes les 30 minutes. Nous faisons généralement 5-6 courses en une soirée.\n La grille de départ est automatiquement déterminée par l'inverse de l'ordre du championnat. Chaque voiture, circuit et météo sont choisis au hasard",
     "customEventTitle" : "Evénement personnalisé",
     "customEventText" : "Vous avez la possibilité de créer votre propre événement. Après avoir cliqué sur le bouton suivant, vous pouvez choisir une piste, une liste de voiture (individuellement ou par classe) et une météo.",
     "wheelTitle" : "LA ROUE DE LA MORT",
-    "wheelText": "Aléatoirement pendant la soirée, l'admin peut lancer la roue de la mort. Dans celle-ci, on retrouve le nom de chaque participant qui a créé un événement personnalisé. Une fois que quelqu'un est choisi, la prochaine course suivra les paramètres définis par cette utilisateur.",
+    "wheelText": "Lors de certaines manches l'admin peut lancer la roue de la mort. Dans celle-ci, on retrouve le nom de chaque participant qui a créé un événement personnalisé. Une fois que quelqu'un est choisi, la prochaine course suivra les paramètres définis par cette utilisateur au préalable. N'oubliez pas de paramétrer votre événement personnalisé si vous voulez être tiré au sort. \n Une personne ne peut pas être tiré 2 fois.",
     "swapCarTitle" : "Echange de voiture",
     "swapCarText" : "Pendant tout le championnat, vous aurez un nombre déterminé de jokers. Celui-ci, vous fera échanger votre voiture avant le début de la prochaine course. Ceci est utile lorsque vous voulez éviter de conduire une poubelle",
-    "teamWithTitle" : "Echange de point",
-    "teamWithText" : "Avec celui-ci, vous pouvez secrètement choisir une victime qui sera obligée d'échanger ses points avec vous après la course. Cependant il existe des règles de base : \n - Si votre victime termine derrière vous, il n'y a pas d'échange. \n - Si vous terminez dernier, il n'y a pas d'échange (cela évite de faire exprès) \n - Vous ne pouvez être victime qu'une seule fois dans un championnat",
-    "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page."
+    "teamWithTitle" : "Choisir un co-équipier",
+    "teamWithText" : "Vous pouvez choisir votre coéquipier pour la prochaine course ! À la fin de la course, vous marquerez tous les deux votre gain moyen de points. \nVous ne pouvez être ciblé que deux fois pendant tout l'événement. Soyez malin et essayez de travailler ensemble pour marquer un maximum de points!",
+    "leaderboardText" : "Vous pouvez trouver le classement et le résultat de chaque course en bas de la page.",
+    "findMore" : "Plus d'informations sur chaque événement et le calendrier sont disponible sur ce discord :",
+    "jokersTitle" : "Les Jokers",
+    "discordLink" : "https://discord.gg/5grFWJYsCH"
   },
   "modal" : {
     "newsTitle" : "Breaking News",
@@ -120,6 +126,6 @@
   "chooseYourself" : "Choisis ton nom dans la liste ci-dessous",
   "clickHere" : "Clic ici",
   "close" : "Fermer",
+  "toggleAll" : "Tout cocher",
   "goBack" : "Retour"
-  
 }

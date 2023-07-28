@@ -38,13 +38,16 @@
     "weatherRandomness": "Randomness"
   },
   "customEvent" : {
+    "title" : "Your custom event",
     "createCustomEvent" : "Create custom event",
     "trackSelection" : "Track selection",
     "carSelection": "Car selection",
     "weatherSelection": "Weather selection",
     "nightSelection": "Night time",
     "showIndividual": "Show individual car",
-    "showCarClass": "Show car class"
+    "showCarClass": "Show car class",
+    "showEvent": "Show Event",
+    "hideEvent": "Hide Event"
     
   },
   "serverSettings" : {
@@ -83,19 +86,22 @@
     "seeRules": "Click here to read the rules",
     "welcome" : "Welcome to Fubarr's Party Night",
     "serverInfoTitle": "Server Informations",
-    "serverInfo1" : "Server name : Fubarr's party",
+    "serverInfo1" : "Server name : Party Night",
     "serverInfo2" : "Password : beer",
     "formatTitle" : "Format",
     "formatText" : "The party begins at 4pm BST. The sessions are 6 minutes of practice and 12-15 minutes of races.\n A new race start every 30 minutes. We are usually doing 5-6 races in one evening.\n Starting grid is automatically determined by reverse of the championship order. Each car, track and weather are chosen randomly. ",
     "customEventTitle" : "Custom events",
     "customEventText" : "You have the ability to create you're own event. After clicking the following button, you can choose a track, a pool of car (individually or by class) and a weather.",
-    "wheelTitle" : "WHEEL OF DEATH",
-    "wheelText": "Randomly during the party, the admin can roll the wheel of death. In this, you can find the name of each participant who created a custom event. Once someone is picked, the next race will follow the parameters set by these user.",
+    "wheelTitle" : "Wheel Of Death",
+    "wheelText": "Randomly during the party, the admin can roll the wheel of death. In this, you can find the name of each participant who created a custom event. Once someone is picked, the next race will follow the parameters set by these user. Don't forget to set up your custom event if you want to be drawn. \n A person cannot be shot twice.",
     "swapCarTitle" : "Swap car joker",
     "swapCarText" : "During the whole championship, you will have a determined number of jokers. This one, will make you swapped your car before the beginning of the next race. This is useful when you want to avoid trashes.",
-    "teamWithTitle" : "Team With joker",
-    "teamWithText" : "With this one, you can secretly choose a victim which will be forced to swap his pointe with you after the race. However there are basics rules : \n - If your victim finish behind you, there is no swap. \n - If you finish last, there is no swap (avoid extreme sand-bagging) \n - You can only be the victim once in a championship ",
-    "leaderboardText" : "You can find the leaderboard and the result of each race at the bottom of the page."
+    "teamWithTitle" : "Team up joker",
+    "teamWithText" : "You can choose your teammate for the next race ! At the end of the race both of you gonna score your average point gain. \nYou can only be targeted twice during the whole event. Be wise and try to work together !",
+    "leaderboardText" : "You can find the leaderboard and the result of each race at the bottom of the page.",
+    "findMore" : "More Informations about each events and the calendar will be in this discord : ",
+    "jokersTitle" : "The Jokers",
+    "discordLink" : "https://discord.gg/5grFWJYsCH"
   },
   "modal" : {
     "newsTitle" : "Breaking News",
@@ -121,5 +127,6 @@
   "chooseYourself" : "Choose yourself in the list below",
   "clickHere" : "Click here",
   "close" : "Close",
+  "toggleAll" : "Toggle all",
   "goBack" : "Back"
 }
