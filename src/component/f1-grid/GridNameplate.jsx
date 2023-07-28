@@ -5,13 +5,15 @@ import getCarLogo from '../../helpers/getCarLogo';
 import './formula1.css';
 import { useTranslation } from 'react-i18next';
 
-export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, teamWith, isSwappingCar, isTeamingWith, teamWithVictimId, disabledTeaming, serverStatus }) {
+export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, teamWith, isSwappingCar, isTeamingWith, teamWithVictimId, disabledTeaming, serverStatus, backgroundColor }) {
     const [cookies,] = useCookies(['user']);
     const { t, } = useTranslation();
+    
+
 
     return (
         <div className="complete-container">
-            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId && '#ac1e16' }}>
+            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId ? '#ac1e16' : backgroundColor }}>
                 <div className="nameplate-number-container">
                     <p className="nameplate-number">{driverInfo.grid.position}</p>
                 </div>

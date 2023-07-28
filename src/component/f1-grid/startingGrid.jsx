@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { useTranslation } from "react-i18next";
 import GridSpotFinder from "./gridSpotFinder";
 import Spinner from "react-bootstrap/Spinner";
+import { flushSync } from 'react-dom';
 
 const StartingGrid = ({
   isInGrid,
@@ -15,6 +16,7 @@ const StartingGrid = ({
   waitingGrid,
   serverStatus
 }) => {
+  const teamColors = ['#f44336','#607d8b', '#9c27b0', '#ff5722', '#3f51b5',  '#00bcd4', '#009688', '#4caf50', '#ffeb3b',' #ffc107', '#ff9800', '#795548','#673ab7', '#9e9e9e',  '#e91e63']
   const MAX_TEAM_VICTIM = 2;
   const { t } = useTranslation();
   // eslint-disable-next-line no-undef
@@ -28,8 +30,10 @@ const StartingGrid = ({
   const [disabledTeaming, setDisabledTeaming] = useState(false);
   const [isSwappingCar, setIsSwappingCar] = useState(false);
   const [teamWithVictimId, setTeamWithVictimId] = useState();
-  const [teamInfo, setTeamInfo] = useState();
+  const [teamInfo, setTeamInfo] = useState([]);
   const [teamVictimList, setTeamVictimList] = useState([]);
+  const [fullGridHtml, setFullGridHtml] = useState();
+
 
   const doSwap = async (action, victim) => {
     if (!isTeamingWith && !isSwappingCar) {
@@ -70,7 +74,7 @@ const StartingGrid = ({
     setTeamVictimList(tempDriverList);
   };
   const handleTeamInfo = (response) => {
-    setTeamInfo(response);
+    setTeamInfo(response)
     //Search if has teamed with someone
     const isAlreadyTeamed = response.find(
       (teamInfo) => teamInfo.leader === cookies["user"]
@@ -117,11 +121,11 @@ const StartingGrid = ({
       const resourceTwo = readData
         .postLocalApi("getTeamInfo", cookies["user"])
         .then((response) => {
-          handleTeamInfo(response);
+          handleTeamInfo(response)
         });
 
       Promise.all([resourceOne, resourceTwo]).then(() => {
-        buildGrid();
+        buildGrid()
         if (shouldUpdate) {
           setIsLoading(false);
         }
@@ -135,8 +139,15 @@ const StartingGrid = ({
   }, [updateJoker]);
 
   const buildGrid = () => {
+    let colorAssociation = {}
+    teamInfo.forEach((element, i) => {
+      colorAssociation[element.leader] = teamColors[i]
+      colorAssociation[element.victim] = teamColors[i]
+    });
     return gridNextRound ? (
-      gridNextRound.map((element, i) => (
+      gridNextRound.map((element, i) => {
+        const backgroundColor = Object.keys(colorAssociation).includes(element.playerID) ? colorAssociation[element.playerID] : '#000';
+        return (
         <GridNameplate
           key={element.playerID}
           doSwap={doSwap}
@@ -165,11 +176,15 @@ const StartingGrid = ({
           isInGrid={isInGrid}
           disabledTeaming={disabledTeaming || isInTeam(element.playerID)}
           serverStatus={serverStatus}
+          backgroundColor={backgroundColor}
         />
-      ))
+      )}
+      )
     ) : (
       <></>
     );
+    // setFullGridHtml(tempFullGrid)
+    // return tempFullGrid
   }
   return (
     <>
