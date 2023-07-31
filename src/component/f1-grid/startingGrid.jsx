@@ -146,7 +146,7 @@ const StartingGrid = ({
     });
     return gridNextRound ? (
       gridNextRound.map((element, i) => {
-        const backgroundColor = Object.keys(colorAssociation).includes(element.playerID) ? colorAssociation[element.playerID] : '#000';
+        const backgroundColor = Object.keys(colorAssociation).includes(element.playerID) ? colorAssociation[element.playerID] : '#fff';
         return (
         <GridNameplate
           key={element.playerID}

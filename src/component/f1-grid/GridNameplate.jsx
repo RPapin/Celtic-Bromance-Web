@@ -13,7 +13,7 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
 
     return (
         <div className="complete-container">
-            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId ? '#ac1e16' : backgroundColor }}>
+            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId ? '#ac1e16' : "#000000", color: cookies['user'] == driverInfo.playerId ? '#fff' : backgroundColor }}>
                 <div className="nameplate-number-container">
                     <p className="nameplate-number">{driverInfo.grid.position}</p>
                 </div>
