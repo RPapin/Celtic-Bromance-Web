@@ -13,12 +13,12 @@ export default function GridNameplate({ isInGrid, doSwap, driverInfo, swapCar, t
 
     return (
         <div className="complete-container">
-            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId ? '#ac1e16' : "#000000", color: cookies['user'] == driverInfo.playerId ? '#fff' : backgroundColor }}>
+            <div className="nameplate-container" style={{ backgroundColor: cookies['user'] == driverInfo.playerId ? '#ac1e16' : "#000000" }}>
                 <div className="nameplate-number-container">
                     <p className="nameplate-number">{driverInfo.grid.position}</p>
                 </div>
                 <div className="nameplate-drivername-container" >
-                    <p className="nameplate-drivername">
+                     <p className="nameplate-drivername" style={{color: backgroundColor}}>{/*cookies['user'] == driverInfo.playerId ? '#fff' : */}
                         {driverInfo.firstName.charAt(0).toUpperCase()}. {driverInfo.lastName.toUpperCase()}</p>
                 </div>
                 <div className="nameplate-country-container" style={{ backgroundImage: `linear-gradient(to left, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 1) 90%), url('https://flagcdn.com/${driverInfo.nationality}.svg')` }}>

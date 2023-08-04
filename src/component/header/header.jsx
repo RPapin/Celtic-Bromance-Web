@@ -7,18 +7,19 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../languageSwitcher/languageSwitcher';
 
 
-const Header = ({setAdmin, olderResult, setIsOlderResult}) => {
+const Header = ({setAdmin, olderResult, setIsOlderResult, driverList}) => {
     
     const { t } = useTranslation();
     const [logIn, setLogIn] = useState(false)
-    const [cookies, removeCookie] = useCookies(['name']);
+    const [cookies, setCookies, removeCookies] = useCookies();
 
     const logOut = () => {
         setLogIn(false)
-        removeCookie('user')
-        removeCookie('name')
+        removeCookies('user')
+        removeCookies('name')
         setAdmin(false)
         localStorage.setItem('admin', false);
+        console.log(cookies)
     }
     useEffect( () => {
     }, [logIn])
@@ -26,7 +27,7 @@ const Header = ({setAdmin, olderResult, setIsOlderResult}) => {
     <div className={'header'}>
         <img src={'../CelticBromanceLogoFINAL.png'} className='topLogo' alt="celtic-bromance.png" ></img>
         <h1 className="title">Celtic Bromance Championship</h1>
-        {cookies['name'] && <h3 className="me-1">{cookies['name']}</h3>}
+        {cookies['name'] && cookies['name'] !== undefined && <h3 className="me-1">{cookies['name']}</h3>}
         <LanguageSwitcher></LanguageSwitcher>
         <Dropdown>
             <Dropdown.Toggle variant="info" id="dropdown-basic">
@@ -47,7 +48,7 @@ const Header = ({setAdmin, olderResult, setIsOlderResult}) => {
 
         {
              logIn && 
-            <ModalConnect setAdmin={setAdmin}/>
+            <ModalConnect setAdmin={setAdmin} selectDriver={driverList}/>
         }
 
     </div>

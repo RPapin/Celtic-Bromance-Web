@@ -156,6 +156,10 @@ const handleSubmitCustomEvent = async (e) => {
     setIsAlreadyEventCreated(true)
     handleClose()
 }
+const isEventValid = () => {
+    const isCarSelected = carList.find((car) => car.available === true)
+    return !(isCarSelected !== undefined && trackSelected?.length !== 0 && weatherSelected?.length !== 0)
+}
   useEffect(() => {
     let shouldUpdate = true;
 
@@ -250,7 +254,7 @@ return (
                     </form>
                 </div>
                 <div className="text-center mb-2">
-                    <Button variant="primary" onClick={handleSubmitCustomEvent} >
+                    <Button variant="primary" onClick={handleSubmitCustomEvent} disabled={isEventValid()}>
                         {t("save")}
                     </Button>
                 </div>

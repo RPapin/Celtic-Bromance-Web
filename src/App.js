@@ -8,6 +8,7 @@ import OlderResult from './component/olderResult/olderResult';
 import { useCookies } from 'react-cookie';
 import ReadData from './services/readData'
 import { useTranslation } from 'react-i18next';
+import ApiService from './services/apiService';
 
 // import Test from './component/test/test';
 let retryNumbers = 0
@@ -25,6 +26,7 @@ function App() {
   const fetchDriver = async (retryNumbers) => {
     retryNumbers ++;
     let allInfo = await readData.getLocalApi("fetch_drivers")
+    // let allInfo = await ApiService.fetchDrivers()
     if(allInfo){
       allInfo.sort((a, b) => (a.Surname > b.Surname) ? 1 : -1)
       setSelectDriver(allInfo)
@@ -46,7 +48,7 @@ function App() {
     
   return (
     <div className="App">
-        <Header admin={admin} setAdmin={setAdmin} olderResult={isOlderResult} setIsOlderResult={setIsOlderResult}/>
+        <Header admin={admin} setAdmin={setAdmin} olderResult={isOlderResult} setIsOlderResult={setIsOlderResult} driverList={selectDriver}/>
         {('user' in cookies) ? 
             (isOlderResult) ?  
               <OlderResult/> : 
