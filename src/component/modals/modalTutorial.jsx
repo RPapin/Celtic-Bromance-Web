@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './modalTutorial.css'
 import { useTranslation } from 'react-i18next';
+import ServerInfo from "../../serverInfo.json";
 
 const ModalTutorial = ({setShowTutorial}) => {
   const { t, } = useTranslation();
@@ -22,8 +23,8 @@ const ModalTutorial = ({setShowTutorial}) => {
             <a className="tutorial-p find-more " href={t("tutorial.discordLink")}>{t("tutorial.discordLink")}</a>
           </div>
           <h3>{t("tutorial.serverInfoTitle")}</h3>
-          <div>- {t("tutorial.serverInfo1")}</div>
-          <div>- {t("tutorial.serverInfo2")}</div>
+          <div>- {t("serverSettings.name")} : {ServerInfo.name}</div>
+          <div>- {t("serverSettings.password")} : {ServerInfo.password}</div>
           <h3>{t("tutorial.formatTitle")}</h3>
           <p className="tutorial-p">{t("tutorial.formatText")}</p>
           <h3>{t("tutorial.customEventTitle")}</h3>

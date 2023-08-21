@@ -16,6 +16,7 @@ import CountDownTimer from '../countdownTimer/countdownTimer';
 import { useTranslation } from 'react-i18next';
 import NextRoundTrackInfo from './NextRoundTrackInfo/NextRoundTrackInfo';
 import CustomEvent from "./customEvent/CustomEvent";
+import ServerInfo from "../../serverInfo.json";
 
 const Dashboard = ({ admin }) => {
     const { t, } = useTranslation();
@@ -275,7 +276,7 @@ const Dashboard = ({ admin }) => {
                                                     {serverStatus ? <>
                                                         <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
                                                         <p className="server-log-info">
-                                                            <b>{t("serverSettings.name")} :</b>Manticore x RP Party Night<br />
+                                                            <b>{t("serverSettings.name")} :</b>{ServerInfo.name}<br />
                                                         </p>
                                                     </> : <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
                                                     <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
