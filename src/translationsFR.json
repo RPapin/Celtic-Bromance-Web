@@ -35,7 +35,7 @@
     "hourOfDay": "Heure",
     "rain": "Pluie",
     "timeMultipler": "Multiplicateur",
-    "event": "événement",
+    "event": " événement",
     "weatherRandomness": "Aléatoire"
   },
   "customEvent" : {

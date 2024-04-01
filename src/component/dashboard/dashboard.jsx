@@ -275,7 +275,7 @@ const Dashboard = ({ admin }) => {
                                                     {serverStatus ? <>
                                                         <h4 className="up">{t("dashboard.serverStatusUp")}</h4>
                                                         <p className="server-log-info">
-                                                            <b>{t("serverSettings.name")} :</b>Manticore x RP Party Night<br />
+                                                            <b>{t("serverSettings.name")} :</b>Celtic Bromance party night<br />
                                                         </p>
                                                     </> : <h4 className="down">{t("dashboard.serverStatusDown")}</h4>}
                                                     <Button className="btnJoker mb-2" variant="info" onClick={() => setModalInfo(true)}>
