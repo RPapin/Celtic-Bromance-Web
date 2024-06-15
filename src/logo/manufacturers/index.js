@@ -17,6 +17,7 @@ import mercedes from './mercedes.png'
 import nissan from './nissan.png'
 import porsche from './porsche.png'
 import reiter from './reiter.png'
+import ford from './ford.png'
 
 const logos = {
     alpine,
@@ -37,7 +38,8 @@ const logos = {
     mercedes,
     nissan,
     porsche,
-    reiter
+    reiter,
+    ford
 }
 
 export default logos;

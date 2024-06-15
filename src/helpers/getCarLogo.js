@@ -49,6 +49,13 @@ const getLogoImage = {
     "PORSCHE 911 II GT3 R 2019": logos.porsche,
     "PORSCHE 992 GT3 R 2023": logos.porsche,
     "REITER ENGINEERING R-EX GT3 2017": logos.reiter,
+    "FORD MUSTANG GT3": logos.ford,
+    "AUDI R8 LMS GT2": logos.audi,
+    "KTM XBOW GT2": logos.ktm,
+    "MASERATI MC20 GT2": logos.maserati,
+    "MERCEDES AMG GT2": logos.mercedes,
+    "PORSCHE 911 GT2 RS CS EVO": logos.porsche,
+    "PORSCHE 935": logos.porsche,
 }
 
 function getCarLogo(carName) {
